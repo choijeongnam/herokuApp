@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>web-push</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+	<script data-main="/js/main.js" type="text/javascript" src="/js/require.js"></script>
+	<script type="text/x-mustache" id="a">
+		<h1>{{token}}</h1>
+	</script>
+	<style>
+		.priview-mac{
+			margin: 0px auto;
+    		width: 532px;
+		    height: 605px;
+		    background-repeat: no-repeat;
+		    background-size: cover;
+		    background-position: 100% 100%;
+		    border-left: 5px solid rgb(221, 225, 228);
+		    border-radius: 7px;
+		}
+
+		.notification_template_mac{
+			overflow: auto;
+		    position: relative;
+		    top: 33px;
+		    height: 567px;
+		    width: 522px;
+		}
+		.notification_layout_mac{
+			display: flex;
+		    flex-direction: column;
+		    justify-content: space-around;
+		    border-radius: 6px;
+		    max-width: 100%;
+		    max-height: 100%;
+		    background-color: rgb(245, 245, 245);
+		    box-shadow: rgb(0 0 0 / 14%) 0px 3px 13px 1px, rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+		    user-select: none;
+		    position: absolute;
+		    top: 20px;
+		    left: 60px;
+		    width: 256px;
+		    line-height: 11px;
+		    transform: scale(1.6);
+		    transform-origin: left top;
+		    font-size: 9px;
+		    letter-spacing: 0.1px;
+
+		}
+		.preview {
+			height: 580px;
+			background-image : url('/images/android.svg');
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: 100% 100%;
+			margin: 0px auto;
+			border: 2px solid rgb(228, 228, 228);
+			border-radius: 7px;
+			position: relative;
+			color: rgb(167, 167, 167);
+		}
+
+		.notification_template {
+			font-size: 9px;
+			width: 45.4375em;
+			background: rgb(32, 32, 32);
+			position: absolute;
+			right: 9px;
+			bottom: 75px;
+		}
+
+		.notification_image {
+			width: 100%;
+			vertical-align: middle;
+			border: 0;
+		}
+
+		.notification_layout {
+			display: flex;
+			flex-direction: row;
+			position: relative;
+		}
+
+		.notification_icon {
+			padding: 2.9375em 2em;
+		}
+
+		.notification_title_body {
+			padding: 2.9375em 0px 2.5em;
+			width: 68.36%;
+		}
+
+		.preview-icon {
+			width: 6.0625em;
+			vertical-align: middle;
+			border: 0;
+		}
+
+		.preview-title {
+			color: rgb(255, 255, 255);
+			font-size: 190%;
+			letter-spacing: 0.1px;
+			margin: 0px;
+			max-height: 40px;
+			overflow: hidden;
+		}
+
+		.preview-body {
+			letter-spacing: 0px;
+			font-size: 190%;
+			font-weight: 400;
+			margin: 0px;
+			max-height: 80px;
+			white-space: pre-wrap;
+			overflow: hidden;
+		}
+
+		.preview-site {
+			font-size: 150%;
+			margin-top: 10px;
+		}
+
+		.popup-exit {
+			display: flex;
+			flex-direction: row-reverse;
+			padding: 0px 2em 2.9375em;
+			margin: -3px;
+		}
+
+		.popup-exit .exit {
+			width: 100%;
+			text-align: center;
+			background-color: rgb(67, 67, 67);
+			color: rgb(255, 255, 255);
+			margin: 3px;
+			padding: 10px 0px;
+			font-size: 200%;
+			border: 2px solid rgb(67, 67, 67);
+			cursor: pointer;
+		}
+
+		.webpush-content label {
+			color: #6a7376;
+		}
+
+		.test-send {
+			text-align: center;
+			background-color: #6a7376;
+			color: rgb(255, 255, 255);
+			padding: 7px 10px;
+			border: 2px solid #6a7376;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+
+		.browsers {
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+
+		.browsers-select {
+			cursor: pointer;
+			padding: 10px 10px;
+			border-radius: 5px;
+			background-color: rgb(255, 255, 255);
+			border: 1px solid rgb(170, 212, 247);
+			color: rgb(31, 143, 235) !important;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 webpush-content">
+				<div class="form-group">
+					<label for="title">TITLE</label>
+					<input id="title" type="text" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="body">MESSAGE</label>
+					<textarea id="body" class="form-control"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="icon">ICON</label>
+					<input id="icon" type="text" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="link">CLICK LINK</label>
+					<input id="link" type="text" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="image">IMAGE</label>
+					<input id="image" type="text" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="t"></label>
+					<input id="t" type="text" class="form-control" />
+				</div>
+				<div id="c"><span id="d"></span></div>
+				<div class="form-group">
+					<button id="notification" class="test-send" type="button"
+						onclick="showNotification();">테스트발송</button>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="preview-mac" hidden="hidden">
+					<div class="notification_template_mac">
+						<div class="notification_layout_mac">
+							<div class="notification_top">
+							</div>
+							<div>
+							</div>
+							<div class="notification_title_body">
+								<div class="preview-title"></div>
+								<div class="preview-body"></div>
+								<div class="preview-site">https://www.lottehotel.com</div>
+							</div>
+						</div>
+						<div class="popup-exit">
+							<div class="exit">닫기</div>
+						</div>
+					</div>
+				</div>
+				<div class="preview">
+					<div class="notification_template">
+						<img id="imgurl" class="notification_image" onerror="this.src='/images/404error.jpg'" />
+						<div class="notification_layout">
+							<div class="notification_icon">
+								<img id="iconurl" class="preview-icon"
+									src="https://www.lottehotel.com/content/dam/lottehotel/components/common/structure/header/gnb_logo_cityhotels.png" />
+							</div>
+							<div class="notification_title_body">
+								<div class="preview-title"></div>
+								<div class="preview-body"></div>
+								<div class="preview-site">https://www.lottehotel.com</div>
+							</div>
+						</div>
+						<div class="popup-exit">
+							<div class="exit">닫기</div>
+						</div>
+					</div>
+				</div>
+				<div class="browsers">
+					<div class="browsers-content">
+						<select class="browsers-select">
+							<option value="macOS">Web: macOS</option>
+							<option value="Windows" selected='selected'>Web: Windows</option>
+							<!--<option value="Android">Web: Android</option>-->
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			var tem = $('#a').html();
+			var data = {
+				fN: "gildong"
+			};
+			var html = Mustache.render(tem, data);
+			$("#c").append(html);
+		});
+		
+		//option에 따라서 preview이미지 변경하기
+		$(".browsers-select").change(function() {
+			var browsers = $(".browsers-select option:selected").val();
+
+			if("macOS" == browsers){
+				$(".preview").css('background-image', 'url("/images/mac.svg")');
+			} else {
+				$(".preview").css('background-image', 'url("/images/android.svg")');
+			}
+		})
+		
+		
+		$("#image").change(function () {
+			var url = $("#image").val();
+			$("#imgurl").attr("src", url);
+		})
+
+		$("#title").keyup(function () {
+			var title = $("#title").val();
+			$(".preview-title").html(title);
+		});
+
+		$("#body").keyup(function () {
+			var body = $("#body").val();
+			$(".preview-body").html(body);
+		});
+
+	</script>
+
+	<link rel="import" href="script.html" />
+	<script type="text/javascript">
+		
+		navigator.serviceWorker.register('/firebase-messaging-sw.js');
+		function showNotification() {
+			Notification.requestPermission(function (result) {
+				if (result === 'granted') {
+					navigator.serviceWorker.ready.then(function (registration) {
+
+						const title = $("#title").val();
+						const options = {
+							body: $("#body").val(),
+							icon: $("#iconurl").attr("src"),
+							image: $("#image").val(),
+							click_action: $("#link").val(),
+							requireInteraction: false
+
+						};
+						const notification = new Notification(title, options);
+
+						notification.onclick = event => {
+							event.preventDefault();
+							window.open($("#link").val(), '_blank');
+						};
+					});
+				}
+			});
+		};
+	</script>
+</body>
+
+</html>

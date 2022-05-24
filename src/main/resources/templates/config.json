@@ -1,0 +1,77 @@
+{
+  "workflowApiVersion": "1.1",
+  "metaData": {
+    "icon": "/images/heroku_logo.png",
+    "category": "message"
+  },
+  "type": "REST",
+  "lang": {
+    "en-US": {
+      "name": "WebPush Dk",
+      "description": "test"
+    }
+  },
+  "arguments": {
+    "execute": {
+      "inArguments": [],
+      "outArguments": [],
+      "timeout": 60000,
+      "retryCount": 1,
+      "retryDelay": 10000,
+      "concurrentRequests": 1,
+      "format": "json",
+      "verb": "POST",
+      "url": "https://hotellotte.herokuapp.com/activity/execute"
+    }
+  },
+
+  "configurationArguments": {
+    "save": {
+      "url": "https://hotellotte.herokuapp.com/activity/save"
+    },
+    "publish": {
+      "url": "https://hotellotte.herokuapp.com/activity/publish"
+    },
+    "validate": {
+      "url": "https://hotellotte.herokuapp.com/activity/validate"
+    },
+    "stop": {
+      "url": "https://hotellotte.herokuapp.com/activity/stop"
+    }
+  },
+
+  "wizardSteps": [
+    {
+      "label": "Step 1",
+      "key": "step1"
+    }
+  ],
+  	"outcomes": [
+		{
+			"arguments": {
+				"branchResult": "1"
+			},
+			"metaData": {
+				"label": "branch path 1"
+			}
+		}
+	],
+	"schema": {
+    "arguments": {
+      "execute": {
+        "inArguments": [],
+        "outArguments": [{ "contents": {
+              "dataType": "Text",
+              "direction": "out",
+              "access": "visible"
+            },
+            "branchResult": {
+              "dataType": "Text",
+              "direction": "out",
+              "access": "visible"
+            }}]
+      }
+    }
+  }
+
+}
