@@ -14,7 +14,7 @@ import com.google.firebase.FirebaseOptions;
 
 @Service
 public class FCMInitializer {
-    private static final String FIREBASE_CONFIG_PATH = "lotte-web-firebase-adminsdk-j8b1v-977075f0b3.json";
+    private static final String FIREBASE_CONFIG_PATH = "lottehotel-web-push-firebase-adminsdk-54pyt-6ca58110f8.json";
 
     @PostConstruct
     public void initialize() {
