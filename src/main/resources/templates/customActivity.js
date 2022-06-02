@@ -43,13 +43,6 @@ define(["postmonger"], function(Postmonger) {
 			payload = data;
 		}
 		
-		var contactkey = '{{Contact.Key}}';
-		var sfmcid = '{{Contact.Attribute."Contact"."Contact ID"}}'; //DE ID인가..
-		
-		
-		console.log(contactkey + ": contactkey");
-		console.log(sfmcid + ": sfmcid");
-		
 		//var message;
 		var hasInArguments = Boolean(
 			payload["arguments"] &&
@@ -134,10 +127,18 @@ define(["postmonger"], function(Postmonger) {
 		// may be overridden as desired.
 		
 		//var mid = '{{Event.'+eventDefinitionKey+'.mid}}';
+				
+		var contactkey = '{{Contact.Key}}';
+		var sfmcid = '{{Contact.Attribute."Contact"."Contact ID"}}'; //DE ID인가..
+		var fields = extractFields();
 		
 		payload["arguments"] = payload["arguments"] || {};
 
-		payload["arguments"].execute.inArguments = [{ }];
+		payload["arguments"].execute.inArguments = [{
+			"contactkey" : contactkey
+			, "sfmcid" : sfmcid
+			, "fields": fields
+			}];
 
 		payload["metaData"].isConfigured = true;
 
