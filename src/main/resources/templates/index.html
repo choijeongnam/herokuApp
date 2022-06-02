@@ -1,38 +1,38 @@
 <!DOCTYPE HTML>
 <html>
-
 <head>
-	<title>web-push</title>
+	<title>update-contact</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
 	<script type="text/javascript" src="/js/jquery.min.js"></script>
-	<script type="text/javascript" src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
-	<script type="text/javascript" src="https://www.gstatic.com/firebasejs/8.5.0/firebase-messaging.js"></script>
-	<script type="text/javascript" src="/index.js"></script>
 </head>
 
 <body>
-	<div>
-		<div>제목<input type="text" id="title" /></div>
-		<div>내용<input type="text" id="body" /></div>
-		<div>이미지<input type="text" id="image" /></div>
-		<div>아이콘<input type="text" id="icon" /></div>
-		<div><button type="button" id="callAPI" onclick="callAPI();">호출</button></div>
-	</div>
-	<script type="text/javascript">
-		if ("serviceWorker" in navigator) {
-			window.addEventListener("load", () => {
-				firebase.initializeApp(firebaseConfig);
-				getMessagingObject();
-				requestPermission();
-				getToken();
-				receiveMessage();
-			})
-		}
-	</script>
+	<label for="campaign">캠페인코드</label>
+    <input id="campaign" type="text" class="form-control" placeholder="캠페인코드 입력" />
+    <label for="channel">채널선택</label>
+    <input id="channel" type="text" class="form-control" placeholder="채널선택" />
+    
+<!--
+	
+BU ID(MID) -> 어디서 가져와야하지
+저니ID -> 이것도 의문..
+마케터ID(또는 이메일)
+캠페인 코드 -> self 입력
+마케터조직 -> DE에서 가져오기
+발송채널 -> self 입력
+통합고객ID -> 자동 서브스크라이버 키?
+발송일시 -> 커런트 데이트?
+SFMC ID 이건 모르겟다
+발송결과 cj만되는건가
+발송실패사유 cj만되는건가
+오픈여부 cj만되는건가
+클릭여부 cj만되는건가
+2차발송채널 cj만되는건가
+생성일시 cj만되는건가
+수정일시 cj만되는건가
+	
+-->
 </body>
-
 </html>
