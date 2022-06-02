@@ -16,6 +16,8 @@ define(["postmonger"], function(Postmonger) {
 	connection.on("requestedTokens", onGetTokens);
 	connection.on("requestedEndpoints", onGetEndpoints);
 	connection.on('requestedInteraction', requestedInteractionHandler);
+	connection.on('requestedTriggerEventDefinition',requestedTriggerHandler);
+	
 	connection.on('requestedSchema', function(data) {
 		if (data.error) {
 			console.error(data.error);
@@ -29,6 +31,7 @@ define(["postmonger"], function(Postmonger) {
 		// JB will respond the first time 'ready' is called with 'initActivity'
 		connection.trigger("ready");
 		connection.trigger('requestInteraction');
+		connection.trigger('requestTriggerEventDefinition');
 		//get schema
 		connection.trigger('requestSchema');
 		connection.trigger("requestTokens");
@@ -39,11 +42,6 @@ define(["postmonger"], function(Postmonger) {
 		if (data) {
 			payload = data;
 		}
-		var title;
-		var body;
-		var link;
-		var image;
-		var token;
 		
 		//var message;
 		var hasInArguments = Boolean(
@@ -57,35 +55,20 @@ define(["postmonger"], function(Postmonger) {
 		
 		$.each(inArguments, function(index, inArgument) {
 			$.each(inArgument, function(key, val) {
-				if (key === 'title'){
-					title = val;
-				} else if (key === 'body'){
-					body = val;
-				} else if (key === 'link'){
-					link = val;
-				} else if (key === 'image'){
-					image = val;
-				} else if (key === 'token'){
-					token = val;
-				}
+				
 			});
 		});
 		
-		if (payload["arguments"]) {
-			$("#title").val(title);
-			$("#body").val(body);
-			$("#link").val(link);
-			$("#image").val(image);
-			$("#t").val(token);
-			$("#d").val({token});
-			$(".preview-title").html(title);
-			$(".preview-body").html(body);
-			$("#imgurl").attr("src", image);
-		}
-		
-		//$("#tokenData").html(message);
-
 	}
+	
+	function requestedTriggerHandler(settings){
+    	try{
+    		eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
+
+    	}catch(e){
+    		console.error(e);
+    	}
+    }
 	
 	function requestedInteractionHandler(settings){
     	try{
@@ -135,30 +118,21 @@ define(["postmonger"], function(Postmonger) {
 			}
 		}
 		return formArg;
-
 	}
 	
 	function save() {
-		var title = $("#title").val();
-		var body = $("#body").val();
-		var link = $("#link").val();
-		var image = $("#image").val();
-
-		var fields = extractFields();
-
 		// 'payload' is initialized on 'initActivity' above.
 		// Journey Builder sends an initial payload with defaults
 		// set by this activity's config.json file.  Any property
 		// may be overridden as desired.
-		var token = '{{Event.'+eventDefinitionKey+'.token}}';
+		
+		var mid = '{{Event.'+eventDefinitionKey+'.mid}}';
+		
+		alert(mid);
+		
 		payload["arguments"] = payload["arguments"] || {};
 
-/*		payload["arguments"].title = title;
-		payload["arguments"].body = body;
-		payload["arguments"].link = link;
-		payload["arguments"].image = image;*/
-
-		payload["arguments"].execute.inArguments = [{ "token" : token, "title" : title, "body": body, "link" : link, "image": image }];
+		payload["arguments"].execute.inArguments = [{ }];
 
 		payload["metaData"].isConfigured = true;
 
