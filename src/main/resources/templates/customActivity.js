@@ -89,29 +89,18 @@ define(["postmonger"], function(Postmonger) {
 		console.log(tokens);
 		fuel2token = tokens.fuel2token;
 
-		fetch("https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/platform/v1/tokenContext", {
-			method: 'GET',
-			mode: 'no-cors',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': 'Bearer '+ fuel2token,
-			},
-		}).then(function(res) {
-				console.log(res);
-				return res.json();
-			});
 
-		/*		$.ajax({
-					type: "GET",
-					url: "/getMid",
-					beforeSend: function(xhr) {
-						xhr.setRequestHeader("Content-type", "application/json");
-						xhr.setRequestHeader("Authorization", "Bearer " + fuel2token);
-					},
-					success: function(data) {
-						console.log(data + "mid");
-					}
-				})*/
+		$.ajax({
+			type: "GET",
+			url: "/getMid",
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("Content-type", "application/json");
+				xhr.setRequestHeader("Authorization", "Bearer " + fuel2token);
+			},
+			success: function(data) {
+				console.log(data + "mid");
+			}
+		})
 
 	}
 
