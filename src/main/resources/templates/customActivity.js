@@ -92,7 +92,7 @@ define(["postmonger"], function(Postmonger) {
 
 		$.ajax({
 			type: "GET",
-			url: "/getMid",
+			url: "/getMid", //https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/platform/v1/tokenContext
 			beforeSend: function(xhr) {
 				xhr.setRequestHeader("Content-type", "application/json");
 				xhr.setRequestHeader("Authorization", "Bearer " + fuel2token);
