@@ -126,8 +126,8 @@ define(["postmonger"], function(Postmonger) {
 		// set by this activity's config.json file.  Any property
 		// may be overridden as desired.
 		
-		//var mid = '{{Event.'+eventDefinitionKey+'.mid}}';
-				
+		var campaign = $('#campaign').val();
+        var channel = $('#channel option:selected').val();
 		var contactkey = '{{Contact.Key}}';
 		var sfmcid = '{{Contact.Attribute."Contact"."Contact ID"}}'; //DE ID인가..
 		var fields = extractFields();
@@ -137,7 +137,9 @@ define(["postmonger"], function(Postmonger) {
 		payload["arguments"].execute.inArguments = [{
 			"contactkey" : contactkey
 			, "sfmcid" : sfmcid
-			, "fields": fields
+			, "fields" : fields
+			, "campaign" : campaign
+			, "channel" : channel
 			}];
 
 		payload["metaData"].isConfigured = true;
