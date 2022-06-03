@@ -18,10 +18,13 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 		.addResourceLocations("classpath:/static/","classpath:/templates/");
 	}
 
-    @CrossOrigin(origins = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/platform/v1/tokenContext")
-    @GetMapping("/getMid")
-    public void getMid() throws Exception {
-    	
-    }
+	/*
+	 * @CrossOrigin(origins =
+	 * "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/platform/v1/tokenContext")
+	 * 
+	 * @GetMapping("/getMid") public void getMid() throws Exception {
+	 * 
+	 * }
+	 */
 
 }
