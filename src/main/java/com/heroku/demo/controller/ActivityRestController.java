@@ -44,11 +44,4 @@ public class ActivityRestController {
 		return new ResponseEntity<String>("execute", HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/getMid", produces="application/json;")
-	@CrossOrigin(origins = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/platform/v1/tokenContext")
-	public ResponseEntity<String> getMid(HttpServletRequest request, ModelMap model) throws Exception {
-		
-		return new ResponseEntity<String>(HttpStatus.OK);
-	}
-	
 }

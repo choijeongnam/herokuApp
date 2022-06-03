@@ -20,12 +20,29 @@ define(["postmonger"], function(Postmonger) {
 	connection.on('requestedInteraction', requestedInteractionHandler);
 	connection.on('requestedTriggerEventDefinition', requestedTriggerHandler);
 
-	connection.on('requestedSchema', function(data) {
+	connection.on('requestedSchema', function(data) {// Data Extension 필드 확인가능
+	
+		dataExtensionObj += "{";
+        $.each(data.schema, function(index, deData){//DE 필드확인 및 구분
+           var key = deData.key;
+           var fieldName = key.substring(key.lastIndexOf(".")+1, key.length);
+
+     	   if(key.split(".")[0] == "Event"){
+	           dataExtensionObj += '"'+ fieldName +'":"{{'+ key + '}}"'; 
+	           if(data.schema.length != index+1) dataExtensionObj += ",";
+
+	        }
+        });
+        dataExtensionObj += "}";
+		
 		if (data.error) {
 			console.error(data.error);
 		} else {
 			schema = data['schema'];
 		}
+		
+		console.log(dataExtensionObj);
+		console.log(JSON.stringify(dataExtensionObj));
 		console.log('*** Schema ***', JSON.stringify(schema));
 	});
 
@@ -44,6 +61,17 @@ define(["postmonger"], function(Postmonger) {
 		if (data) {
 			payload = data;
 		}
+		
+		var dataExtensionObj;
+        var payload_id = payload['id'];
+
+        console.log(payload_id); // 액티비티 아이디인가?
+
+/*        if ( payload_id === null)
+    	{
+        	alert('Journey를 Save해주시기 바랍니다.');
+        	connection.trigger('destroy');
+    	}*/
 
 		//var message;
 		var hasInArguments = Boolean(
@@ -88,7 +116,7 @@ define(["postmonger"], function(Postmonger) {
 		token: "0ZWWqq4Pi4JN5M6qBhwSAMLAkpvHwCrBB2SfO3K6Ep9W69aS4SPlWYh5PBIw3lEDFliZU6duRptOqCx6EbuFPrtZ2OEsL8BAkzni3syL48a4oeOsL06MGSSOYa8ZApDly4BXGpGNRi7CVuJCWSDwFF8GrFaFVgjeq9EgCM6F1eBmj9EmaAA8ihDtbsdDIRtl-hzOrvhtg9RV6Xo5n3WbaxBCc8INqDrEHe4aO5R9X1-88l7x4Gj3wHM51uPKBR0Mcrl4a8oZSXLKcnZhSYJWEtg"*/
 		console.log(tokens);
 		fuel2token = tokens.fuel2token;
-
+		console.log(fuel2token);
 
 		$.ajax({
 			type: "GET",
@@ -113,6 +141,7 @@ define(["postmonger"], function(Postmonger) {
 
 		console.log(endpoints);
 		fuelapiRestHost = endpoints.fuelapiRestHost;
+		console.log(fuelapiRestHost);
 	}
 
 	function onClickedNext() {
