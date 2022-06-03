@@ -5,7 +5,9 @@ define(["postmonger"], function(Postmonger) {
 	var connection = new Postmonger.Session();
 	var payload = {};
 	var schema = {};
-    var eventDefinitionKey = "";	
+	var eventDefinitionKey = "";
+	var fuelapiRestHost;
+	var fuel2token;
 	$(window).ready(onRender);
 
 	connection.on("initActivity", initialize);
@@ -16,8 +18,8 @@ define(["postmonger"], function(Postmonger) {
 	connection.on("requestedTokens", onGetTokens);
 	connection.on("requestedEndpoints", onGetEndpoints);
 	connection.on('requestedInteraction', requestedInteractionHandler);
-	connection.on('requestedTriggerEventDefinition',requestedTriggerHandler);
-	
+	connection.on('requestedTriggerEventDefinition', requestedTriggerHandler);
+
 	connection.on('requestedSchema', function(data) {
 		if (data.error) {
 			console.error(data.error);
@@ -26,7 +28,7 @@ define(["postmonger"], function(Postmonger) {
 		}
 		console.log('*** Schema ***', JSON.stringify(schema));
 	});
-	
+
 	function onRender() {
 		// JB will respond the first time 'ready' is called with 'initActivity'
 		connection.trigger("ready");
@@ -42,7 +44,7 @@ define(["postmonger"], function(Postmonger) {
 		if (data) {
 			payload = data;
 		}
-		
+
 		//var message;
 		var hasInArguments = Boolean(
 			payload["arguments"] &&
@@ -52,42 +54,65 @@ define(["postmonger"], function(Postmonger) {
 		);
 
 		var inArguments = hasInArguments ? payload["arguments"].execute.inArguments : {};
-		
+
 		$.each(inArguments, function(index, inArgument) {
 			$.each(inArgument, function(key, val) {
-				
+
 			});
 		});
-		
-	}
-	
-	function requestedTriggerHandler(settings){
-    	try{
-    		eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
 
-    	}catch(e){
-    		console.error(e);
-    	}
-    }
-	
-	function requestedInteractionHandler(settings){
-    	try{
-    		eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
-    	}catch(e){
-    		console.error(e);
-    	}
-    	//settings_name = settings.name;
-        //version = settings.version;
-    }
+	}
+
+	function requestedTriggerHandler(settings) {
+		try {
+			eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
+
+		} catch (e) {
+			console.error(e);
+		}
+	}
+
+	function requestedInteractionHandler(settings) {
+		try {
+			eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
+		} catch (e) {
+			console.error(e);
+		}
+		//settings_name = settings.name;
+		//version = settings.version;
+	}
 
 	function onGetTokens(tokens) {
-		// Response: tokens = { token: <legacy token>, fuel2token: <fuel api token> }
+		/*expires: 1654221356204
+		fuel2token: "2ESnPdBd9kRKJriB77eyXgt8"
+		stackKey: "S12"
+		token: "0ZWWqq4Pi4JN5M6qBhwSAMLAkpvHwCrBB2SfO3K6Ep9W69aS4SPlWYh5PBIw3lEDFliZU6duRptOqCx6EbuFPrtZ2OEsL8BAkzni3syL48a4oeOsL06MGSSOYa8ZApDly4BXGpGNRi7CVuJCWSDwFF8GrFaFVgjeq9EgCM6F1eBmj9EmaAA8ihDtbsdDIRtl-hzOrvhtg9RV6Xo5n3WbaxBCc8INqDrEHe4aO5R9X1-88l7x4Gj3wHM51uPKBR0Mcrl4a8oZSXLKcnZhSYJWEtg"*/
 		console.log(tokens);
+		fuel2token = tokens.fuel2token;
+
+		$.ajax({
+			type: "GET",
+			url: "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/platform/v1/tokenContext",
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("Content-type", "application/json");
+				xhr.setRequestHeader("Authorization", "Bearer " + fuel2token);
+			},
+			success: function(data) {
+				console.log(data + "mid");
+			}
+		})
+
 	}
 
 	function onGetEndpoints(endpoints) {
-		// Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
+		/*fuelapiRestHost: "https://www-mc-s12.marketingcloudapis.com/"
+		restHost: "rest.s12.exacttarget.com"
+		ssoUrl: "https://mc.s12.exacttarget.com/cloud/tools/SSO.aspx?env=default&legacy=1&sk=S12"
+		stackHost: "mc.s12.exacttarget.com"
+		stackKey: "S12"*/
+
 		console.log(endpoints);
+		fuelapiRestHost = endpoints.fuelapiRestHost;
 	}
 
 	function onClickedNext() {
@@ -119,28 +144,28 @@ define(["postmonger"], function(Postmonger) {
 		}
 		return formArg;
 	}
-	
+
 	function save() {
 		// 'payload' is initialized on 'initActivity' above.
 		// Journey Builder sends an initial payload with defaults
 		// set by this activity's config.json file.  Any property
 		// may be overridden as desired.
-		
+
 		var campaign = $('#campaign').val();
-        var channel = $('#channel option:selected').val();
+		var channel = $('#channel option:selected').val();
 		var contactkey = '{{Contact.Key}}';
 		var sfmcid = '{{Contact.Attribute."Contact"."Contact ID"}}'; //DE ID인가..
 		var fields = extractFields();
-		
+
 		payload["arguments"] = payload["arguments"] || {};
 
 		payload["arguments"].execute.inArguments = [{
-			"contactkey" : contactkey
-			, "sfmcid" : sfmcid
-			, "fields" : fields
-			, "campaign" : campaign
-			, "channel" : channel
-			}];
+			"contactkey": contactkey
+			, "sfmcid": sfmcid
+			, "fields": fields
+			, "campaign": campaign
+			, "channel": channel
+		}];
 
 		payload["metaData"].isConfigured = true;
 
