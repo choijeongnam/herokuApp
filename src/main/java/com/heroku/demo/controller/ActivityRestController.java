@@ -1,14 +1,10 @@
 package com.heroku.demo.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.net.URI;
-
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.junit.Test;
+import com.heroku.demo.domain.AuthenticationResponse;
+import com.heroku.demo.service.RestAPIService;
 
 @RestController
 public class ActivityRestController {
+	
+	@Autowired 
+	RestAPIService restAPIService;
 
 	@RequestMapping(value = "/activity/save", method = { RequestMethod.GET, RequestMethod.POST })
 	public ResponseEntity<String> save(HttpServletRequest request, ModelMap model) throws Exception {
@@ -56,28 +54,11 @@ public class ActivityRestController {
 	}
 
 	@RequestMapping(value = "/activity/execute", method = { RequestMethod.GET, RequestMethod.POST })
-	public ResponseEntity<String> execute(HttpServletRequest request, ModelMap model) throws Exception {
-	    
-		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
-				
-		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
-		HttpHeaders head = new HttpHeaders();
-		head.add("Content-Type", "application/json");
-		//httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-		
-		MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+	public void execute() throws Exception {
 
-      	body.add("grant_type", "client_credentials");
-		body.add("client_id", "xkcpey49qsmasdneeb2bd9y0");
-		body.add("client_secret", "s3IN8RlOlnzbgYRVoFfxPLU4");
+		//AuthenticationResponse authenticationResponse = 
+		restAPIService.getToken();
 
-		// Combine Message
-		HttpEntity<?> requestMessage = new HttpEntity<>(body, head);
-		ResponseEntity<String> result  = restTemplate.exchange(token_url, HttpMethod.POST, requestMessage, String.class);
-		//ResponseEntity<String> result  = restTemplate.postForEntity(token_url, requestMessage, String.class);
-
-		System.out.println(result.toString());
-		
 //		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
 //		URI uri = URI.create("https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token");
 //		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
@@ -99,7 +80,7 @@ public class ActivityRestController {
 //		System.out.println(requestMessage.getHeaders());
 //		System.out.println(requestMessage.getBody());
 //		System.out.println(result.toString());
-		
+
 //		
 //		/////////////////////////발송이력 insert START
 //		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
@@ -128,7 +109,7 @@ public class ActivityRestController {
 //        // Request.. response해야하나..아무튼..
 //        restTemplate.postForEntity(url, requestMessage, String.class);
 //        /////////////////////////발송이력 insert END
-		
+
 //		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
 //		HttpHeaders httpHeaders = new HttpHeaders();
 //		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -144,8 +125,7 @@ public class ActivityRestController {
 //		System.out.println(res.getStatusCode());
 //		System.out.println(res.getHeaders());
 //		System.out.println(res.getBody());
-		
-		
+
 //		StringBuffer sb = new StringBuffer();
 //	    BufferedReader bufferedReader = null;
 //	    String content = "";
@@ -200,7 +180,6 @@ public class ActivityRestController {
 //		System.out.println(res.getHeaders());
 //		System.out.println(res.getBody());
 
-		return new ResponseEntity<String>("execute", HttpStatus.OK);
 	}
 
 }
