@@ -55,7 +55,7 @@ public class ActivityRestController {
 
 	}
 
-	@RequestMapping(value = "/activity/execute", method = { RequestMethod.GET, RequestMethod.POST }, produces = "application/json;")
+	@RequestMapping(value = "/activity/execute", method = { RequestMethod.GET, RequestMethod.POST })
 	public ResponseEntity<String> execute(HttpServletRequest request, ModelMap model) throws Exception {
 		
 		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
