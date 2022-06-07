@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.heroku.demo.domain.AuthenticationResponse;
+import com.heroku.demo.domain.InsertRowsResponse;
 import com.heroku.demo.service.RestAPIService;
 
 @RestController
@@ -54,10 +55,12 @@ public class ActivityRestController {
 	}
 
 	@RequestMapping(value = "/activity/execute", method = { RequestMethod.GET, RequestMethod.POST })
-	public void execute() throws Exception {
+	public InsertRowsResponse execute(HttpServletRequest request) throws Exception {
 
-		//AuthenticationResponse authenticationResponse = 
-		restAPIService.getToken();
+		AuthenticationResponse authenticationResponse = restAPIService.getToken();
+		InsertRowsResponse insertRowsResponse = restAPIService.getInsertData(authenticationResponse.getAccess_token());
+		
+		return insertRowsResponse;
 
 //		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
 //		URI uri = URI.create("https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token");
