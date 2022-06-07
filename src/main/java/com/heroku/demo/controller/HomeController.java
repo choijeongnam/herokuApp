@@ -24,20 +24,5 @@ public class HomeController {
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String index(ModelMap model) {
     	return "index";
-    }    
-	/*
-	 * @RequestMapping(value="/home", method = RequestMethod.GET) public String
-	 * home(ModelMap model) { //List<Record> records = repository.findAll();
-	 * //model.addAttribute("records", records); model.addAttribute("insertWebPush",
-	 * new Webpush());
-	 * 
-	 * return "home"; }
-	 * 
-	 * @RequestMapping(value="/home", method = RequestMethod.POST) public String
-	 * insertData(ModelMap model,
-	 * 
-	 * @ModelAttribute("insertWebPush") @Valid Webpush webpush, BindingResult
-	 * result, HttpSession session) { if (!result.hasErrors()) {
-	 * webpushRepository.save(webpush); } return home(model); }
-	 */
+    }
 }
