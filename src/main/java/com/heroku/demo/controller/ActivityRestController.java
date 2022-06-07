@@ -49,12 +49,12 @@ public class ActivityRestController {
 	}
 
 	@RequestMapping(value = "/activity/execute", method = { RequestMethod.GET, RequestMethod.POST })
-	public ResponseEntity<String> execute(HttpServletRequest request) throws Exception {
-		restAPIService.getToken();
-		//AuthenticationResponse authenticationResponse = 
-		//InsertRowsResponse insertRowsResponse = restAPIService.getInsertData(authenticationResponse.getAccess_token());
+	public InsertRowsResponse execute(HttpServletRequest request) throws Exception {
 		
-		return new ResponseEntity<String>(HttpStatus.OK);
+		AuthenticationResponse authenticationResponse = restAPIService.getToken();
+		InsertRowsResponse insertRowsResponse = restAPIService.getInsertData(authenticationResponse.getAccess_token());
+		
+		return insertRowsResponse;
 
 //		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
 //		URI uri = URI.create("https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token");
