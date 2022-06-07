@@ -57,24 +57,51 @@ public class ActivityRestController {
 
 	@RequestMapping(value = "/activity/execute", method = { RequestMethod.GET, RequestMethod.POST })
 	public ResponseEntity<String> execute(HttpServletRequest request, ModelMap model) throws Exception {
-		
-		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
-				
-		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-		
-		MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
 
-      	body.add("grant_type", "client_credentials");
-		body.add("client_id", "xkcpey49qsmasdneeb2bd9y0");
-		body.add("client_secret", "s3IN8RlOlnzbgYRVoFfxPLU4");
+		StringBuffer sb = new StringBuffer();
+	    BufferedReader bufferedReader = null;
+	    String content = "";
 
-		// Combine Message
-		HttpEntity<?> requestMessage = new HttpEntity<>(body, httpHeaders);
-		ResponseEntity<String> result  = restTemplate.postForEntity(token_url, requestMessage, String.class);
+	    try {
+	        bufferedReader =  request.getReader() ;
+	        char[] charBuffer = new char[128];
+	        int bytesRead;
+	        while ( (bytesRead = bufferedReader.read(charBuffer)) != -1 ) {
+	            sb.append(charBuffer, 0, bytesRead);
+	        }
 
-		System.out.println(result.toString());
+	    } catch (IOException ex) {
+	        throw ex;
+	    } finally {
+	        if (bufferedReader != null) {
+	            try {
+	                bufferedReader.close();
+	            } catch (IOException ex) {
+	                throw ex;
+	            }
+	        }
+	    }
+
+	    System.out.println("[BODY] :" + sb.toString());
+	    System.out.println("[BODY] 끝!!!");
+	    
+//		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
+//				
+//		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
+//		HttpHeaders httpHeaders = new HttpHeaders();
+//		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+//		
+//		MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+//
+//      	body.add("grant_type", "client_credentials");
+//		body.add("client_id", "xkcpey49qsmasdneeb2bd9y0");
+//		body.add("client_secret", "s3IN8RlOlnzbgYRVoFfxPLU4");
+//
+//		// Combine Message
+//		HttpEntity<?> requestMessage = new HttpEntity<>(body, httpHeaders);
+//		ResponseEntity<String> result  = restTemplate.postForEntity(token_url, requestMessage, String.class);
+//
+//		System.out.println(result.toString());
 		
 //		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
 //		URI uri = URI.create("https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token");
