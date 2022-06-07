@@ -55,7 +55,7 @@ public class ActivityRestController {
 
 	}
 
-	@RequestMapping(value = "/activity/execute", method = RequestMethod.POST, produces = "application/json;")
+	@RequestMapping(value = "/activity/execute", method = { RequestMethod.GET, RequestMethod.POST }, produces = "application/json;")
 	public ResponseEntity<String> execute(HttpServletRequest request, ModelMap model) throws Exception {
 		
 		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
@@ -72,11 +72,8 @@ public class ActivityRestController {
 
 		// Combine Message
 		HttpEntity<?> requestMessage = new HttpEntity<>(body, httpHeaders);
-
-		// Request.. response해야하나..아무튼..
 		ResponseEntity<String> result  = restTemplate.postForEntity(token_url, requestMessage, String.class);
-		System.out.println(requestMessage.getHeaders());
-		System.out.println(requestMessage.getBody());
+
 		System.out.println(result.toString());
 		
 //		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
