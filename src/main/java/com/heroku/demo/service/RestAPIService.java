@@ -23,7 +23,7 @@ public class RestAPIService {
 		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
 
 		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
@@ -60,9 +60,10 @@ public class RestAPIService {
 	      body.add("unif_id", "jeong");
 	      body.add("sfmc_id", "35105109");
 
-		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(body, headers);
+		HttpEntity<MultiValueMap<String, String>> requestMessage = new HttpEntity<MultiValueMap<String, String>>(body, headers);
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity InsertData = restTemplate.exchange(api_url, HttpMethod.POST, request, InsertRowsResponse.class);
+		ResponseEntity InsertData = restTemplate.postForEntity(api_url, requestMessage, InsertRowsResponse.class);
+				//restTemplate.exchange(api_url, HttpMethod.POST, request, InsertRowsResponse.class);
 		
 		return (InsertRowsResponse) InsertData.getBody();
 		}
