@@ -32,9 +32,9 @@ public class RestAPIService {
 
 		HttpEntity<MultiValueMap<String, String>> requestMessage = new HttpEntity<MultiValueMap<String, String>>(params, httpHeaders);
 		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
-		ResponseEntity response = restTemplate.postForEntity(token_url, requestMessage, String.class);
+		AuthenticationResponse response = restTemplate.postForObject(token_url, requestMessage, AuthenticationResponse.class);
 		
-		return (AuthenticationResponse) response.getBody();
+		return response;
 	}
 	
 	public InsertRowsResponse getInsertData(String accessToken){
