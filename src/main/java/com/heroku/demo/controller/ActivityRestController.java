@@ -50,8 +50,10 @@ public class ActivityRestController {
 
 	@RequestMapping(value = "/activity/execute", method = { RequestMethod.GET, RequestMethod.POST })
 	public InsertRowsResponse execute(HttpServletRequest request) throws Exception {
-		
+		System.err.println("loggggg 실행전");
 		AuthenticationResponse authenticationResponse = restAPIService.getToken();
+		System.err.println("loggggg 실행후" + authenticationResponse);
+		System.err.println("loggggg 실행후" + authenticationResponse.getAccess_token());
 		InsertRowsResponse insertRowsResponse = restAPIService.getInsertData(authenticationResponse.getAccess_token());
 		
 		return insertRowsResponse;
