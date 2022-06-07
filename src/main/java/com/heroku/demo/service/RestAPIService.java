@@ -17,7 +17,7 @@ import com.heroku.demo.domain.InsertRowsResponse;
 @Transactional
 public class RestAPIService {
 	
-	public AuthenticationResponse getToken() {
+	public void getToken() {
 		
 		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
 
@@ -34,7 +34,7 @@ public class RestAPIService {
 		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
 		ResponseEntity response = restTemplate.postForEntity(token_url, requestMessage, String.class);
 		
-		return (AuthenticationResponse) response.getBody();
+		//return (AuthenticationResponse) response.getBody();
 	}
 	
 	public InsertRowsResponse getInsertData(String accessToken){
