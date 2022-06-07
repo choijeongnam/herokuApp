@@ -21,28 +21,13 @@ define(["postmonger"], function(Postmonger) {
 	connection.on('requestedTriggerEventDefinition', requestedTriggerHandler);
 
 	connection.on('requestedSchema', function(data) {// Data Extension 필드 확인가능
-	
-		dataExtensionObj += "{";
-        $.each(data.schema, function(index, deData){//DE 필드확인 및 구분
-           var key = deData.key;
-           var fieldName = key.substring(key.lastIndexOf(".")+1, key.length);
 
-     	   if(key.split(".")[0] == "Event"){
-	           dataExtensionObj += '"'+ fieldName +'":"{{'+ key + '}}"'; 
-	           if(data.schema.length != index+1) dataExtensionObj += ",";
-
-	        }
-        });
-        dataExtensionObj += "}";
-		
 		if (data.error) {
 			console.error(data.error);
 		} else {
 			schema = data['schema'];
 		}
-		
-		console.log(dataExtensionObj);
-		console.log(JSON.stringify(dataExtensionObj));
+
 		console.log('*** Schema ***', JSON.stringify(schema));
 	});
 
@@ -61,17 +46,16 @@ define(["postmonger"], function(Postmonger) {
 		if (data) {
 			payload = data;
 		}
-		
-		var dataExtensionObj;
-        var payload_id = payload['id'];
 
-        console.log(payload_id); // 액티비티 아이디인가?
+		var payload_id = payload['id'];
 
-/*        if ( payload_id === null)
-    	{
-        	alert('Journey를 Save해주시기 바랍니다.');
-        	connection.trigger('destroy');
-    	}*/
+		console.log(payload_id); // 액티비티 아이디인가?
+
+		/*        if ( payload_id === null)
+				{
+					alert('Journey를 Save해주시기 바랍니다.');
+					connection.trigger('destroy');
+				}*/
 
 		//var message;
 		var hasInArguments = Boolean(
@@ -101,11 +85,13 @@ define(["postmonger"], function(Postmonger) {
 
 	function requestedInteractionHandler(settings) {
 		try {
+			//settings.id
 			eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
 		} catch (e) {
 			console.error(e);
 		}
-		//settings_name = settings.name;
+		settings_id = settings.id; //journey id
+		settings_name = settings.name; //journey name
 		//version = settings.version;
 	}
 
@@ -179,21 +165,48 @@ define(["postmonger"], function(Postmonger) {
 		// Journey Builder sends an initial payload with defaults
 		// set by this activity's config.json file.  Any property
 		// may be overridden as desired.
-
-		var campaign = $('#campaign').val();
-		var channel = $('#channel option:selected').val();
+		
+		/*
+		발송이력 pk
+		
+		 bu_id		50	No	
+		 journey_id		255	No	
+		 mkt_id		50	No	
+		 mkt_dept_cd		50	No	
+		 campaign_code		50	No	
+		 chnl_cd		50	No	
+		 unif_id
+		
+		*/
+		var bu_id = '534003343';
+		var campaign_code = $('#campaign').val();
+		var chnl_cd = $('#channel option:selected').val();
+		
 		var contactkey = '{{Contact.Key}}';
-		var sfmcid = '{{Contact.Attribute."Contact"."Contact ID"}}'; //DE ID인가..
+		var sfmc_id = '{{Contact.ID}}'; //sfmc id임 {{Contact.Attribute."Contact"."Contact ID"}} 이거와 동일
+		
+		var journey_id = settings_id; //저니ID
+		//var journey_name = settings_name; //저니네임
+		
+		var mkt_id = 'sookyeong'; //마케터 id 나중에 삭제함
+		var mkt_dept_cd = 'dk'; //마케터 조직코드 나중에 삭제함
+		
+		//액티비티 명을 저장하거나 채널코드로 사용하려면 payload['name'] 받아오든지..
+
 		var fields = extractFields();
 
 		payload["arguments"] = payload["arguments"] || {};
 
 		payload["arguments"].execute.inArguments = [{
 			"contactkey": contactkey
-			, "sfmcid": sfmcid
-			, "fields": fields
-			, "campaign": campaign
-			, "channel": channel
+			, "bu_id" : bu_id
+			, "journey_id": journey_id
+			, "sfmc_id": sfmc_id
+			, "campaign_code": campaign_code
+			, "chnl_cd": chnl_cd
+			, "mkt_id" : mkt_id
+			, "mkt_dept_cd" : mkt_dept_cd
+			, "fields": fields //unif_id 받아와야함
 		}];
 
 		payload["metaData"].isConfigured = true;
