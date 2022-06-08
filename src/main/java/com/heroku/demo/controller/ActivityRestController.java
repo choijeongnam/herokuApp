@@ -75,7 +75,7 @@ public class ActivityRestController {
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/getMid", method = { RequestMethod.GET })
+	@RequestMapping(value = "/getMid", method = { RequestMethod.GET, RequestMethod.POST })
 	public String getMid(@RequestBody Map<String, Object> param) {
 		//bu 가져오기
 		
