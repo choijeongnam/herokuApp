@@ -71,7 +71,7 @@ public class RestAPIService {
 
 		HttpEntity<MultiValueMap<String, Object>> requestMessage = new HttpEntity<MultiValueMap<String, Object>>(params, headers);
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity response = restTemplate.postForEntity(api_url, requestMessage, InsertRowsResponse.class);
+		ResponseEntity response = restTemplate.postForEntity(api_url, requestMessage, String.class);
 				//restTemplate.exchange(api_url, HttpMethod.POST, request, InsertRowsResponse.class);
 		}
 	
