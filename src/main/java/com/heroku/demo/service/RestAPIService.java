@@ -24,7 +24,7 @@ import com.heroku.demo.domain.InsertRowsResponse;
 @Transactional
 public class RestAPIService {
 	
-	public void getToken() throws IOException{
+	public String getToken() throws IOException{
         
 //        URL url = new URL("https://mcfg0klxd9y05gglhh34vvrzg1gm.auth.marketingcloudapis.com/v2/token");
 //        HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -69,9 +69,12 @@ public class RestAPIService {
 
 		HttpEntity<MultiValueMap<String, String>> requestMessage = new HttpEntity<MultiValueMap<String, String>>(params, httpHeaders);
 		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
-		ResponseEntity response = restTemplate.postForEntity(token_url, requestMessage, String.class);
-		System.out.println(response.getBody());
-        System.out.println(response.getStatusCodeValue());
+		ResponseEntity<String> response = restTemplate.postForEntity(token_url, requestMessage, String.class);
+		
+		String result = "";
+		result = response.getBody();
+		
+		return result; 
 		//return (AuthenticationResponse) response.getBody();
 	}
 	
