@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,9 +76,10 @@ public class ActivityRestController {
 	}
 
 	@RequestMapping(value = "/getMid", method = { RequestMethod.GET })
-	public String getMid(@RequestParam String fuel2token) {
+	public String getMid(@RequestBody Map<String, Object> param) {
 		//bu 가져오기
 		
+		String fuel2token = param.get("fuel2token").toString();
 		String result = restAPIService.getMid(fuel2token);
 		
 		return result;

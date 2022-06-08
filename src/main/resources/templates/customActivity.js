@@ -103,11 +103,14 @@ define(["postmonger"], function(Postmonger) {
 		console.log(tokens);
 		fuel2token = tokens.fuel2token;
 		console.log(fuel2token);
-
+		var param = {
+				"fuel2token" : fuel2token
+			}
 		$.ajax({
-			type: "GET",
+			type: "POST",
+			contentType: "application/json; charset=utf-8",
 			url: "/getMid", //https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/platform/v1/tokenContext
-			data: fuel2token,
+			data: JSON.stringify(param),
 			success: function(data) {
 				console.log(data);
 			}
