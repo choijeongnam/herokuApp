@@ -21,22 +21,22 @@
       "concurrentRequests": 1,
       "format": "json",
       "verb": "POST",
-      "url": "https://hotellotte.herokuapp.com/activity/execute"
+      "url": "https://hotellotte-updatecontact.herokuapp.com/activity/execute"
     }
   },
 
   "configurationArguments": {
     "save": {
-      "url": "https://hotellotte.herokuapp.com/activity/save"
+      "url": "https://hotellotte-updatecontact.herokuapp.com/activity/save"
     },
     "publish": {
-      "url": "https://hotellotte.herokuapp.com/activity/publish"
+      "url": "https://hotellotte-updatecontact.herokuapp.com/activity/publish"
     },
     "validate": {
-      "url": "https://hotellotte.herokuapp.com/activity/validate"
+      "url": "https://hotellotte-updatecontact.herokuapp.com/activity/validate"
     },
     "stop": {
-      "url": "https://hotellotte.herokuapp.com/activity/stop"
+      "url": "https://hotellotte-updatecontact.herokuapp.com/activity/stop"
     }
   },
 
