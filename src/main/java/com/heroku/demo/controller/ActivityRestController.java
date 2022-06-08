@@ -1,7 +1,11 @@
 package com.heroku.demo.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,11 +55,17 @@ public class ActivityRestController {
 	
 	@RequestMapping(value="/activity/execute", method = { RequestMethod.GET, RequestMethod.POST }, produces="application/json;")
 	public InsertRowsResponse execute(HttpServletRequest request, ModelMap model) throws Exception {
+		
+		//access_token 토근 가져오기
 		String result = restAPIService.getToken();
 		
-		System.err.println(result + "다 ㄱㅏ져오는건가");
-		
-		InsertRowsResponse insertRowsResponse = restAPIService.getInsertData(result);
+		JSONParser parser = new JSONParser();
+		System.err.println("result 결과>>>>>>" + result);
+		JSONObject parsedJson = (JSONObject) parser.parse(result);
+		System.err.println("parsedJson 결과>>>>>>" + parsedJson);
+		String access_token = parsedJson.get("access_token").toString();
+		System.err.println("access_token 결과>>>>>>" + access_token);
+		InsertRowsResponse insertRowsResponse = restAPIService.getInsertData(access_token);
 		
 		return insertRowsResponse;
 	}
