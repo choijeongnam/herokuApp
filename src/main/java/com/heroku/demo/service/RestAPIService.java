@@ -44,7 +44,7 @@ public class RestAPIService {
 		return result; 
 	}
 	
-	public InsertRowsResponse getInsertData(String accessToken){
+	public void getInsertData(String accessToken){
 		
 		String api_url = "https://mcfg0klxd9y05gglhh34vvrzg1gm.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:FB28439A-AC36-4D94-B608-EBF9CF4D8DC5/rows";
 		
@@ -68,7 +68,6 @@ public class RestAPIService {
 		ResponseEntity response = restTemplate.postForEntity(api_url, requestMessage, InsertRowsResponse.class);
 				//restTemplate.exchange(api_url, HttpMethod.POST, request, InsertRowsResponse.class);
 		
-		return (InsertRowsResponse) response.getBody();
 		}
 	
     

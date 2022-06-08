@@ -54,7 +54,7 @@ public class ActivityRestController {
 	
 	
 	@RequestMapping(value="/activity/execute", method = { RequestMethod.GET, RequestMethod.POST }, produces="application/json;")
-	public InsertRowsResponse execute(HttpServletRequest request, ModelMap model) throws Exception {
+	public ResponseEntity<String> execute(HttpServletRequest request, ModelMap model) throws Exception {
 		
 		//access_token 토근 가져오기
 		String result = restAPIService.getToken();
@@ -65,9 +65,9 @@ public class ActivityRestController {
 		String access_token = parsedJson.get("access_token").toString();
 		
 		//row insert 해주기
-		InsertRowsResponse insertRowsResponse = restAPIService.getInsertData(access_token);
+		restAPIService.getInsertData(access_token);
 		
-		return insertRowsResponse;
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 //
 //	@RequestMapping(value = "/activity/execute", method = { RequestMethod.GET, RequestMethod.POST })
