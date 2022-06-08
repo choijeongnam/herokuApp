@@ -58,7 +58,7 @@ public class ActivityRestController {
 	}
 	
 	
-	@RequestMapping(value="/activity/execute", method = { RequestMethod.GET, RequestMethod.POST }, produces="application/json;", headers = "Accept=application/json")
+	@RequestMapping(value="/activity/execute", method = { RequestMethod.GET, RequestMethod.POST }, produces="application/json;")
 	public ResponseEntity<String> execute(HttpServletRequest request, ModelMap model) throws Exception {
 		
 		//access_token 토근 가져오기
@@ -75,7 +75,7 @@ public class ActivityRestController {
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/getMid", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/getMid", method = { RequestMethod.GET, RequestMethod.POST }, headers = "Accept=application/json")
 	public String getMid(@RequestBody Map<String, Object> param) {
 		//bu 가져오기
 		
