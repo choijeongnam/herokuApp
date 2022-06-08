@@ -1,6 +1,8 @@
 package com.heroku.demo.service;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -53,8 +55,12 @@ public class RestAPIService {
 		headers.set("Authorization", "Bearer " + accessToken);
 		
 	    // Body set
-	    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-	    params.add("bu_id", "534003343");
+	    MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
+
+	    Map<String, String> val = new HashMap<>();
+	    val.put("bu_id", "123454566");
+	    params.add("items", val);
+	    
 //	    params.add("bu_id", "534003343");
 //	    params.add("journey_id", "7a8b3e7d-ee64-42b7-8021-56add0a77248");
 //	    params.add("mkt_id", "skhan");
@@ -63,11 +69,10 @@ public class RestAPIService {
 //	    params.add("unif_id", "jeong");
 //	    params.add("sfmc_id", "35105109");
 
-		HttpEntity<MultiValueMap<String, String>> requestMessage = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+		HttpEntity<MultiValueMap<String, Object>> requestMessage = new HttpEntity<MultiValueMap<String, Object>>(params, headers);
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity response = restTemplate.postForEntity(api_url, requestMessage, InsertRowsResponse.class);
 				//restTemplate.exchange(api_url, HttpMethod.POST, request, InsertRowsResponse.class);
-		
 		}
 	
     
