@@ -24,54 +24,54 @@ import com.heroku.demo.domain.InsertRowsResponse;
 @Transactional
 public class RestAPIService {
 	
-	public String getToken() throws IOException{
+	public AuthenticationResponse getToken() throws IOException{
         
-        URL url = new URL("https://mcfg0klxd9y05gglhh34vvrzg1gm.auth.marketingcloudapis.com/v2/token");
-        HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        con.setRequestMethod("POST");
-        // con.setRequestProperty("X-Naver-Client-Id", searchWordVO.getClientId());//애플리케이션 클라이언트 아이디값";
-        // con.setRequestProperty("X-Naver-Client-Secret", searchWordVO.getClientSecret());//애플리케이션 클라이언트 시크릿값";
-
-        String postParams = "client_id=y27fgvzumldk3d22xfhjibud&client_secret=WuVa4pG3AJ2JBmdzDWU1Wb8c&grant_type=client_credentials";
-        con.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-        wr.writeBytes(postParams);
-        wr.flush();
-        wr.close();
-        int responseCode = con.getResponseCode();
-
-        BufferedReader br;
-        if(responseCode==200) {
-        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        } else {
-        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-        }
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-        while ((inputLine = br.readLine()) != null) {
-        response.append(inputLine);
-        }
-        System.out.println(response.toString());
-        br.close();
-        
-        return response.toString();
-		
-//		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
+//        URL url = new URL("https://mcfg0klxd9y05gglhh34vvrzg1gm.auth.marketingcloudapis.com/v2/token");
+//        HttpURLConnection con = (HttpURLConnection)url.openConnection();
+//        con.setRequestMethod("POST");
+//        // con.setRequestProperty("X-Naver-Client-Id", searchWordVO.getClientId());//애플리케이션 클라이언트 아이디값";
+//        // con.setRequestProperty("X-Naver-Client-Secret", searchWordVO.getClientSecret());//애플리케이션 클라이언트 시크릿값";
 //
-//		HttpHeaders httpHeaders = new HttpHeaders();
-//		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+//        String postParams = "client_id=y27fgvzumldk3d22xfhjibud&client_secret=WuVa4pG3AJ2JBmdzDWU1Wb8c&grant_type=client_credentials";
+//        con.setDoOutput(true);
+//        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+//        wr.writeBytes(postParams);
+//        wr.flush();
+//        wr.close();
+//        int responseCode = con.getResponseCode();
 //
-//		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-//
-//		params.add("grant_type", "client_credentials");
-//		params.add("client_id", "4nsk18zql89utm3unq24v78n");
-//		params.add("client_secret", "FvQIUx9QJnWjy1gyxUGCb7BC");
-//
-//		HttpEntity<MultiValueMap<String, String>> requestMessage = new HttpEntity<MultiValueMap<String, String>>(params, httpHeaders);
-//		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
-//		ResponseEntity response = restTemplate.postForEntity(token_url, requestMessage, String.class);
+//        BufferedReader br;
+//        if(responseCode==200) {
+//        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//        } else {
+//        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+//        }
+//        String inputLine;
+//        StringBuffer response = new StringBuffer();
+//        while ((inputLine = br.readLine()) != null) {
+//        response.append(inputLine);
+//        }
+//        System.out.println(response.toString());
+//        br.close();
+//        
+//        return response.toString();
 //		
-//		return (AuthenticationResponse) response.getBody();
+		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
+
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+
+		params.add("grant_type", "client_credentials");
+		params.add("client_id", "4nsk18zql89utm3unq24v78n");
+		params.add("client_secret", "FvQIUx9QJnWjy1gyxUGCb7BC");
+
+		HttpEntity<MultiValueMap<String, String>> requestMessage = new HttpEntity<MultiValueMap<String, String>>(params, httpHeaders);
+		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
+		ResponseEntity response = restTemplate.postForEntity(token_url, requestMessage, String.class);
+		
+		return (AuthenticationResponse) response.getBody();
 	}
 	
 	public InsertRowsResponse getInsertData(String accessToken){

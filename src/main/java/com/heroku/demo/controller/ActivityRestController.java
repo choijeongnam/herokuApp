@@ -50,12 +50,12 @@ public class ActivityRestController {
 	
 	
 	@RequestMapping(value="/activity/execute", method = { RequestMethod.GET, RequestMethod.POST }, produces="application/json;")
-	public ResponseEntity<String> execute(HttpServletRequest request, ModelMap model) throws Exception {
+	public InsertRowsResponse execute(HttpServletRequest request, ModelMap model) throws Exception {
 		
-		restAPIService.getToken();
-		//InsertRowsResponse insertRowsResponse = restAPIService.getInsertData(authenticationResponse.getAccess_token());
+		AuthenticationResponse authenticationResponse = restAPIService.getToken();
+		InsertRowsResponse insertRowsResponse = restAPIService.getInsertData(authenticationResponse.getAccess_token());
 		
-		return  new ResponseEntity<String>(HttpStatus.OK);
+		return insertRowsResponse;
 	}
 //
 //	@RequestMapping(value = "/activity/execute", method = { RequestMethod.GET, RequestMethod.POST })
