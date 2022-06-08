@@ -2,6 +2,8 @@ package com.heroku.demo.service;
 
 import java.io.IOException;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -12,6 +14,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.heroku.demo.domain.AuthenticationResponse;
 import com.heroku.demo.domain.InsertRowsResponse;
 
 @Service
@@ -37,7 +40,7 @@ public class RestAPIService {
 		
 		String result = "";
 		result = response.getBody();
-		
+
 		return result; 
 	}
 	

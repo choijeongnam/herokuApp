@@ -53,6 +53,8 @@ public class ActivityRestController {
 	public InsertRowsResponse execute(HttpServletRequest request, ModelMap model) throws Exception {
 		String result = restAPIService.getToken();
 		
+		System.err.println(result + "다 ㄱㅏ져오는건가");
+		
 		InsertRowsResponse insertRowsResponse = restAPIService.getInsertData(result);
 		
 		return insertRowsResponse;
