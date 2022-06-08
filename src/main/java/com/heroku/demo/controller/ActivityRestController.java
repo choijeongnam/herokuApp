@@ -58,7 +58,7 @@ public class ActivityRestController {
 	}
 	
 	
-	@RequestMapping(value="/activity/execute", method = { RequestMethod.GET, RequestMethod.POST }, produces="application/json;")
+	@RequestMapping(value="/activity/execute", method = { RequestMethod.GET, RequestMethod.POST }, produces="application/json;", headers = "Accept=application/json")
 	public ResponseEntity<String> execute(HttpServletRequest request, ModelMap model) throws Exception {
 		
 		//access_token 토근 가져오기
