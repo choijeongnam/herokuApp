@@ -25,7 +25,7 @@ import com.heroku.demo.domain.InsertRowsResponse;
 public class RestAPIService {
 	
 	public String getMid(String fuel2token){
-		String token_url = "https://mcfg0klxd9y05gglhh34vvrzg1gm-h4.rest.marketingcloudapis.com/platform/v1/tokenContext";
+		String token_url = "https://mcfg0klxd9y05gglhh34vvrzg1gm.rest.marketingcloudapis.com/platform/v1/tokenContext";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
