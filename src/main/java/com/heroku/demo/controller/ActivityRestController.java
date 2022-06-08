@@ -64,7 +64,7 @@ public class ActivityRestController {
 		
 		String access_token = parsedJson.get("access_token").toString();
 		
-		//row insert 해주기
+		//row insert 하기
 		restAPIService.getInsertData(access_token);
 		
 		return new ResponseEntity<String>(HttpStatus.OK);

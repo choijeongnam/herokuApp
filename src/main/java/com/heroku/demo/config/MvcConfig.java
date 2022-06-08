@@ -15,7 +15,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/", "classpath:/templates/");
 	}
 
-	@CrossOrigin(origins = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/platform/v1/tokenContext")
+	@CrossOrigin(origins = "https://mcfg0klxd9y05gglhh34vvrzg1gm-h4.rest.marketingcloudapis.com/platform/v1/tokenContext")
 	@GetMapping("/getMid")
 	public String getMid(@PathVariable String value) {
 		return value;

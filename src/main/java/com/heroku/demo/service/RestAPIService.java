@@ -23,7 +23,7 @@ import com.heroku.demo.domain.InsertRowsResponse;
 @Transactional
 public class RestAPIService {
 	
-	public String getToken() throws IOException{
+	public String getToken(){
 
 		String token_url = "https://mcfg0klxd9y05gglhh34vvrzg1gm.auth.marketingcloudapis.com/v2/token";
 
