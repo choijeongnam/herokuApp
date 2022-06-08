@@ -56,7 +56,7 @@ public class RestAPIService {
 //        
 //        return response.toString();
 //		
-		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
+		String token_url = "https://mcfg0klxd9y05gglhh34vvrzg1gm.auth.marketingcloudapis.com/v2/token";
 
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -64,8 +64,8 @@ public class RestAPIService {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
 		params.add("grant_type", "client_credentials");
-		params.add("client_id", "4nsk18zql89utm3unq24v78n");
-		params.add("client_secret", "FvQIUx9QJnWjy1gyxUGCb7BC");
+		params.add("client_id", "y27fgvzumldk3d22xfhjibud");
+		params.add("client_secret", "WuVa4pG3AJ2JBmdzDWU1Wb8c");
 
 		HttpEntity<MultiValueMap<String, String>> requestMessage = new HttpEntity<MultiValueMap<String, String>>(params, httpHeaders);
 		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
