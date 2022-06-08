@@ -112,7 +112,8 @@ define(["postmonger"], function(Postmonger) {
 			url: "/getMid", //https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/platform/v1/tokenContext
 			data: JSON.stringify(param),
 			success: function(data) {
-				console.log(data);
+				bu_id = data.organization;
+				console.log("bu_id : " + data.organization);
 			}
 		})
 
@@ -178,7 +179,7 @@ define(["postmonger"], function(Postmonger) {
 		 unif_id
 		
 		*/
-		var bu_id = '534003343';
+		var id = bu_id;
 		var campaign_code = $('#campaign').val();
 		var chnl_cd = $('#channel option:selected').val();
 		
@@ -199,7 +200,7 @@ define(["postmonger"], function(Postmonger) {
 
 		payload["arguments"].execute.inArguments = [{
 			"contactkey": contactkey
-			, "bu_id" : bu_id
+			, "bu_id" : id
 			, "journey_id": journey_id
 			, "sfmc_id": sfmc_id
 			, "campaign_code": campaign_code
