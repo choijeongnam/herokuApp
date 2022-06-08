@@ -46,7 +46,7 @@ public class RestAPIService {
 	
 	public InsertRowsResponse getInsertData(String accessToken){
 		
-		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:4CB914B5-EF0C-4E51-9802-BB70B2F19F7A/rows";
+		String api_url = "https://mcfg0klxd9y05gglhh34vvrzg1gm.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:FB28439A-AC36-4D94-B608-EBF9CF4D8DC5/rows";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -55,12 +55,13 @@ public class RestAPIService {
 	    // Body set
 	    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 	    params.add("bu_id", "534003343");
-	    params.add("journey_id", "7a8b3e7d-ee64-42b7-8021-56add0a77248");
-	    params.add("mkt_id", "skhan");
-	    params.add("campaign_code", "B_HDQT_TS_220602_01");
-	    params.add("chnl_cd", "EML_02");
-	    params.add("unif_id", "jeong");
-	    params.add("sfmc_id", "35105109");
+//	    params.add("bu_id", "534003343");
+//	    params.add("journey_id", "7a8b3e7d-ee64-42b7-8021-56add0a77248");
+//	    params.add("mkt_id", "skhan");
+//	    params.add("campaign_code", "B_HDQT_TS_220602_01");
+//	    params.add("chnl_cd", "EML_02");
+//	    params.add("unif_id", "jeong");
+//	    params.add("sfmc_id", "35105109");
 
 		HttpEntity<MultiValueMap<String, String>> requestMessage = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 		RestTemplate restTemplate = new RestTemplate();
