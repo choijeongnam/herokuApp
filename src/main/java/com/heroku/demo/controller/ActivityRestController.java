@@ -10,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.heroku.demo.domain.AuthenticationResponse;
@@ -68,6 +72,15 @@ public class ActivityRestController {
 		restAPIService.getInsertData(access_token);
 		
 		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/getMid", method = { RequestMethod.GET })
+	public String getMid(@RequestParam String fuel2token) {
+		//bu 가져오기
+		
+		String result = restAPIService.getMid(fuel2token);
+		
+		return result;
 	}
 //
 //	@RequestMapping(value = "/activity/execute", method = { RequestMethod.GET, RequestMethod.POST })

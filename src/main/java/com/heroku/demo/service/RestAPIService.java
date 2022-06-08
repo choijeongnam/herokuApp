@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,22 @@ import com.heroku.demo.domain.InsertRowsResponse;
 @Service
 @Transactional
 public class RestAPIService {
+	
+	public String getMid(String fuel2token){
+		String token_url = "https://mcfg0klxd9y05gglhh34vvrzg1gm-h4.rest.marketingcloudapis.com/platform/v1/tokenContext";
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.set("Authorization", "Bearer " + fuel2token);
+		
+		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
+		ResponseEntity<String> response = restTemplate.exchange(token_url, HttpMethod.GET, new HttpEntity<String>(headers), String.class);
+		
+		String result = "";
+		result = response.getBody();
+
+		return result; 
+	}
 	
 	public String getToken(){
 
