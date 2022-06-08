@@ -112,8 +112,9 @@ define(["postmonger"], function(Postmonger) {
 			url: "/getMid", //https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/platform/v1/tokenContext
 			data: JSON.stringify(param),
 			success: function(data) {
-				bu_id = data.organization;
-				console.log("bu_id : " + data.organization);
+				bu_id = data.organization.id;
+				console.log("bu_id : " + data.organization.id);
+				$("#mid").val(bu_id);
 			}
 		})
 
