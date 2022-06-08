@@ -60,11 +60,11 @@ public class ActivityRestController {
 		String result = restAPIService.getToken();
 		
 		JSONParser parser = new JSONParser();
-		System.err.println("result 결과>>>>>>" + result);
 		JSONObject parsedJson = (JSONObject) parser.parse(result);
-		System.err.println("parsedJson 결과>>>>>>" + parsedJson);
+		
 		String access_token = parsedJson.get("access_token").toString();
-		System.err.println("access_token 결과>>>>>>" + access_token);
+		
+		//row insert 해주기
 		InsertRowsResponse insertRowsResponse = restAPIService.getInsertData(access_token);
 		
 		return insertRowsResponse;
