@@ -1,5 +1,7 @@
 package com.heroku.demo.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,6 +72,33 @@ public class ActivityRestController {
 		JSONObject parsedJson = (JSONObject) parser.parse(result);
 		
 		String access_token = parsedJson.get("access_token").toString();
+		
+		StringBuffer sb = new StringBuffer();
+	    BufferedReader bufferedReader = null;
+	    String content = "";
+
+	    try {
+	        bufferedReader =  request.getReader() ;
+	        char[] charBuffer = new char[128];
+	        int bytesRead;
+	        while ( (bytesRead = bufferedReader.read(charBuffer)) != -1 ) {
+	            sb.append(charBuffer, 0, bytesRead);
+	        }
+
+	    } catch (IOException ex) {
+	        throw ex;
+	    } finally {
+	        if (bufferedReader != null) {
+	            try {
+	                bufferedReader.close();
+	            } catch (IOException ex) {
+	                throw ex;
+	            }
+	        }
+	    }
+
+	    System.out.println("결과출력 [BODY] :" + sb.toString());
+	    System.out.println("결과출력 [BODY] 끝!!!");
 		
 		System.err.println("결과출력 access_token :::: " + access_token);
 		System.err.println("결과출력 request :::: " + request);
