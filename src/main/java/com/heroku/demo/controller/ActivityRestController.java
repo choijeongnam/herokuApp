@@ -65,17 +65,13 @@ public class ActivityRestController {
 		
 		//access_token 토근 가져오기
 		String result = restAPIService.getToken();
-		
-		System.err.println("결과출력 result :::: " + result);
-		
 		JSONParser parser = new JSONParser();
 		JSONObject parsedJson = (JSONObject) parser.parse(result);
-		
 		String access_token = parsedJson.get("access_token").toString();
 		
+		//customActivity 데이터 가져오기
 		StringBuffer sb = new StringBuffer();
 	    BufferedReader bufferedReader = null;
-	    String content = "";
 
 	    try {
 	        bufferedReader =  request.getReader() ;
@@ -99,17 +95,10 @@ public class ActivityRestController {
 
 	    System.out.println("결과출력 [BODY] :" + sb.toString());
 	    System.out.println("결과출력 [BODY] 끝!!!");
-		
-		System.err.println("결과출력 access_token :::: " + access_token);
-		System.err.println("결과출력 request :::: " + request);
-		System.err.println("결과출력 request bu_id :::: " + request.getParameterValues("bu_id"));
-		
-		for(String paramKey: request.getParameterMap().keySet()) {
-	    	System.out.println("KEY :::: " + paramKey);
-	    	for(String val: request.getParameterMap().get(paramKey)) {
-	    		System.out.println("VALUE :::: " + val);
-	    	}
-	    }
+	    
+	    String bu_id = request.getParameter("bu_id");
+	    
+	    System.err.println("이걸 찍어주나?" + bu_id);
 		
 		//row insert 하기
 		restAPIService.getInsertData(access_token);

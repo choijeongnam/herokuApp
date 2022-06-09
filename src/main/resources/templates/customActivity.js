@@ -168,18 +168,6 @@ define(["postmonger"], function(Postmonger) {
 		// set by this activity's config.json file.  Any property
 		// may be overridden as desired.
 		
-		/*
-		발송이력 pk
-		
-		 bu_id		50	No	
-		 journey_id		255	No	
-		 mkt_id		50	No	
-		 mkt_dept_cd		50	No	
-		 campaign_code		50	No	
-		 chnl_cd		50	No	
-		 unif_id
-		
-		*/
 		var id = bu_id;
 		var campaign_code = $('#campaign').val();
 		var chnl_cd = $('#channel option:selected').val();
@@ -190,8 +178,8 @@ define(["postmonger"], function(Postmonger) {
 		var journey_id = settings_id; //저니ID
 		//var journey_name = settings_name; //저니네임
 		
-		var mkt_id = 'sookyeong'; //마케터 id 나중에 삭제함
-		var mkt_dept_cd = 'dk'; //마케터 조직코드 나중에 삭제함
+		//var mkt_id = 'sookyeong'; //마케터 id 나중에 삭제함
+		//var mkt_dept_cd = 'dk'; //마케터 조직코드 나중에 삭제함
 		
 		//액티비티 명을 저장하거나 채널코드로 사용하려면 payload['name'] 받아오든지..
 
@@ -206,8 +194,6 @@ define(["postmonger"], function(Postmonger) {
 			, "sfmc_id": sfmc_id
 			, "campaign_code": campaign_code
 			, "chnl_cd": chnl_cd
-			, "mkt_id" : mkt_id
-			, "mkt_dept_cd" : mkt_dept_cd
 			, "fields": fields //unif_id 받아와야함
 		}];
 
