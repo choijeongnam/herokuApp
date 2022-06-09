@@ -64,7 +64,7 @@ public class RestAPIService {
 	
 	public void getInsertData(String accessToken, String rs) throws ParseException{
 		
-		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:20D8B747-5939-46B9-8E79-5D2F9247A0BE/rows";
+		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:4CB914B5-EF0C-4E51-9802-BB70B2F19F7A/rows";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -77,26 +77,15 @@ public class RestAPIService {
 	    
 	    JSONParser parser = new JSONParser();
 	    JSONObject sbJson = (JSONObject) parser.parse(rs);
-	    
-	    System.out.println("결과출력 [BODY]1111111 :" + sbJson);
-	    System.out.println("결과출력 [BODY]12222222 :" + sbJson.get("inArguments"));
-	    System.out.println("결과출력 [BODY]33333333 끝!!!");
-	    
-	    
-	    System.err.println(rs + ">>>>>>>>>>> rs");
+	    JSONObject data = (JSONObject) parser.parse(sbJson.get("inArguments").toString());
 	    	
-	    val.put("bu_id", "11");
-	    val.put("journey_id", "7a8b3e7d-ee64-42b7-8021-56add0a77248");
-	    val.put("mkt_id", "skhan");
-	    val.put("campaign_code", "B_HDQT_TS_220602_01");
-	    val.put("chnl_cd", "EML_02");
-	    val.put("unif_id", "jeong");
-	    val.put("sfmc_id", "35105109");
-	    
-	    // contactkey		254	No	
-	 // campaigncode		50	No	
-	 // createdate	Current date		No	
-	 // channel
+	    val.put("bu_id", data.get("bu_id").toString());
+	    val.put("journey_id", data.get("journey_id").toString());
+	    val.put("mkt_id", data.get("mkt_id").toString());
+	    val.put("campaign_code", data.get("campaign_code").toString());
+	    val.put("chnl_cd", data.get("chnl_cd").toString());
+	    val.put("unif_id", data.get("unif_id").toString());
+	    val.put("sfmc_id", data.get("sfmc_id").toString());
 	    
 	    params.add("items", val);
 
