@@ -1,31 +1,37 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
-	<title>update-contact</title>
+	<title>발송이력</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
-	<script type="text/javascript" src="/js/jquery.min.js"></script>	
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
 	<script data-main="/js/main.js" type="text/javascript" src="/js/require.js"></script>
 </head>
 
 <body>
-	<div>
-	<h3><strong>왜안되냐고</strong></h3>		
-		<label for="mid">MID</label>
-	    <input id="mid" type="text" class="form-control" readonly/>
-		<label for="campaign">캠페인코드</label>
-	    <input id="campaign" type="text" class="form-control" placeholder="캠페인코드 입력" />
-	    <label for="channel">채널</label>
-	    <select id="channel">
-	    	<option value="email">이메일</option>
-	    	<option value="sms">SMS</option>
-	    	<option value="kakao">카카오</option>
-	    	<option value="push">앱푸시</option>
-	    </select>
+	<div class="container">
+		<div class="form-group">
+			<label for="mid">MID: </label>
+			<input id="mid" type="text" class="form-control" readonly="readonly"/>
+		</div>
+		<div class="form-group">
+			<label for="campaign">캠페인코드: </label>
+			<input id="campaign" type="text" class="form-control" placeholder="캠페인코드 입력" />
+		</div>
+		<div class="form-group">
+			<label for="channel">채널: </label>
+			<select id="channel" class="form-control" >
+				<option value="email">이메일</option>
+				<option value="sms">SMS</option>
+				<option value="kakao">카카오</option>
+				<option value="push">앱푸시</option>
+			</select>
+		</div>
 	</div>
-    
-<!--
+
+	<!--
 	
 	
 	1차
@@ -52,11 +58,12 @@ SFMC ID 이건 모르겟다
 수정일시 cj만되는건가
 	
 -->
-<script>
-var bu_id;
-var settings_id;
-var settings_name;
- 
-</script>
+	<script>
+		var bu_id;
+		var settings_id;
+		var settings_name;
+
+	</script>
 </body>
+
 </html>
