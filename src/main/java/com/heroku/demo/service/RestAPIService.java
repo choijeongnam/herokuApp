@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -79,13 +80,15 @@ public class RestAPIService {
 	    JSONObject sbJson = (JSONObject) parser.parse(rs);
 	    JSONObject data = (JSONObject) parser.parse(sbJson.get("inArguments").toString());
 	    JSONObject fields = (JSONObject) parser.parse(data.get("fields").toString());
+	    
+	    Map<String, Object> dataMap = (Map<String, Object>) data.get("fields");
 	    	
 	    val.put("bu_id", data.get("bu_id").toString());
 	    val.put("journey_id", data.get("journey_id").toString());
 	    val.put("mkt_id", data.get("mkt_id").toString());
 	    val.put("campaign_code", data.get("campaign_code").toString());
 	    val.put("chnl_cd", data.get("chnl_cd").toString());
-	    val.put("unif_id", fields.get("unif_id").toString());
+	    val.put("unif_id", dataMap.get("unif_id").toString());
 	    val.put("sfmc_id", data.get("sfmc_id").toString());
 	    
 	    params.add("items", val);
