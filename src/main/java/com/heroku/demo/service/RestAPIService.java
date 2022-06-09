@@ -77,17 +77,17 @@ public class RestAPIService {
 	    Map<String, String> val = new HashMap<>();
 	    
 	    JSONParser parser = new JSONParser();
+	    JSONObject sbJson = (JSONObject) parser.parse(rs);
+	    JSONObject data = (JSONObject) sbJson.get("inArguments");
 	    
-	    Map<String, Object> sbJson = (JSONObject) parser.parse(rs);
-	    Map<String, Object> data = (Map<String, Object>) sbJson.get("inArguments");
-	    Map<String, Object> dataMap = (Map<String, Object>) data.get("fields");
+	    //Map<String, Object> dataMap = (Map<String, Object>) data.get("fields");
 	    	
 	    val.put("bu_id", data.get("bu_id").toString());
 	    val.put("journey_id", data.get("journey_id").toString());
 	    val.put("mkt_id", data.get("mkt_id").toString());
 	    val.put("campaign_code", data.get("campaign_code").toString());
 	    val.put("chnl_cd", data.get("chnl_cd").toString());
-	    val.put("unif_id", dataMap.get("unif_id").toString());
+	    val.put("unif_id", "11111");
 	    val.put("sfmc_id", data.get("sfmc_id").toString());
 	    
 	    params.add("items", val);
