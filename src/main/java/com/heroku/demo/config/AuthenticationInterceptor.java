@@ -34,17 +34,17 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 		 }
 		
 		 System.out.println(clientIp);
-		try {
-			if(!userService.isAccessible(clientIp)) {
-				String requestuestURI = request.getRequestURI();
-				System.out.println(requestuestURI);
-				response.sendError(401);
-				return false;
-			}
-		}catch(NullPointerException e) {
-			response.sendError(401);
-			return false;
-		}
+//		try {
+//			if(!userService.isAccessible(clientIp)) {
+//				String requestuestURI = request.getRequestURI();
+//				System.out.println(requestuestURI);
+//				response.sendError(401);
+//				return false;
+//			}
+//		}catch(NullPointerException e) {
+//			response.sendError(401);
+//			return false;
+//		}
 		return true;
 	}
 }
