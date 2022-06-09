@@ -78,16 +78,15 @@ public class RestAPIService {
 	    
 	    JSONParser parser = new JSONParser();
 	    JSONObject sbJson = (JSONObject) parser.parse(rs);
-	    JSONObject data = (JSONObject) sbJson.get("inArguments");
-	    
-	    //Map<String, Object> dataMap = (Map<String, Object>) data.get("fields");
+	    JSONArray dataArr = (JSONArray) sbJson.get("inArguments");
+	    JSONObject data = (JSONObject) dataArr.get(0);
 	    	
 	    val.put("bu_id", data.get("bu_id").toString());
 	    val.put("journey_id", data.get("journey_id").toString());
 	    val.put("mkt_id", data.get("mkt_id").toString());
 	    val.put("campaign_code", data.get("campaign_code").toString());
 	    val.put("chnl_cd", data.get("chnl_cd").toString());
-	    val.put("unif_id", "11111");
+	    val.put("unif_id", "22");
 	    val.put("sfmc_id", data.get("sfmc_id").toString());
 	    
 	    params.add("items", val);
