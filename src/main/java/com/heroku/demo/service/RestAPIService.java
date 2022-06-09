@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -59,7 +62,7 @@ public class RestAPIService {
 		return result; 
 	}
 	
-	public void getInsertData(String accessToken, HashMap<String, Object> rs){
+	public void getInsertData(String accessToken, HashMap<String, Object> rs) throws ParseException{
 		
 		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:20D8B747-5939-46B9-8E79-5D2F9247A0BE/rows";
 		
@@ -71,6 +74,15 @@ public class RestAPIService {
 	    MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
 	    
 	    Map<String, String> val = new HashMap<>();
+	    
+	    JSONParser parser = new JSONParser();
+	    JSONObject sbJson = (JSONObject) parser.parse(rs.toString());
+	    
+	    
+	    System.out.println("결과출력 [BODY]1111111 :" + sbJson);
+	    System.out.println("결과출력 [BODY]12222222 :" + sbJson.get("inArguments"));
+	    System.out.println("결과출력 [BODY]33333333 끝!!!");
+	    
 	    
 	    System.err.println(rs + ">>>>>>>>>>> rs");
 	    	

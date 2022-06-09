@@ -94,9 +94,6 @@ public class ActivityRestController {
 	            }
 	        }
 	    }
-
-	    System.out.println("결과출력 [BODY] :" + sb.toString());
-	    System.out.println("결과출력 [BODY] 끝!!!");
 	    
 	    HashMap<String, Object> rs = new ObjectMapper().readValue(sb.toString(), HashMap.class) ;
 		
