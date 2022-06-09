@@ -1,5 +1,6 @@
 package com.heroku.demo.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,7 +59,7 @@ public class RestAPIService {
 		return result; 
 	}
 	
-	public void getInsertData(String accessToken){
+	public void getInsertData(String accessToken, HashMap<String, Object> rs){
 		
 		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:20D8B747-5939-46B9-8E79-5D2F9247A0BE/rows";
 		
@@ -68,9 +69,12 @@ public class RestAPIService {
 		
 	    // Body set
 	    MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
-
+	    
 	    Map<String, String> val = new HashMap<>();
-	    val.put("bu_id", "534003343");
+	    
+	    System.err.println(rs + ">>>>>>>>>>> rs");
+	    	
+	    val.put("bu_id", "11");
 	    val.put("journey_id", "7a8b3e7d-ee64-42b7-8021-56add0a77248");
 	    val.put("mkt_id", "skhan");
 	    val.put("campaign_code", "B_HDQT_TS_220602_01");

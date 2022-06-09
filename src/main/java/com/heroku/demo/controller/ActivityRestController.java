@@ -2,6 +2,7 @@ package com.heroku.demo.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heroku.demo.domain.AuthenticationResponse;
 import com.heroku.demo.domain.InsertRowsResponse;
 import com.heroku.demo.service.RestAPIService;
@@ -96,12 +98,10 @@ public class ActivityRestController {
 	    System.out.println("결과출력 [BODY] :" + sb.toString());
 	    System.out.println("결과출력 [BODY] 끝!!!");
 	    
-	    String bu_id = request.getParameter("bu_id");
-	    
-	    System.err.println("이걸 찍어주나?" + bu_id);
+	    HashMap<String, Object> rs = new ObjectMapper().readValue(sb.toString(), HashMap.class) ;
 		
 		//row insert 하기
-		restAPIService.getInsertData(access_token);
+		restAPIService.getInsertData(access_token, rs);
 		
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
