@@ -78,7 +78,7 @@ public class RestAPIService {
 	    JSONParser parser = new JSONParser();
 	    JSONObject sbJson = (JSONObject) parser.parse(rs);
 	    JSONObject data = (JSONObject) parser.parse(sbJson.get("inArguments").toString());
-	    JSONObject fields = (JSONObject) parser.parse(sbJson.get("fields").toString());
+	    JSONObject fields = (JSONObject) parser.parse(data.get("fields").toString());
 	    	
 	    val.put("bu_id", data.get("bu_id").toString());
 	    val.put("journey_id", data.get("journey_id").toString());
