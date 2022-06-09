@@ -72,6 +72,8 @@ public class ActivityRestController {
 		String access_token = parsedJson.get("access_token").toString();
 		
 		System.err.println("결과출력 access_token :::: " + access_token);
+		System.err.println("결과출력 request :::: " + request);
+		System.err.println("결과출력 request bu_id :::: " + request.getParameterValues("bu_id"));
 		
 		for(String paramKey: request.getParameterMap().keySet()) {
 	    	System.out.println("KEY :::: " + paramKey);
