@@ -65,7 +65,7 @@ public class RestAPIService {
 	
 	public void getInsertData(String accessToken, String rs) throws ParseException{
 		
-		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:4CB914B5-EF0C-4E51-9802-BB70B2F19F7A/rows";
+		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:99F0041D-F9E6-4668-AE6F-93F2BC05D850/rows";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -85,7 +85,8 @@ public class RestAPIService {
 	    	
 	    val.put("bu_id", data.get("bu_id").toString());
 	    val.put("journey_id", data.get("journey_id").toString());
-	    val.put("mkt_id", "dks");
+	    val.put("mkt_id", fields.get("mkt_id").toString());
+	    val.put("mkt_dept_cd", fields.get("mkt_dept_cd").toString());
 	    val.put("campaign_code", data.get("campaign_code").toString());
 	    val.put("chnl_cd", data.get("chnl_cd").toString());
 	    val.put("unif_id", fields.get("unif_id").toString());
