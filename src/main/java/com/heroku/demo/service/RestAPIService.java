@@ -83,7 +83,7 @@ public class RestAPIService {
 	    	
 	    val.put("bu_id", data.get("bu_id").toString());
 	    val.put("journey_id", data.get("journey_id").toString());
-	    val.put("mkt_id", data.get("mkt_id").toString());
+	    val.put("mkt_id", "sk..");
 	    val.put("campaign_code", data.get("campaign_code").toString());
 	    val.put("chnl_cd", data.get("chnl_cd").toString());
 	    val.put("unif_id", "22");
