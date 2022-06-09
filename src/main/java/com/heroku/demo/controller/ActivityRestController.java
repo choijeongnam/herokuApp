@@ -64,10 +64,14 @@ public class ActivityRestController {
 		//access_token 토근 가져오기
 		String result = restAPIService.getToken();
 		
+		System.err.println("결과출력 result :::: " + result);
+		
 		JSONParser parser = new JSONParser();
 		JSONObject parsedJson = (JSONObject) parser.parse(result);
 		
 		String access_token = parsedJson.get("access_token").toString();
+		
+		System.err.println("결과출력 access_token :::: " + access_token);
 		
 		//row insert 하기
 		restAPIService.getInsertData(access_token);
