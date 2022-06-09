@@ -95,10 +95,10 @@ public class ActivityRestController {
 	        }
 	    }
 	    
-	    HashMap<String, Object> rs = new ObjectMapper().readValue(sb.toString(), HashMap.class) ;
+	    //HashMap<String, Object> rs = new ObjectMapper().readValue(sb.toString(), HashMap.class) ;
 		
 		//row insert 하기
-		restAPIService.getInsertData(access_token, rs);
+		restAPIService.getInsertData(access_token, sb.toString());
 		
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
