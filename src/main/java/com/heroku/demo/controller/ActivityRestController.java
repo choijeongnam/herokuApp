@@ -73,6 +73,13 @@ public class ActivityRestController {
 		
 		System.err.println("결과출력 access_token :::: " + access_token);
 		
+		for(String paramKey: request.getParameterMap().keySet()) {
+	    	System.out.println("KEY :::: " + paramKey);
+	    	for(String val: request.getParameterMap().get(paramKey)) {
+	    		System.out.println("VALUE :::: " + val);
+	    	}
+	    }
+		
 		//row insert 하기
 		restAPIService.getInsertData(access_token);
 		

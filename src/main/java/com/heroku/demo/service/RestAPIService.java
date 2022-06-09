@@ -60,7 +60,7 @@ public class RestAPIService {
 	
 	public void getInsertData(String accessToken){
 		
-		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:4CB914B5-EF0C-4E51-9802-BB70B2F19F7A/rows";
+		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:20D8B747-5939-46B9-8E79-5D2F9247A0BE/rows";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -77,6 +77,11 @@ public class RestAPIService {
 	    val.put("chnl_cd", "EML_02");
 	    val.put("unif_id", "jeong");
 	    val.put("sfmc_id", "35105109");
+	    
+	    // contactkey		254	No	
+	 // campaigncode		50	No	
+	 // createdate	Current date		No	
+	 // channel
 	    
 	    params.add("items", val);
 
