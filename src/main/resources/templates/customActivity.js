@@ -134,13 +134,13 @@ define(["postmonger"], function(Postmonger) {
 	}
 
 	function onClickedNext() {
-		if ($('#campaign').val() === null)
+/*		if ($('#campaign').val() === null)
     	{
         	alert('campaign_code를 입력해주시기 바랍니다.'); //이건 나중에 바뀔 수도 있음.. 채널로 한다던지......
     	} else {
 			activity_save();
-		}
-    	
+		}*/
+    	activity_save();
 	}
 
 	function onClickedBack() {
