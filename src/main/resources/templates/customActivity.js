@@ -158,7 +158,6 @@ define(["postmonger"], function(Postmonger) {
 		var channel = $('#channel').val();
 		fields = extractFields();
 		
-		
 		if(columnChk == true){
 			if (channel == "") {
 				alert('채널을 선택해주시기 바랍니다.'); //이건 나중에 바뀔 수도 있음.. 채널로 한다던지......
