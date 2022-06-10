@@ -206,7 +206,6 @@ define(["postmonger"], function(Postmonger) {
 			, "bu_id" : id
 			, "journey_id": journey_id
 			, "sfmc_id": sfmc_id
-			, "campaign_code": campaign_code
 			, "chnl_cd": chnl_cd
 			, "fields": fields //unif_id 받아와야함
 		}];
