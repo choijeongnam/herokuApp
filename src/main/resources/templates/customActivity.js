@@ -36,7 +36,7 @@ define(["postmonger"], function(Postmonger) {
 		// JB will respond the first time 'ready' is called with 'initActivity'
 		connection.trigger("ready");
 		connection.trigger('requestInteraction');
-		connection.trigger('requestTriggerEventDefinition');
+		//connection.trigger('requestTriggerEventDefinition');
 		//get schema
 		connection.trigger('requestSchema');
 		connection.trigger("requestTokens");
@@ -54,10 +54,10 @@ define(["postmonger"], function(Postmonger) {
 
 		console.log(payload_id); // 액티비티 아이디인가?
 				
-		if(eventDefinitionKey==""){
+		/*	if(eventDefinitionKey==""){
 			alert('DE를 선택 해주시기 바랍니다.');
     		connection.trigger('destroy');
-		}
+		}*/
 
 		/*        if ( payload_id === null)
 				{
