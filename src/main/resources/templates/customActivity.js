@@ -6,9 +6,10 @@ define(["postmonger"], function(Postmonger) {
 	var payload = {};
 	var schema = {};
 	var eventDefinitionKey = "";
-	var lastChecked = false;
+	var columnChk = false;
 	var fuelapiRestHost;
 	var fuel2token;
+	var fields;
 	$(window).ready(onRender);
 
 	connection.on("initActivity", initialize);
@@ -155,17 +156,24 @@ define(["postmonger"], function(Postmonger) {
 	function onClickedNext() {
 		var isFalse = true;
 		var channel = $('#channel').val();
+		fields = extractFields();
 		
-		if (channel == "") {
-			alert('채널을 선택해주시기 바랍니다.'); //이건 나중에 바뀔 수도 있음.. 채널로 한다던지......
-			isFalse = false;
+		
+		if(columnChk == true){
+			if (channel == "") {
+				alert('채널을 선택해주시기 바랍니다.'); //이건 나중에 바뀔 수도 있음.. 채널로 한다던지......
+				isFalse = false;
+			}
+	
+			if (isFalse) {
+				activity_save();
+			} else {
+				connection.trigger('ready');
+			}
+		} else {
+			alert('DE의 필수컬럼을 확인해주세요 \n 필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
 		}
 
-		if (isFalse) {
-			activity_save();
-		} else {
-			connection.trigger('ready');
-		}
 	}
 
 	function onClickedBack() {
@@ -179,20 +187,27 @@ define(["postmonger"], function(Postmonger) {
 
 	function extractFields() {
 		var formArg = {};
+		var reqArr = ["mkt_id", "mkt_dept_cd", "campaign_code", "unif_id"];
+		var chkArr = [];
 		console.log('*** Schema parsing ***', JSON.stringify(schema));
 		if (schema !== 'undefined' && schema.length > 0) {
 			// the array is defined and has at least one element
 			for (var i in schema) {
 				var field = schema[i];
+					chkArr.push(schema[i].name);
 				var index = field.key.lastIndexOf('.');
 				var name = field.key.substring(index + 1);
 				// save only event data source fields
 				if (field.key.indexOf("DEAudience") !== -1)
 					formArg[name] = "{{" + field.key + "}}";
 			}
+			reqArr.filter(x => !chkArr.includes(x));
+			if(reqArr.length == 0){
+				columnChk = true;
+			}
 		}
 		return formArg;
-	}
+	}	
 
 	function activity_save() {
 		// 'payload' is initialized on 'initActivity' above.
@@ -215,8 +230,6 @@ define(["postmonger"], function(Postmonger) {
 		//var mkt_dept_cd = 'dk'; //마케터 조직코드 나중에 삭제함
 		
 		//액티비티 명을 저장하거나 채널코드로 사용하려면 payload['name'] 받아오든지..
-
-		var fields = extractFields();
 
 		payload["arguments"] = payload["arguments"] || {};
 
