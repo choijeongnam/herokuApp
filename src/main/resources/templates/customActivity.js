@@ -6,6 +6,7 @@ define(["postmonger"], function(Postmonger) {
 	var payload = {};
 	var schema = {};
 	var eventDefinitionKey = "";
+	var lastChecked = false;
 	var fuelapiRestHost;
 	var fuel2token;
 	$(window).ready(onRender);
@@ -133,7 +134,13 @@ define(["postmonger"], function(Postmonger) {
 	}
 
 	function onClickedNext() {
-		save();
+		if (campaign_code === null)
+    	{
+        	alert('campaign_code를 입력해주시기 바랍니다.'); //이건 나중에 바뀔 수도 있음.. 채널로 한다던지......
+    	} else {
+			activity_save();
+		}
+    	
 	}
 
 	function onClickedBack() {
@@ -162,11 +169,13 @@ define(["postmonger"], function(Postmonger) {
 		return formArg;
 	}
 
-	function save() {
+	function activity_save() {
 		// 'payload' is initialized on 'initActivity' above.
 		// Journey Builder sends an initial payload with defaults
 		// set by this activity's config.json file.  Any property
 		// may be overridden as desired.
+		
+		lastChecked = true;
 		
 		var id = bu_id;
 		var campaign_code = $('#campaign').val();
