@@ -155,14 +155,14 @@ define(["postmonger"], function(Postmonger) {
 		var isFalse = true;
 		var channel = $('#channel').val();
 		//alert('DE의 필수컬럼을 확인해주세요. \n필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
-
 		var reqArr = ["mkt_id", "mkt_dept_cd", "campaign_code", "unif_id"];
-		var chkArr = [];
-		for (var i in schema) {
-			chkArr.push(schema[i].name);
-		}
 		
-		reqArr.filter(x => !chkArr.includes(x));
+		for(var i in schema) {
+			var idx = reqArr.indexOf(schema[i].name);
+			if(idx > -1){
+				reqArr.splice(idx, 1);
+			}
+		}
 		
 		if(reqArr.length == 0){
 			if (channel == "") {
