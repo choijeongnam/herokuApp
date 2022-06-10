@@ -48,6 +48,7 @@ define(["postmonger"], function(Postmonger) {
 			payload = data;
 		}
 
+		var channel;
 		var payload_id = payload['id'];
 
 		console.log(payload_id); // 액티비티 아이디인가?
@@ -70,9 +71,14 @@ define(["postmonger"], function(Postmonger) {
 
 		$.each(inArguments, function(index, inArgument) {
 			$.each(inArgument, function(key, val) {
-
+				if (key === 'channel'){
+					channel = val;
+				}
 			});
 		});
+		if (payload["arguments"]) {
+			$("#channel").val(channel).prop("selected", true);
+		}
 
 	}
 
