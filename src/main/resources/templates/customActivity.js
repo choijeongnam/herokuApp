@@ -19,7 +19,7 @@ define(["postmonger"], function(Postmonger) {
 	connection.on("requestedTokens", onGetTokens);
 	connection.on("requestedEndpoints", onGetEndpoints);
 	connection.on('requestedInteraction', requestedInteractionHandler);
-	connection.on('requestedTriggerEventDefinition', requestedTriggerHandler);
+	//connection.on('requestedTriggerEventDefinition', requestedTriggerHandler);
 
 	connection.on('requestedSchema', function(data) {// Data Extension 필드 확인가능
 
@@ -86,14 +86,14 @@ define(["postmonger"], function(Postmonger) {
 
 	}
 
-	function requestedTriggerHandler(settings) {
+/*	function requestedTriggerHandler(settings) {
 		try {
 			eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
 		} catch (e) {
 			console.error(e);
 		}
-	}
-
+	} 중복에러인가?
+*/
 	function requestedInteractionHandler(settings) {
 		try {
 			//settings.id
