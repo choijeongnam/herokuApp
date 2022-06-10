@@ -6,10 +6,8 @@ define(["postmonger"], function(Postmonger) {
 	var payload = {};
 	var schema = {};
 	var eventDefinitionKey = "";
-	var columnChk = false;
 	var fuelapiRestHost;
 	var fuel2token;
-	var fields;
 	$(window).ready(onRender);
 
 	connection.on("initActivity", initialize);
@@ -156,9 +154,17 @@ define(["postmonger"], function(Postmonger) {
 	function onClickedNext() {
 		var isFalse = true;
 		var channel = $('#channel').val();
-		fields = extractFields();
+		//alert('DE의 필수컬럼을 확인해주세요. \n필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
+
+		var reqArr = ["mkt_id", "mkt_dept_cd", "campaign_code", "unif_id"];
+		var chkArr = [];
+		for (var i in schema) {
+			chkArr.push(schema[i].name);
+		}
 		
-		if(columnChk == true){
+		reqArr.filter(x => !chkArr.includes(x));
+		
+		if(reqArr.length == 0){
 			if (channel == "") {
 				alert('채널을 선택해주시기 바랍니다.'); //이건 나중에 바뀔 수도 있음.. 채널로 한다던지......
 				isFalse = false;
@@ -170,7 +176,7 @@ define(["postmonger"], function(Postmonger) {
 				connection.trigger('ready');
 			}
 		} else {
-			alert('DE의 필수컬럼을 확인해주세요 \n 필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
+			alert('DE의 정보를 확인해주세요. \n필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
 		}
 
 	}
@@ -186,23 +192,17 @@ define(["postmonger"], function(Postmonger) {
 
 	function extractFields() {
 		var formArg = {};
-		var reqArr = ["mkt_id", "mkt_dept_cd", "campaign_code", "unif_id"];
-		var chkArr = [];
+		
 		console.log('*** Schema parsing ***', JSON.stringify(schema));
 		if (schema !== 'undefined' && schema.length > 0) {
 			// the array is defined and has at least one element
 			for (var i in schema) {
 				var field = schema[i];
-					chkArr.push(schema[i].name);
 				var index = field.key.lastIndexOf('.');
 				var name = field.key.substring(index + 1);
 				// save only event data source fields
 				if (field.key.indexOf("DEAudience") !== -1)
 					formArg[name] = "{{" + field.key + "}}";
-			}
-			reqArr.filter(x => !chkArr.includes(x));
-			if(reqArr.length == 0){
-				columnChk = true;
 			}
 		}
 		return formArg;
@@ -216,6 +216,7 @@ define(["postmonger"], function(Postmonger) {
 		
 		lastChecked = true;
 		
+		var fields = extractFields();
 		var id = bu_id;
 		var chnl_cd = $('#channel option:selected').val();
 		
