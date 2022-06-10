@@ -71,7 +71,7 @@ define(["postmonger"], function(Postmonger) {
 
 		$.each(inArguments, function(index, inArgument) {
 			$.each(inArgument, function(key, val) {
-				if (key === 'channel'){
+				if (key === 'chnl_cd'){
 					channel = val;
 					console.log("channel" + channel);
 				}
