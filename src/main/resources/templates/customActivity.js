@@ -214,8 +214,6 @@ define(["postmonger"], function(Postmonger) {
 		// set by this activity's config.json file.  Any property
 		// may be overridden as desired.
 		
-		lastChecked = true;
-		
 		var fields = extractFields();
 		var id = bu_id;
 		var chnl_cd = $('#channel option:selected').val();
