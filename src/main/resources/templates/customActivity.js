@@ -53,17 +53,6 @@ define(["postmonger"], function(Postmonger) {
 
 		console.log(payload_id); // 액티비티 아이디인가?
 				
-		/*	if(eventDefinitionKey==""){
-			alert('DE를 선택 해주시기 바랍니다.');
-    		connection.trigger('destroy');
-		}*/
-
-		/*        if ( payload_id === null)
-				{
-					alert('Journey를 Save해주시기 바랍니다.');
-					connection.trigger('destroy');
-				}*/
-
 		//var message;
 		var hasInArguments = Boolean(
 			payload["arguments"] &&
@@ -123,7 +112,7 @@ define(["postmonger"], function(Postmonger) {
 		var param = {
 				"fuel2token" : fuel2token
 			}
-		if(mid==""){
+		if(mid == ""){
 		$.ajax({
 			type: "POST",
 			contentType: "application/json; charset=utf-8",
@@ -155,7 +144,7 @@ define(["postmonger"], function(Postmonger) {
 		var isFalse = true;
 		var channel = $('#channel').val();
 		//alert('DE의 필수컬럼을 확인해주세요. \n필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
-		var reqArr = ["mkt_id", "mkt_dept_cd", "campaign_code", "unif_id"];
+/*		var reqArr = ["mkt_id", "mkt_dept_cd", "campaign_code", "unif_id"];
 		
 		for(var i in schema) {
 			var idx = reqArr.indexOf(schema[i].name);
@@ -165,21 +154,23 @@ define(["postmonger"], function(Postmonger) {
 		}
 		
 		if(reqArr.length == 0){
-			if (channel == "") {
-				alert('채널을 선택해주시기 바랍니다.'); //이건 나중에 바뀔 수도 있음.. 채널로 한다던지......
-				isFalse = false;
 			}
-	
-			if (isFalse) {
-				activity_save();
-			} else {
-				connection.trigger('ready');
-			}
-		} else {
+			else {
 			alert('DE의 정보를 확인해주세요. \n필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
 		}
+		*/
+	
+		if (channel == "") {
+			alert('채널을 선택해주시기 바랍니다.'); //이건 나중에 바뀔 수도 있음.. 채널로 한다던지......
+			isFalse = false;
+		}
 
-	}
+		if (isFalse) {
+			activity_save();
+		} else {
+			connection.trigger('ready');
+		}
+	} 
 
 	function onClickedBack() {
 		connection.trigger("prevStep");
