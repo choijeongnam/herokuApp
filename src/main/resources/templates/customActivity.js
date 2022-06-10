@@ -49,6 +49,7 @@ define(["postmonger"], function(Postmonger) {
 		}
 
 		var channel;
+		var mid;
 		var payload_id = payload['id'];
 
 		console.log(payload_id); // 액티비티 아이디인가?
@@ -73,13 +74,14 @@ define(["postmonger"], function(Postmonger) {
 			$.each(inArgument, function(key, val) {
 				if (key === 'chnl_cd'){
 					channel = val;
-					console.log("channel" + channel);
-				}
+				} else if (key === 'bu_id'){
+					mid = val;
+				} 
 			});
 		});
 		if (payload["arguments"]) {
 			$("#channel").val(channel).prop("selected", true);
-			console.log("이것도 타는거지 뭐지 맞지" + channel);
+			$("#mid").val(mid);
 		}
 
 	}
@@ -112,9 +114,11 @@ define(["postmonger"], function(Postmonger) {
 		console.log(tokens);
 		fuel2token = tokens.fuel2token;
 		console.log(fuel2token);
+		var mid = $("#mid");
 		var param = {
 				"fuel2token" : fuel2token
 			}
+		if(mid==""){
 		$.ajax({
 			type: "POST",
 			contentType: "application/json; charset=utf-8",
@@ -126,6 +130,7 @@ define(["postmonger"], function(Postmonger) {
 				$("#mid").val(bu_id);
 			}
 		})
+		}
 
 	}
 
