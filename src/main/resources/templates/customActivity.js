@@ -98,10 +98,12 @@ define(["postmonger"], function(Postmonger) {
 		try {
 			//settings.id
 			eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
+			if(eventDefinitionKey==""){
+				alert('DE를 선택 해주시기 바랍니다.');
+        		connection.trigger('destroy');
+			}
 		} catch (e) {
 			console.error(e);
-			alert('DE를 선택 해주시기 바랍니다.');
-        	connection.trigger('destroy');
 		}
 		settings_id = settings.id; //journey id
 		settings_name = settings.name; //journey name
