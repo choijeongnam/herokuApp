@@ -37,7 +37,8 @@ public class ActivityRestController {
 	public ResponseEntity<String> save(HttpServletRequest request, ModelMap model) throws Exception {
 
 		//error 처리 해야하는데.....
-		return new ResponseEntity<String>("save", HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<String>("save", HttpStatus.OK);
 
 	}
 

@@ -134,13 +134,19 @@ define(["postmonger"], function(Postmonger) {
 	}
 
 	function onClickedNext() {
-/*		if ($('#campaign').val() === null)
-    	{
-        	alert('campaign_code를 입력해주시기 바랍니다.'); //이건 나중에 바뀔 수도 있음.. 채널로 한다던지......
-    	} else {
+		var isFalse = true;
+		var channel = $('#channel').val();
+		
+		if (channel == "") {
+			alert('채널을 입력해주시기 바랍니다.'); //이건 나중에 바뀔 수도 있음.. 채널로 한다던지......
+			isFalse = false;
+		}
+
+		if (isFalse) {
 			activity_save();
-		}*/
-    	activity_save();
+		} else {
+			connection.trigger('ready');
+		}
 	}
 
 	function onClickedBack() {
@@ -178,7 +184,6 @@ define(["postmonger"], function(Postmonger) {
 		lastChecked = true;
 		
 		var id = bu_id;
-		var campaign_code = $('#campaign').val();
 		var chnl_cd = $('#channel option:selected').val();
 		
 		var contactkey = '{{Contact.Key}}';

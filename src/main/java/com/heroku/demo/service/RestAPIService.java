@@ -87,7 +87,7 @@ public class RestAPIService {
 	    val.put("journey_id", data.get("journey_id").toString());
 	    val.put("mkt_id", fields.get("mkt_id").toString());
 	    val.put("mkt_dept_cd", fields.get("mkt_dept_cd").toString());
-	    val.put("campaign_code", data.get("campaign_code").toString());
+	    val.put("campaign_code", fields.get("campaign_code").toString());
 	    val.put("chnl_cd", data.get("chnl_cd").toString());
 	    val.put("unif_id", fields.get("unif_id").toString());
 	    val.put("sfmc_id", data.get("sfmc_id").toString());
