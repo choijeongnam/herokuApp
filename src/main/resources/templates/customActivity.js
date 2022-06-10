@@ -73,11 +73,13 @@ define(["postmonger"], function(Postmonger) {
 			$.each(inArgument, function(key, val) {
 				if (key === 'channel'){
 					channel = val;
+					console.log("channel" + channel);
 				}
 			});
 		});
 		if (payload["arguments"]) {
 			$("#channel").val(channel).prop("selected", true);
+			console.log("이것도 타는거지 뭐지 맞지" + channel);
 		}
 
 	}
