@@ -53,6 +53,11 @@ define(["postmonger"], function(Postmonger) {
 		var payload_id = payload['id'];
 
 		console.log(payload_id); // 액티비티 아이디인가?
+				
+		if(eventDefinitionKey==""){
+			alert('DE를 선택 해주시기 바랍니다.');
+    		connection.trigger('destroy');
+		}
 
 		/*        if ( payload_id === null)
 				{
@@ -100,11 +105,6 @@ define(["postmonger"], function(Postmonger) {
 			eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
 		} catch (e) {
 			console.error(e);
-		}
-		
-		if(eventDefinitionKey==""){
-			alert('DE를 선택 해주시기 바랍니다.');
-    		connection.trigger('destroy');
 		}
 		
 		settings_id = settings.id; //journey id
