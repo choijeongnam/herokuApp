@@ -114,7 +114,7 @@ define(["postmonger"], function(Postmonger) {
 		console.log(tokens);
 		fuel2token = tokens.fuel2token;
 		console.log(fuel2token);
-		var mid = $("#mid");
+		var mid = $("#mid").val();
 		var param = {
 				"fuel2token" : fuel2token
 			}
