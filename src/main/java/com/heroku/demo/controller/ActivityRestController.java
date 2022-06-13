@@ -35,8 +35,6 @@ public class ActivityRestController {
 
 	@RequestMapping(value = "/activity/save", method = { RequestMethod.GET, RequestMethod.POST })
 	public ResponseEntity<String> save(HttpServletRequest request, ModelMap model) throws Exception {
-
-		//error 처리 해야하는데.....
 		
 		return new ResponseEntity<String>("save", HttpStatus.OK);
 
@@ -67,6 +65,9 @@ public class ActivityRestController {
 	@RequestMapping(value="/activity/execute", method = { RequestMethod.GET, RequestMethod.POST }, produces="application/json;")
 	public ResponseEntity<String> execute(HttpServletRequest request, ModelMap model) throws Exception {
 		
+		 //entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		 //entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		
 		//access_token 토근 가져오기
 		String result = restAPIService.getToken();
 		JSONParser parser = new JSONParser();
@@ -78,7 +79,7 @@ public class ActivityRestController {
 	    BufferedReader bufferedReader = null;
 
 	    try {
-	        bufferedReader =  request.getReader() ;
+	        bufferedReader =  request.getReader();
 	        char[] charBuffer = new char[128];
 	        int bytesRead;
 	        while ( (bytesRead = bufferedReader.read(charBuffer)) != -1 ) {
@@ -97,10 +98,10 @@ public class ActivityRestController {
 	        }
 	    }
 	    
-	    //HashMap<String, Object> rs = new ObjectMapper().readValue(sb.toString(), HashMap.class) ;
-		
 		//row insert 하기
-		restAPIService.getInsertData(access_token, sb.toString());
+	    if(access_token != null && sb.toString() != null) {
+	    	restAPIService.getInsertData(access_token, sb.toString());
+	    }
 		
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}

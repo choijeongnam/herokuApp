@@ -24,7 +24,7 @@ import org.springframework.web.client.RestTemplate;
 public class RestAPIService {
 	
 	public String getMid(String fuel2token){
-		//dk String token_url = "https://mcfg0klxd9y05gglhh34vvrzg1gm.rest.marketingcloudapis.com/platform/v1/tokenContext";
+		
 		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/platform/v1/tokenContext";
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -41,7 +41,9 @@ public class RestAPIService {
 	}
 	
 	public String getToken(){
-
+		//Access Token for Server-to-Server Integrations
+		//https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/access-token-s2s.html
+		
 		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
 
 		HttpHeaders httpHeaders = new HttpHeaders();
@@ -85,19 +87,20 @@ public class RestAPIService {
 	    	
 	    val.put("bu_id", data.get("bu_id").toString());
 	    val.put("journey_id", data.get("journey_id").toString());
+	    val.put("chnl_cd", data.get("chnl_cd").toString());
+	    val.put("sfmc_id", data.get("sfmc_id").toString());
+	    
+	    val.put("unif_id", fields.get("unif_id").toString());
 	    val.put("mkt_id", fields.get("mkt_id").toString());
 	    val.put("mkt_dept_cd", fields.get("mkt_dept_cd").toString());
 	    val.put("campaign_code", fields.get("campaign_code").toString());
-	    val.put("chnl_cd", data.get("chnl_cd").toString());
-	    val.put("unif_id", fields.get("unif_id").toString());
-	    val.put("sfmc_id", data.get("sfmc_id").toString());
 	    
 	    params.add("items", val);
 
 		HttpEntity<MultiValueMap<String, Object>> requestMessage = new HttpEntity<MultiValueMap<String, Object>>(params, headers);
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity response = restTemplate.postForEntity(api_url, requestMessage, String.class);
-				//restTemplate.exchange(api_url, HttpMethod.POST, request, InsertRowsResponse.class);
+		//ResponseEntity response = 
+		restTemplate.postForEntity(api_url, requestMessage, String.class);
 		}
 	
     
