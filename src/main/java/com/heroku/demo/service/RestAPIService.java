@@ -76,26 +76,30 @@ public class RestAPIService {
 	    // Body set
 	    MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
 	    
-	    Map<String, String> val = new HashMap<>();
+	    Map<String, String> insertData = new HashMap<>();
 	    
 	    JSONParser parser = new JSONParser();
 	    JSONObject sbJson = (JSONObject) parser.parse(rs);
 	    
 	    JSONArray dataArr = (JSONArray) sbJson.get("inArguments");
 	    JSONObject data = (JSONObject) dataArr.get(0);
-	    JSONObject fields = (JSONObject) data.get("fields");
+	    //JSONObject fields = (JSONObject) data.get("fields");
 	    	
-	    val.put("bu_id", data.get("bu_id").toString());
-	    val.put("journey_id", data.get("journey_id").toString());
-	    val.put("chnl_cd", data.get("chnl_cd").toString());
-	    val.put("sfmc_id", data.get("sfmc_id").toString());
+	    insertData.put("bu_id", data.get("bu_id").toString());
+	    insertData.put("journey_id", data.get("journey_id").toString());
+	    insertData.put("chnl_cd", data.get("chnl_cd").toString());
+	    insertData.put("sfmc_id", data.get("sfmc_id").toString());
+	    insertData.put("unif_id", data.get("unif_id").toString());
+	    insertData.put("mkt_id", data.get("mkt_id").toString());
+	    insertData.put("mkt_dept_cd", data.get("mkt_dept_cd").toString());
+	    insertData.put("campaign_code", data.get("campaign_code").toString());
 	    
-	    val.put("unif_id", fields.get("unif_id").toString());
-	    val.put("mkt_id", fields.get("mkt_id").toString());
-	    val.put("mkt_dept_cd", fields.get("mkt_dept_cd").toString());
-	    val.put("campaign_code", fields.get("campaign_code").toString());
+//	    insertData.put("unif_id", fields.get("unif_id").toString());
+//	    insertData.put("mkt_id", fields.get("mkt_id").toString());
+//	    insertData.put("mkt_dept_cd", fields.get("mkt_dept_cd").toString());
+//	    insertData.put("campaign_code", fields.get("campaign_code").toString());
 	    
-	    params.add("items", val);
+	    params.add("items", insertData);
 
 		HttpEntity<MultiValueMap<String, Object>> requestMessage = new HttpEntity<MultiValueMap<String, Object>>(params, headers);
 		RestTemplate restTemplate = new RestTemplate();

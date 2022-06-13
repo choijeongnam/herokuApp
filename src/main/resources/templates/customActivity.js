@@ -79,14 +79,6 @@ define(["postmonger"], function(Postmonger) {
 
 	}
 
-/*	function requestedTriggerHandler(settings) {
-		try {
-			eventDefinitionKey = settings.triggers[0].metaData.eventDefinitionKey;
-		} catch (e) {
-			console.error(e);
-		}
-	} 중복에러인가?
-*/
 	function requestedInteractionHandler(settings) {
 		try {
 			//settings.id
@@ -101,11 +93,7 @@ define(["postmonger"], function(Postmonger) {
 	}
 
 	function onGetTokens(tokens) {
-		/*expires: 1654221356204
-		fuel2token: "2ESnPdBd9kRKJriB77eyXgt8"
-		stackKey: "S12"
-		token: "0ZWWqq4Pi4JN5M6qBhwSAMLAkpvHwCrBB2SfO3K6Ep9W69aS4SPlWYh5PBIw3lEDFliZU6duRptOqCx6EbuFPrtZ2OEsL8BAkzni3syL48a4oeOsL06MGSSOYa8ZApDly4BXGpGNRi7CVuJCWSDwFF8GrFaFVgjeq9EgCM6F1eBmj9EmaAA8ihDtbsdDIRtl-hzOrvhtg9RV6Xo5n3WbaxBCc8INqDrEHe4aO5R9X1-88l7x4Gj3wHM51uPKBR0Mcrl4a8oZSXLKcnZhSYJWEtg"*/
-		console.log(tokens);
+
 		fuel2token = tokens.fuel2token;
 		console.log(fuel2token);
 		var mid = $("#mid").val();
@@ -120,7 +108,7 @@ define(["postmonger"], function(Postmonger) {
 			data: JSON.stringify(param),
 			success: function(data) {
 				bu_id = data.organization.id;
-				console.log("bu_id : " + data.organization.id);
+				console.log("mid : " + data.organization.id);
 				$("#mid").val(bu_id);
 			}
 		})
@@ -129,22 +117,16 @@ define(["postmonger"], function(Postmonger) {
 	}
 
 	function onGetEndpoints(endpoints) {
-		/*fuelapiRestHost: "https://www-mc-s12.marketingcloudapis.com/"
-		restHost: "rest.s12.exacttarget.com"
-		ssoUrl: "https://mc.s12.exacttarget.com/cloud/tools/SSO.aspx?env=default&legacy=1&sk=S12"
-		stackHost: "mc.s12.exacttarget.com"
-		stackKey: "S12"*/
 
 		console.log(endpoints);
 		fuelapiRestHost = endpoints.fuelapiRestHost;
-		console.log(fuelapiRestHost);
+		console.log("endpoints : " + fuelapiRestHost);
 	}
 
 	function onClickedNext() {
-		var isFalse = true;
 		var channel = $('#channel').val();
-		//alert('DE의 필수컬럼을 확인해주세요. \n필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
-/*		var reqArr = ["mkt_id", "mkt_dept_cd", "campaign_code", "unif_id"];
+		
+		var reqArr = ["mkt_id", "mkt_dept_cd", "campaign_code", "unif_id"];
 		
 		for(var i in schema) {
 			var idx = reqArr.indexOf(schema[i].name);
@@ -152,23 +134,17 @@ define(["postmonger"], function(Postmonger) {
 				reqArr.splice(idx, 1);
 			}
 		}
-		
-		if(reqArr.length == 0){
-			}
-			else {
-			alert('DE의 정보를 확인해주세요. \n필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
-		}
-		*/
 	
 		if (channel == "") {
-			alert('채널을 선택해주시기 바랍니다.'); //이건 나중에 바뀔 수도 있음.. 채널로 한다던지......
+			alert('채널을 선택해주시기 바랍니다.');
 			isFalse = false;
-		}
-
-		if (isFalse) {
-			activity_save();
 		} else {
-			connection.trigger('ready');
+			if(reqArr.length == 0){
+				activity_save();
+			} else {
+				alert('DE의 정보를 확인해주세요. \n필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
+				connection.trigger('ready');
+			}
 		}
 	} 
 
@@ -181,6 +157,7 @@ define(["postmonger"], function(Postmonger) {
 		connection.trigger("ready");
 	}
 
+	//전체 컬럼 받아올때 써야지..
 	function extractFields() {
 		var formArg = {};
 		
@@ -205,7 +182,7 @@ define(["postmonger"], function(Postmonger) {
 		// set by this activity's config.json file.  Any property
 		// may be overridden as desired.
 		
-		var fields = extractFields();
+		//var fields = extractFields();
 		var id = bu_id;
 		var chnl_cd = $('#channel option:selected').val();
 		
@@ -213,6 +190,13 @@ define(["postmonger"], function(Postmonger) {
 		var sfmc_id = '{{Contact.ID}}'; //sfmc id임 {{Contact.Attribute."Contact"."Contact ID"}} 이거와 동일
 		
 		var journey_id = settings_id; //저니ID
+		
+		//위에 필드 빼고 추가할지 고민..
+		var unif_id = '{{Event.'+eventDefinitionKey+'.unif_id}}'; 
+        var mkt_id = '{{Event.'+eventDefinitionKey+'.mkt_id}}';
+        var mkt_dept_cd = '{{Event.'+eventDefinitionKey+'.mkt_dept_cd}}';
+        var campaign_code = '{{Event.'+eventDefinitionKey+'.campaign_code}}';
+		
 		//var journey_name = settings_name; //저니네임
 		
 		//var mkt_id = 'sookyeong'; //마케터 id 나중에 삭제함
@@ -228,7 +212,11 @@ define(["postmonger"], function(Postmonger) {
 			, "journey_id": journey_id
 			, "sfmc_id": sfmc_id
 			, "chnl_cd": chnl_cd
-			, "fields": fields //unif_id 받아와야함
+			//, "fields": fields //unif_id 받아와야함
+			, "unif_id" : unif_id
+			, "mkt_id" : mkt_id
+			, "mkt_dept_cd" : mkt_dept_cd
+			, "campaign_code" : campaign_code
 		}];
 
 		payload["metaData"].isConfigured = true;
