@@ -124,6 +124,7 @@ define(["postmonger"], function(Postmonger) {
 	}
 
 	function onClickedNext() {
+		var mid = $('#mid').val();
 		var channel = $('#channel').val();
 		
 		var reqArr = ["mkt_id", "mkt_dept_cd", "campaign_code", "unif_id"];
@@ -137,7 +138,11 @@ define(["postmonger"], function(Postmonger) {
 	
 		if (channel == "") {
 			alert('채널을 선택해주시기 바랍니다.');
-		} else {
+			connection.trigger('ready');
+		} else if (mid == "") {
+			alert('mid 정보를 불러오기 실패하였습니다. \n액티비티 화면을 닫았다가 다시 열어주세요');
+			connection.trigger('ready');
+		} else{
 			if(reqArr.length == 0){
 				activity_save();
 			} else {
