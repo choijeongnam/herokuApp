@@ -141,7 +141,7 @@ define(["postmonger"], function(Postmonger) {
 			if(reqArr.length == 0){
 				activity_save();
 			} else {
-				alert('DE의 정보를 확인해주세요. \n필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
+				alert('DE에 필수 컬럼이 없습니다. \n필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id이 포함된 DE를 선택해주세요');
 				connection.trigger('ready');
 			}
 		}
