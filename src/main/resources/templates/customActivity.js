@@ -137,7 +137,6 @@ define(["postmonger"], function(Postmonger) {
 	
 		if (channel == "") {
 			alert('채널을 선택해주시기 바랍니다.');
-			isFalse = false;
 		} else {
 			if(reqArr.length == 0){
 				activity_save();
