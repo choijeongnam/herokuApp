@@ -140,13 +140,13 @@ define(["postmonger"], function(Postmonger) {
 			alert('채널을 선택해주시기 바랍니다.');
 			connection.trigger('ready');
 		} else if (mid == "") {
-			alert('mid 정보를 불러오기 실패하였습니다. \n액티비티 화면을 닫았다가 다시 열어주세요');
+			alert('유효한 MID 값을 가져 오는데 실패 하였습니다.\n 액티비티 화면을 닫고 다시 열어주세요.');
 			connection.trigger('ready');
 		} else{
 			if(reqArr.length == 0){
 				activity_save();
 			} else {
-				alert('DE에 필수 컬럼이 없습니다. \n필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id이 포함된 DE를 선택해주세요');
+				alert('DATA EXTENSION에 필수 컬럼이 없습니다. \n필수컬럼이 포함된 DE를 선택해주세요. \n* 필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
 				connection.trigger('ready');
 			}
 		}
