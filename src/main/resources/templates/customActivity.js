@@ -182,7 +182,7 @@ define(["postmonger"], function(Postmonger) {
 		// set by this activity's config.json file.  Any property
 		// may be overridden as desired.
 		
-		//var fields = extractFields();
+		var fields = extractFields();
 		var id = bu_id;
 		var chnl_cd = $('#channel option:selected').val();
 		
@@ -196,6 +196,11 @@ define(["postmonger"], function(Postmonger) {
         var mkt_id = '{{Event.'+eventDefinitionKey+'.mkt_id}}';
         var mkt_dept_cd = '{{Event.'+eventDefinitionKey+'.mkt_dept_cd}}';
         var campaign_code = '{{Event.'+eventDefinitionKey+'.campaign_code}}';
+        
+   /*     		, "unif_id" : unif_id
+			, "mkt_id" : mkt_id
+			, "mkt_dept_cd" : mkt_dept_cd
+			, "campaign_code" : campaign_code*/
 		
 		//var journey_name = settings_name; //저니네임
 		
@@ -212,11 +217,8 @@ define(["postmonger"], function(Postmonger) {
 			, "journey_id": journey_id
 			, "sfmc_id": sfmc_id
 			, "chnl_cd": chnl_cd
-			//, "fields": fields //unif_id 받아와야함
-			, "unif_id" : unif_id
-			, "mkt_id" : mkt_id
-			, "mkt_dept_cd" : mkt_dept_cd
-			, "campaign_code" : campaign_code
+			, "fields": fields //unif_id 받아와야함
+	
 		}];
 
 		payload["metaData"].isConfigured = true;
