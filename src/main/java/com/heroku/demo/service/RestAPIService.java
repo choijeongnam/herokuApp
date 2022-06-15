@@ -101,19 +101,21 @@ public class RestAPIService {
 	    insertData.put("journey_id", data.get("journey_id").toString());
 	    insertData.put("chnl_cd", data.get("chnl_cd").toString());
 	    insertData.put("sfmc_id", data.get("sfmc_id").toString());
+	    
 	    System.err.println(sbJson.get("inArguments").toString() + "찍어보자 0");
-	    System.err.println(data.toString() + "찍어보자 1");
+	    System.err.println(data.containsKey("previousActivityKey")+ "찍어보자 1");
 	    System.err.println(data.get("previousActivityKey").toString() + "찍어보자 2");
-	    if(data.get("previousActivityKey").toString() != "" && data.get("previousActivityKey").toString() != null) {
-	    	 insertData.put("previousActivityKey", data.get("previousActivityKey").toString());
-	    } else {
-	    	insertData.put("previousActivityKey", "");
+	    
+	    if(data.containsKey("previousActivityKey") == true) {
+	    	if(data.get("previousActivityKey").toString() != "" && data.get("previousActivityKey").toString() != null) {
+		    	insertData.put("previousActivityKey", data.get("previousActivityKey").toString());
+	    	}
 	    }
 	    
-	    if(data.get("previousActivityType").toString() != "" && data.get("previousActivityType").toString() != null) {
-	    	  insertData.put("previousActivityType", data.get("previousActivityType").toString());
-	    } else {
-	    	insertData.put("previousActivityType", "");
+	    if(data.containsKey("previousActivityType") == true) {
+	    	if(data.get("previousActivityType").toString() != "" && data.get("previousActivityType").toString() != null) {
+		    	insertData.put("previousActivityType", data.get("previousActivityType").toString());
+	    	}
 	    }
 	    
 	    insertData.put("unif_id", fields.get("unif_id").toString());

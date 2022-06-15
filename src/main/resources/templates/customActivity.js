@@ -103,7 +103,6 @@ define(["postmonger"], function(Postmonger) {
 		console.log("previousActivityKey" + previousActivityKey);
 		console.log("previousActivityType" + previousActivityType);
 		
-		settings_pre_activityKey = previousActivityKey;
 		//settings_pre_activityType
 		//version = settings.version;
 	}
