@@ -30,7 +30,7 @@ define(["postmonger"], function(Postmonger) {
 			schema = data['schema'];
 		}
 
-		console.log('*** Schema ***', JSON.stringify(schema));
+//		console.log('*** Schema ***', JSON.stringify(schema));
 	});
 
 	function onRender() {
@@ -87,6 +87,9 @@ define(["postmonger"], function(Postmonger) {
 			console.error(e);
 		}
 		
+		settings_id = settings.id; //journey id
+		settings_name = settings.name; //journey name
+/*		
 		var i = 0;
 		for(i ; i < settings.activities.length ; i++){
 			if(settings.activities[i].key == activityKey){
@@ -94,11 +97,9 @@ define(["postmonger"], function(Postmonger) {
 				 break;
 			}
 		}
-			console.log(previousActivityKey);
+		console.log("previousActivityKey" + previousActivityKey);
 		
-		settings_id = settings.id; //journey id
-		settings_name = settings.name; //journey name
-		settings_pre_activityKey = previousActivityKey;
+		settings_pre_activityKey = previousActivityKey;*/
 		//settings_pre_activityType
 		//version = settings.version;
 	}
@@ -106,7 +107,7 @@ define(["postmonger"], function(Postmonger) {
 	function onGetTokens(tokens) {
 
 		fuel2token = tokens.fuel2token;
-		console.log(fuel2token);
+//		console.log(fuel2token);
 		var mid = $("#mid").val();
 		var param = {
 				"fuel2token" : fuel2token
@@ -119,7 +120,7 @@ define(["postmonger"], function(Postmonger) {
 			data: JSON.stringify(param),
 			success: function(data) {
 				bu_id = data.organization.id;
-				console.log("mid : " + data.organization.id);
+//				console.log("mid : " + data.organization.id);
 				$("#mid").val(bu_id);
 			}
 		})
@@ -129,9 +130,9 @@ define(["postmonger"], function(Postmonger) {
 
 	function onGetEndpoints(endpoints) {
 
-		console.log(endpoints);
+//		console.log(endpoints);
 		fuelapiRestHost = endpoints.fuelapiRestHost;
-		console.log("endpoints : " + fuelapiRestHost);
+//		console.log("endpoints : " + fuelapiRestHost);
 	}
 
 	function onClickedNext() {
@@ -176,7 +177,7 @@ define(["postmonger"], function(Postmonger) {
 	function extractFields() {
 		var formArg = {};
 		
-		console.log('*** Schema parsing ***', JSON.stringify(schema));
+//		console.log('*** Schema parsing ***', JSON.stringify(schema));
 		if (schema !== 'undefined' && schema.length > 0) {
 			// the array is defined and has at least one element
 			for (var i in schema) {
