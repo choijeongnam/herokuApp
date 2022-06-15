@@ -234,10 +234,9 @@ define(["postmonger"], function(Postmonger) {
 			, "journey_id": journey_id
 			, "sfmc_id": sfmc_id
 			, "chnl_cd": chnl_cd
-			, "fields": fields //unif_id 받아와야함
 			, "previousActivityKey" : pre_activityKey
 			, "previousActivityType" : pre_activityType
-	
+			, "fields": fields
 		}];
 
 		payload["metaData"].isConfigured = true;
