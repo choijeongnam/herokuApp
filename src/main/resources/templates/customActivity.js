@@ -93,7 +93,7 @@ define(["postmonger"], function(Postmonger) {
 		
 		for(var i = 0; i < settings.activities.length ; i++){
 			if(settings.activities[i].key == activityKey){
-				if(settings.activities[i-1].key != null){
+				if(settings.activities[i-1].key != ""){
 					previousActivityKey = settings.activities[i-1].key;
 					previousActivityType = settings.activities[i-1].type;
 				}
