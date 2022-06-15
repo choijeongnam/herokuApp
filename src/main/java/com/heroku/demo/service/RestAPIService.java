@@ -104,9 +104,14 @@ public class RestAPIService {
 	    
 	    if(data.get("previousActivityKey").toString() != "" && data.get("previousActivityKey").toString() != null) {
 	    	 insertData.put("previousActivityKey", data.get("previousActivityKey").toString());
+	    } else {
+	    	insertData.put("previousActivityKey", "");
 	    }
+	    
 	    if(data.get("previousActivityType").toString() != "" && data.get("previousActivityType").toString() != null) {
 	    	  insertData.put("previousActivityType", data.get("previousActivityType").toString());
+	    } else {
+	    	insertData.put("previousActivityType", "");
 	    }
 	    
 	    insertData.put("unif_id", fields.get("unif_id").toString());
