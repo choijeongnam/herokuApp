@@ -89,6 +89,8 @@ public class RestAPIService {
 	    insertData.put("journey_id", data.get("journey_id").toString());
 	    insertData.put("chnl_cd", data.get("chnl_cd").toString());
 	    insertData.put("sfmc_id", data.get("sfmc_id").toString());
+	    insertData.put("previousActivityKey", data.get("previousActivityKey").toString());
+	    insertData.put("previousActivityType", data.get("previousActivityType").toString());
 
 //	    insertData.put("unif_id", data.get("unif_id").toString());
 //	    insertData.put("mkt_id", data.get("mkt_id").toString());

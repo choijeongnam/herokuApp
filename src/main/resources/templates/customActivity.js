@@ -212,6 +212,11 @@ define(["postmonger"], function(Postmonger) {
 		var sfmc_id = '{{Contact.ID}}'; //sfmc id임 {{Contact.Attribute."Contact"."Contact ID"}} 이거와 동일
 		
 		var journey_id = settings_id; //저니ID
+		var pre_activityKey = "";
+		var pre_activityType = "";
+		
+		pre_activityKey = previousActivityKey;
+		pre_activityType = previousActivityType;
 		
 		//위에 필드 빼고 추가할지 고민..
 /*		var unif_id = '{{Event.'+eventDefinitionKey+'.unif_id}}'; 
@@ -235,6 +240,8 @@ define(["postmonger"], function(Postmonger) {
 			, "sfmc_id": sfmc_id
 			, "chnl_cd": chnl_cd
 			, "fields": fields //unif_id 받아와야함
+			, "previousActivityKey" : pre_activityKey
+			, "previousActivityType" : pre_activityType
 	
 		}];
 
