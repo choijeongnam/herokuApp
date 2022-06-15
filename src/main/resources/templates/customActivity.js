@@ -9,7 +9,8 @@ define(["postmonger"], function(Postmonger) {
 	var fuelapiRestHost;
 	var fuel2token;
 	var activityKey;
-	var previousActivityKey;
+	var previousActivityKey = "";
+	var previousActivityType = "";
 	$(window).ready(onRender);
 
 	connection.on("initActivity", initialize);
@@ -89,17 +90,20 @@ define(["postmonger"], function(Postmonger) {
 		
 		settings_id = settings.id; //journey id
 		settings_name = settings.name; //journey name
-/*		
-		var i = 0;
-		for(i ; i < settings.activities.length ; i++){
+		
+		for(var i = 0; i < settings.activities.length ; i++){
 			if(settings.activities[i].key == activityKey){
-				 previousActivityKey = settings.activities[i-1].key;
-				 break;
+				if(settings.activities[i-1].key != null){
+					previousActivityKey = settings.activities[i-1].key;
+					previousActivityType = settings.activities[i-1].type;
+				}
+				break;
 			}
 		}
 		console.log("previousActivityKey" + previousActivityKey);
+		console.log("previousActivityType" + previousActivityType);
 		
-		settings_pre_activityKey = previousActivityKey;*/
+		settings_pre_activityKey = previousActivityKey;
 		//settings_pre_activityType
 		//version = settings.version;
 	}
@@ -208,16 +212,11 @@ define(["postmonger"], function(Postmonger) {
 		var journey_id = settings_id; //저니ID
 		
 		//위에 필드 빼고 추가할지 고민..
-		var unif_id = '{{Event.'+eventDefinitionKey+'.unif_id}}'; 
+/*		var unif_id = '{{Event.'+eventDefinitionKey+'.unif_id}}'; 
         var mkt_id = '{{Event.'+eventDefinitionKey+'.mkt_id}}';
         var mkt_dept_cd = '{{Event.'+eventDefinitionKey+'.mkt_dept_cd}}';
-        var campaign_code = '{{Event.'+eventDefinitionKey+'.campaign_code}}';
+        var campaign_code = '{{Event.'+eventDefinitionKey+'.campaign_code}}';*/
         
-   /*     		, "unif_id" : unif_id
-			, "mkt_id" : mkt_id
-			, "mkt_dept_cd" : mkt_dept_cd
-			, "campaign_code" : campaign_code*/
-		
 		//var journey_name = settings_name; //저니네임
 		
 		//var mkt_id = 'sookyeong'; //마케터 id 나중에 삭제함
