@@ -5,6 +5,7 @@
     "category": "message"
   },
   "type": "REST",
+  "key": "DK UpdateContact",
   "lang": {
     "en-US": {
       "name": "update contact DK",

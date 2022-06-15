@@ -8,6 +8,8 @@ define(["postmonger"], function(Postmonger) {
 	var eventDefinitionKey = "";
 	var fuelapiRestHost;
 	var fuel2token;
+	var activityKey;
+	var previousActivityKey;
 	$(window).ready(onRender);
 
 	connection.on("initActivity", initialize);
@@ -45,13 +47,11 @@ define(["postmonger"], function(Postmonger) {
 	function initialize(data) {
 		if (data) {
 			payload = data;
+			activityKey = data.key;
 		}
-
+		
 		var channel;
 		var mid;
-		var payload_id = payload['id'];
-
-		console.log(payload_id); // 액티비티 아이디인가?
 				
 		//var message;
 		var hasInArguments = Boolean(
@@ -65,16 +65,16 @@ define(["postmonger"], function(Postmonger) {
 
 		$.each(inArguments, function(index, inArgument) {
 			$.each(inArgument, function(key, val) {
-				if (key === 'chnl_cd'){
-					channel = val;
-				} else if (key === 'bu_id'){
+				if (key === 'bu_id'){
 					mid = val;
+				} else if (key === 'chnl_cd'){
+					channel = val;
 				} 
 			});
 		});
 		if (payload["arguments"]) {
-			$("#channel").val(channel).prop("selected", true);
 			$("#mid").val(mid);
+			$("#channel").val(channel).prop("selected", true);
 		}
 
 	}
@@ -87,8 +87,19 @@ define(["postmonger"], function(Postmonger) {
 			console.error(e);
 		}
 		
+		var i = 0;
+		for(i ; i < settings.activities.length ; i++){
+			if(settings.activities[i].key == activityKey){
+				 previousActivityKey = settings.activities[i-1].key;
+				 break;
+			}
+		}
+			console.log(previousActivityKey);
+		
 		settings_id = settings.id; //journey id
 		settings_name = settings.name; //journey name
+		settings_pre_activityKey = previousActivityKey;
+		//settings_pre_activityType
 		//version = settings.version;
 	}
 

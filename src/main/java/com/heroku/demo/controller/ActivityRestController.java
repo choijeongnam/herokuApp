@@ -76,27 +76,18 @@ public class ActivityRestController {
 		
 		//customActivity 데이터 가져오기
 		StringBuffer sb = new StringBuffer();
-	    BufferedReader bufferedReader = null;
+		BufferedReader bufferedReader = null;
 
-	    try {
-	        bufferedReader =  request.getReader();
-	        char[] charBuffer = new char[128];
-	        int bytesRead;
-	        while ( (bytesRead = bufferedReader.read(charBuffer)) != -1 ) {
-	            sb.append(charBuffer, 0, bytesRead);
-	        }
+		bufferedReader = request.getReader();
+		char[] charBuffer = new char[128];
+		int bytesRead;
+		while ((bytesRead = bufferedReader.read(charBuffer)) != -1) {
+			sb.append(charBuffer, 0, bytesRead);
+		}
 
-	    } catch (IOException ex) {
-	        throw ex;
-	    } finally {
-	        if (bufferedReader != null) {
-	            try {
-	                bufferedReader.close();
-	            } catch (IOException ex) {
-	                throw ex;
-	            }
-	        }
-	    }
+		if (bufferedReader != null) {
+			bufferedReader.close();
+		}
 	    
 		//row insert 하기
 	    if(access_token != null && sb.toString() != null) {
@@ -118,14 +109,7 @@ public class ActivityRestController {
 //
 //	@RequestMapping(value = "/activity/execute", method = { RequestMethod.GET, RequestMethod.POST })
 //	public InsertRowsResponse execute(HttpServletRequest request) throws Exception {
-//		System.err.println("loggggg 실행전");
-//		AuthenticationResponse authenticationResponse = restAPIService.getToken();
-//		System.err.println("loggggg 실행후" + authenticationResponse);
-//		System.err.println("loggggg 실행후" + authenticationResponse.getAccess_token());
-//		InsertRowsResponse insertRowsResponse = restAPIService.getInsertData(authenticationResponse.getAccess_token());
-//		
-//		return insertRowsResponse;
-//
+
 ////		String token_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token";
 ////		URI uri = URI.create("https://mc5g0q6ffd8sglpqt05jl03zy-h4.auth.marketingcloudapis.com/v2/token");
 ////		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달

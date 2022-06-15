@@ -34,10 +34,10 @@ public class RestAPIService {
 		RestTemplate restTemplate = new RestTemplate(); // 비동기 전달
 		ResponseEntity<String> response = restTemplate.exchange(token_url, HttpMethod.GET, new HttpEntity<String>(headers), String.class);
 		
-		String result = "";
-		result = response.getBody();
+//		String result = "";
+//		result = response.getBody(); 이거 수정
 
-		return result; 
+		return response.getBody(); 
 	}
 	
 	public String getToken(){
@@ -89,6 +89,7 @@ public class RestAPIService {
 	    insertData.put("journey_id", data.get("journey_id").toString());
 	    insertData.put("chnl_cd", data.get("chnl_cd").toString());
 	    insertData.put("sfmc_id", data.get("sfmc_id").toString());
+
 //	    insertData.put("unif_id", data.get("unif_id").toString());
 //	    insertData.put("mkt_id", data.get("mkt_id").toString());
 //	    insertData.put("mkt_dept_cd", data.get("mkt_dept_cd").toString());
