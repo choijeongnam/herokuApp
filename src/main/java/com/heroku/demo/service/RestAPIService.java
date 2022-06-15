@@ -90,10 +90,10 @@ public class RestAPIService {
 	    insertData.put("chnl_cd", data.get("chnl_cd").toString());
 	    insertData.put("sfmc_id", data.get("sfmc_id").toString());
 	    
-	    if(data.get("previousActivityKey").toString() != null) {
+	    if(data.get("previousActivityKey").toString() != "") {
 	    	 insertData.put("previousActivityKey", data.get("previousActivityKey").toString());
 	    }
-	    if(data.get("previousActivityType").toString() != null) {
+	    if(data.get("previousActivityType").toString() != "") {
 	    	  insertData.put("previousActivityType", data.get("previousActivityType").toString());
 	    }
 	    
