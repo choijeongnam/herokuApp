@@ -102,10 +102,6 @@ public class RestAPIService {
 	    insertData.put("chnl_cd", data.get("chnl_cd").toString());
 	    insertData.put("sfmc_id", data.get("sfmc_id").toString());
 	    
-	    System.err.println(sbJson.get("inArguments").toString() + "찍어보자 0");
-	    System.err.println(data.containsKey("previousActivityKey")+ "찍어보자 1");
-	    System.err.println(data.get("previousActivityKey").toString() + "찍어보자 2");
-	    
 	    if(data.containsKey("previousActivityKey") == true) {
 	    	if(data.get("previousActivityKey").toString() != "" && data.get("previousActivityKey").toString() != null) {
 		    	insertData.put("previousActivityKey", data.get("previousActivityKey").toString());
