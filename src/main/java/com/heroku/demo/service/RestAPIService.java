@@ -8,6 +8,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -22,6 +23,9 @@ import org.springframework.web.client.RestTemplate;
 @Service
 @Transactional
 public class RestAPIService {
+	
+	@Autowired 
+	RestAPIService restAPIService;
 	
 	public String getMid(String fuel2token){
 		
@@ -84,8 +88,16 @@ public class RestAPIService {
 	    JSONArray dataArr = (JSONArray) sbJson.get("inArguments");
 	    JSONObject data = (JSONObject) dataArr.get(0);
 	    JSONObject fields = (JSONObject) data.get("fields");
-	    	
-	    insertData.put("bu_id", data.get("bu_id").toString());
+	    
+	    if(data.get("bu_id").toString() == null) {
+	    	String mid = restAPIService.getMid(accessToken);
+	        Object obj = parser.parse(mid);
+	        JSONObject jsonObj = (JSONObject) obj;
+	    	insertData.put("bu_id", jsonObj.get("organization").toString());
+	    } else {
+	    	insertData.put("bu_id", data.get("bu_id").toString());
+	    }
+	    
 	    insertData.put("journey_id", data.get("journey_id").toString());
 	    insertData.put("chnl_cd", data.get("chnl_cd").toString());
 	    insertData.put("sfmc_id", data.get("sfmc_id").toString());
