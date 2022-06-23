@@ -19,10 +19,14 @@ define(["postmonger"], function(Postmonger) {
 	connection.on("requestedTokens", onGetTokens);
 	connection.on("requestedEndpoints", onGetEndpoints);
 	connection.on('requestedInteraction', requestedInteractionHandler);
-	//connection.on('requestedTriggerEventDefinition', requestedTriggerHandler);
 
-	connection.on('requestedSchema', function(data) {// Data Extension 필드 확인가능
-
+	connection.on('requestedSchema', function(data) {
+		
+		if(data['schema'].length === 0){
+        	alert('Entry Source를 선택해주시기 바랍니다.');
+        	connection.trigger('ready');
+    	} 
+    	
 		if (data.error) {
 			console.error(data.error);
 		} else {
@@ -49,10 +53,8 @@ define(["postmonger"], function(Postmonger) {
 			activityKey = data.key;
 		}
 		
+		var mid;		
 		var channel;
-		var mid;
-				
-		//var message;
 		var hasInArguments = Boolean(
 			payload["arguments"] &&
 			payload["arguments"].execute &&
@@ -132,7 +134,6 @@ define(["postmonger"], function(Postmonger) {
 	}
 
 	function onGetEndpoints(endpoints) {
-
 //		console.log(endpoints);
 		fuelapiRestHost = endpoints.fuelapiRestHost;
 //		console.log("endpoints : " + fuelapiRestHost);
@@ -142,7 +143,17 @@ define(["postmonger"], function(Postmonger) {
 		var mid = $('#mid').val();
 		var channel = $('#channel').val();
 		
-		var reqArr = ["mkt_id", "mkt_dept_cd", "campaign_code", "unif_id"];
+		if (channel == "") {
+			alert('채널을 선택해주시기 바랍니다.');
+			connection.trigger('ready');
+		} else if (mid == "") {
+			alert('유효한 MID 값을 가져 오는데 실패 하였습니다.\n 액티비티 화면을 닫고 다시 열어주세요.');
+			connection.trigger('ready');
+		} else {
+			activity_save();
+		}
+		
+/*		var reqArr = ["mkt_id", "mkt_dept_cd", "campaign_code", "unif_id"];
 		
 		for(var i in schema) {
 			var idx = reqArr.indexOf(schema[i].name);
@@ -157,14 +168,14 @@ define(["postmonger"], function(Postmonger) {
 		} else if (mid == "") {
 			alert('유효한 MID 값을 가져 오는데 실패 하였습니다.\n 액티비티 화면을 닫고 다시 열어주세요.');
 			connection.trigger('ready');
-		} else{
+		} else {
 			if(reqArr.length == 0){
 				activity_save();
 			} else {
 				alert('DATA EXTENSION에 필수 컬럼이 없습니다. \n필수컬럼이 포함된 DE를 선택해주세요. \n* 필수컬럼 : mkt_id, mkt_dept_cd, campaign_code, unif_id');
 				connection.trigger('ready');
 			}
-		}
+		}*/
 	} 
 
 	function onClickedBack() {

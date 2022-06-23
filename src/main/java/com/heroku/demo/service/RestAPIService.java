@@ -89,15 +89,16 @@ public class RestAPIService {
 	    JSONObject data = (JSONObject) dataArr.get(0);
 	    JSONObject fields = (JSONObject) data.get("fields");
 	    
-	    if(data.get("bu_id").toString() == null) {
-	    	String mid = restAPIService.getMid(accessToken);
-	        Object obj = parser.parse(mid);
-	        JSONObject jsonObj = (JSONObject) obj;
-	    	insertData.put("bu_id", jsonObj.get("organization").toString());
-	    } else {
-	    	insertData.put("bu_id", data.get("bu_id").toString());
-	    }
+//	    if(data.get("bu_id").toString() == null) {
+//	    	String mid = restAPIService.getMid(accessToken);
+//	        Object obj = parser.parse(mid);
+//	        JSONObject jsonObj = (JSONObject) obj;
+//	    	insertData.put("bu_id", jsonObj.get("organization").toString());
+//	    } else {
+//	    	insertData.put("bu_id", data.get("bu_id").toString());
+//	    }
 	    
+	    insertData.put("bu_id", data.get("bu_id").toString());
 	    insertData.put("journey_id", data.get("journey_id").toString());
 	    insertData.put("chnl_cd", data.get("chnl_cd").toString());
 	    insertData.put("sfmc_id", data.get("sfmc_id").toString());

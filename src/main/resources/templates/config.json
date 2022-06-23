@@ -1,7 +1,7 @@
 {
   "workflowApiVersion": "1.1",
   "metaData": {
-    "icon": "/images/heroku_logo.png",
+    "icon": "/images/dk.png",
     "category": "message"
   },
   "type": "REST",

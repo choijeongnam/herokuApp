@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+
+<html lang="ko"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/umsLayout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="robots" content="index,follow">
+	
+    <title>CommOneUI</title>
+    <link rel="image_src" href="about-img.png">
+	<link rel="shortcut icon" href="assets/fav.ico">
+	<link rel="apple-touch-icon" href="assets/fav.png">
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/common.css" />
+    <link type="text/css" rel="stylesheet" href="assets/css/jquery.timepicker.css" media=""/><!-- 타이머css -->
+    <link rel="stylesheet" href="assets/css/jquery-ui.css" type="text/css" />
+    
+    <script type="text/javascript" src="assets/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.timepicker.min.js" ></script><!-- 타이머js -->
+    <script type="text/javascript" src="assets/js/frUtil.js"></script>
+    <script type="text/javascript" src="assets/js/common.js"></script>
+    <script type="text/javascript" src="assets/js/respond.min.js"></script>
+    <script type="text/javascript" src="assets/js/comfunc.js"></script>		
+
+    <script type="text/javascript" src="assets/js/require.js"></script>
+    <script type="text/javascript">
+        (function() {
+            var config = {
+                baseUrl: 'assets/js'
+            };
+
+            var dependencies = [
+                'customActivity'
+            ];
+
+            require(config, dependencies);
+        })();
+    </script>
+
+    <script type="text/javascript" src="assets/js/jquery.form.js"></script>		
+
+   
+
+</head>
+<body>
+
+<!--camp_contArea-->
+<div class="camp_contArea">
+	<!--tab_top_Bar-->
+	<div class="tab_top_Bar">
+		<div class="top_box">
+			<ul class="tabs" id="tabs">
+			    <li class="cl3 tab-link" id="msgTab">문자 메시지 발송</li>
+				<li class="cl5 tab-link" id="kkfTab">친구톡 발송</li>
+				<li class="cl4 tab-link" id="kkoTab">알림톡 발송</li>
+				
+			</ul>
+		</div>
+		<div class="R_btn">
+		    <button class="btn_emerald" onclick="msgSave();" ><img src="/assets/images/icon_search.png" />임시저장</button>
+		    <button class="btn_emerald" onclick="msgLoad();"><img src="/assets/images/icon_search.png">불러오기</button>
+		    <button class="btn_emerald" onclick="phonemng();" ><img src="/assets/images/icon_search.png" />발/수신 번호등록</button>
+		    <button class="btn_emerald" onclick="sendcancel();" ><img src="/assets/images/icon_search.png" />발송취소</button>
+		    <!--<button class="btn_emerald" th:onclick="msgSend();" ><img src="/assets/images/icon_search.png" />TEST</button>  -->
+			<button class="btn_emerald" onclick="msgPreview();" ><img src="/assets/images/icon_search.png" />미리보기</button>
+		</div>
+	</div>
+	<!--tab_top_Bar-->
+	
+	<div class="cap_inp_Area" id="formDiv">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;메시지 만들기 탭을 선택하세요.</div>
+	
+</div>
+<!--//camp_contArea-->
+
+<div class="R_area">
+	<form id="rcForm" name="rcForm" method="POST">
+		<input type="hidden" id="tmpmid" name="mid" />
+		<input type="hidden" id="tmpmsgtype" name="msgtype" />
+	</form>
+	<form id="pmForm" name="pmForm" method="POST">
+		<input type="hidden" id="phonemid" name="mid" />
+		<input type="hidden" id="phonetype" name="phonetype" />
+	</form>	
+	<form id="scForm" name="scForm" method="POST">
+		<input type="hidden" id="scmid" name="scmid" />
+		<input type="hidden" id="sctype" name="sctype" />
+	</form>	
+</div>
+<div id="templistarea" class="popup_St" style="display:none;"> </div>
+<div id="phonesetarea" class="popup_St" style="display:none;"> </div>
+<div id="sendcancelarea" class="popup_St" style="display:none;"> </div>			
+<!--popup : 공통 팝업 레이어-->
+        <div id="popAlertLayer" class="popup_St" style="display:none;">
+            <div class="popBg"></div>
+            <div class="pop_content">
+                <div class="pop_Area_500">
+                    <!--pop_topbar-->
+                    <div class="pop_topbar">
+                        <div class="p_tit">알려드립니다.</div>
+                        <div class="pop_close" onclick="closePop('popAlertLayer')" ><img src="/assets/images/pop_closeBtn.png" /></div>
+                    </div>
+                    <!--pop_topbar-->
+                    <!--p_content-->
+                    <div class="p_content">
+                        <div class="TT_Box">
+                            <div class="ipbox">
+                                <div class="img_ps"><img src="/assets/images/icon_popAR.png" class="ARimg"></div>
+                                <div class="TT_ps" id="alertMsg"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--p_content-->
+                    <!--버튼영역-->
+                    <div class="Btn_area" style="padding: 20px 0 20px;margin: 0 ;">
+                        <button class="btn_white" onclick="closePop('popAlertLayer')">닫기</button>
+                    </div>
+                    <!--버튼영역-->
+                </div>
+            </div>
+        </div>
+        <!--popup-->
+
+		<script type="text/javascript">
+		
+		
+		$(function(){
+			
+			$(window).on("load", function(){
+				// 첫 로드시  폼 읽어옴
+				//loadMsgForm();	
+				
+			});
+			
+			// 탭 전환시 current 클래스 삭제
+			$("#tabs>li").on("click", function() {$(this).removeClass("current");});	
+		
+			$("#kkfTab").on("click", function(){
+				
+				loadKkfForm();
+				
+			});
+			
+			$("#kkoTab").on("click", function(){
+				
+				loadKkoForm();
+			});
+			
+			$("#msgTab").on("click", function(){
+				
+				loadMsgForm();
+			});
+		});
+		
+		// 임시 저장	
+		
+		function msgSave() {
+			var msgtype = $('#msgtype').val();
+	        var filepath1 = $('#filepath1').val();
+	        var filepath2 = $('#filepath2').val();
+	        var filepath3 = $('#filepath3').val();
+	        var filetype1 = $('#filetype1').val();
+	        var filetype2 = $('#filetype2').val();
+	        var filetype3 = $('#filetype3').val();
+	        var filecnt = $('#filecnt').val();
+	        var profilekeyval = $('#profilekeyval').val();
+	        var failmsgtype = $('#failmsgtype').val();
+	        var failmsgyn = $('#failmsgyn').val();        
+	        var failfilepath = $('#failfilepath').val();
+	        var wideyn = $('#wideyn').val();        
+	        var subject = $('#subject').val();
+	        var msg = $('#msg').val();        
+	        var templatecode = $('#templatecode').val();
+	        var failsubject = $('#failsubject').val();
+	        var failmsg = $('#failmsg').val();        
+	        var img_url = $('#img_url').val();
+	        var buttonTypeTmp = $('#buttonTypeTmp').val();   
+	        var buttonNameTmp = $('#buttonNameTmp').val();   
+	        var buttonMobileTmp = $('#buttonMobileTmp').val();   
+	        var buttonPCTmp = $('#buttonPCTmp').val();   
+	        var buttonIOSTmp = $('#buttonIOSTmp').val();   
+	        var buttonAndroidTmp = $('#buttonAndroidTmp').val();   
+	        var campaign_code = $('#campaign_code').val();  
+	        var senderNo = $('#sender').val();
+	        
+	        
+	        //즉시발송 여부 체크
+	        var sendTime = '';
+	        if($('#sendtypeR').is(":checked") == true)
+	        {
+	        	sendTime =  $("#senddate").val() +' ' + $("#sendtime").val() ;
+	        }   
+	        
+			if(msg == "") {
+				showAlertLayer("메시지내용을 입력해주세요.");
+				return false;
+			}
+			if(msgtype == "LMS" || msgtype == "MMS") {
+				if(subject == "") {
+					showAlertLayer("제목을 입력해주세요.");
+					return false;
+				}
+			}
+			if(failmsgyn == "Y") {
+				if(failmsgtype == "LMS" || failmsgtype == "MMS") {
+					if(failsubject == "") {
+						showAlertLayer("문자발송 제목을 입력해주세요.");
+						return false;
+					}
+					if(failmsg == "") {
+						showAlertLayer("문자발송 내용을 입력해주세요.");
+						return false;
+					}
+				}
+				
+			}
+			
+			var jsondata = {
+					msgtype : ""+msgtype+"",
+					filepath1 : ""+filepath1+"",
+					filepath2 : ""+filepath2+"",
+					filepath3 : ""+filepath3+"",
+					filetype1 : ""+filetype1+"",
+					filetype2 : ""+filetype2+"",
+					filetype3 : ""+filetype3+"",
+					filecnt : ""+filecnt+"",
+					profilekeyval : ""+profilekeyval+"",
+					failmsgtype : ""+failmsgtype+"",
+					failmsgyn : ""+failmsgyn+"",   
+					failfilepath : ""+failfilepath+"",
+					wideyn : ""+wideyn+"",     
+					subject : ""+subject+"",
+					msg : ""+msg+"",     
+					templatecode : ""+templatecode+"",
+					failsubject : ""+failsubject+"",
+					failmsg : ""+failmsg+"",    
+					img_url : ""+img_url+"",
+					buttonTypeTmp : ""+buttonTypeTmp+"", 
+					buttonNameTmp : ""+buttonNameTmp+"", 
+					buttonMobileTmp : ""+buttonMobileTmp+"",
+					buttonPCTmp : ""+buttonPCTmp+"",
+					buttonIOSTmp : ""+buttonIOSTmp+"",
+					buttonAndroidTmp : ""+buttonAndroidTmp+"",
+					campaign_code : ""+campaign_code+"",
+					mid :  ""+CJorganization+"",
+					etc1 : ""+senderNo+"",
+					etc2 : ""+sendTime+""
+			}; 			
+			
+			var jsonString = JSON.stringify(jsondata);
+			
+			$.ajax({
+				url: "/tmpsave",
+				type: "post",
+				datatype: "json",
+				async : true,
+				data: jsonString,
+				contentType:"application/json; charset=UTF-8",
+				timeout: 15000,
+				tryCount: 0,
+				retryLimit: 3,
+				error: function(xhr, status, e) {
+					showAlertLayer("에러");
+				},
+				success: function(data) {
+					showAlertLayer("임시저장되었습니다.");
+				}
+			});
+		}
+		
+        // TEST 저장	
+		
+		function msgSend() {
+			var msgtype = $('#msgtype').val();
+	        var filepath1 = $('#filepath1').val();
+	        var filepath2 = $('#filepath2').val();
+	        var filepath3 = $('#filepath3').val();
+	        var filetype1 = $('#filetype1').val();
+	        var filetype2 = $('#filetype2').val();
+	        var filetype3 = $('#filetype3').val();
+	        var filecnt = $('#filecnt').val();
+	        var profilekeyval = $('#profilekeyval').val();
+	        var failmsgtype = $('#failmsgtype').val();
+	        var failmsgyn = $('#failmsgyn').val();        
+	        var failfilepath = $('#failfilepath').val();
+	        var wideyn = $('#wideyn').val();        
+	        var subject = $('#subject').val();
+	        var msg = $('#msg').val();        
+	        var templatecode = $('#templatecode').val();
+	        var failsubject = $('#failsubject').val();
+	        var failmsg = $('#failmsg').val();        
+	        var img_url = $('#img_url').val();
+	        var buttonTypeTmp = $('#buttonTypeTmp').val();   
+	        var buttonNameTmp = $('#buttonNameTmp').val();   
+	        var buttonMobileTmp = $('#buttonMobileTmp').val();   
+	        var buttonPCTmp = $('#buttonPCTmp').val();   
+	        var buttonIOSTmp = $('#buttonIOSTmp').val();   
+	        var buttonAndroidTmp = $('#buttonAndroidTmp').val();   
+	        var campaign_code = $('#campaign_code').val();  
+	        
+	        var name = '김남헌';
+	        var mobile = '01098232348';
+	        var store = '{{Event.'+eventDefinitionKey+'.store}}';
+	        var store_tel = '{{Event.'+eventDefinitionKey+'.store_tel}}';
+	        var m_mileage = '{{Event.'+eventDefinitionKey+'.m_mileage}}';
+	        var m_grade = '{{Event.'+eventDefinitionKey+'.m_grade}}';
+	        var sender = '{{Event.'+eventDefinitionKey+'.sender}}';
+	        var rejectnum = '{{Event.'+eventDefinitionKey+'.rejectnum}}';
+	        var url1 = '{{Event.'+eventDefinitionKey+'.url1}}';
+	        var url2 = '{{Event.'+eventDefinitionKey+'.url2}}';
+	        var url3 = '{{Event.'+eventDefinitionKey+'.url3}}';
+	        var url4 = '{{Event.'+eventDefinitionKey+'.url4}}';
+	        var url5 = '{{Event.'+eventDefinitionKey+'.url5}}';
+	        var option1 = '{{Event.'+eventDefinitionKey+'.option1}}';
+	        var option2 = '{{Event.'+eventDefinitionKey+'.option2}}';
+	        var option3 = '{{Event.'+eventDefinitionKey+'.option3}}';
+	        var option4 = '{{Event.'+eventDefinitionKey+'.option4}}';
+	        var option5 = '{{Event.'+eventDefinitionKey+'.option5}}';
+	        var option6 = '{{Event.'+eventDefinitionKey+'.option6}}';
+	        var option7 = '{{Event.'+eventDefinitionKey+'.option7}}';
+	        var option8 = '{{Event.'+eventDefinitionKey+'.option8}}';
+	        var option9 = '{{Event.'+eventDefinitionKey+'.option9}}';
+	        var option10 = '{{Event.'+eventDefinitionKey+'.option10}}';
+	        var cid = '{{Event.'+eventDefinitionKey+'.cid}}';
+	        var mid = '{{Event.'+eventDefinitionKey+'.mid}}';
+	        var sfmcid = '{{Contact.Attribute."Contact"."Contact ID"}}';
+	        
+			var jsondata = {
+					msgtype : ""+msgtype+"",
+					filepath1 : ""+filepath1+"",
+					filepath2 : ""+filepath2+"",
+					filepath3 : ""+filepath3+"",
+					filetype1 : ""+filetype1+"",
+					filetype2 : ""+filetype2+"",
+					filetype3 : ""+filetype3+"",
+					filecnt : ""+filecnt+"",
+					profilekeyval : ""+profilekeyval+"",
+					failmsgtype : ""+failmsgtype+"",
+					failmsgyn : ""+failmsgyn+"",   
+					failfilepath : ""+failfilepath+"",
+					wideyn : ""+wideyn+"",     
+					subject : ""+subject+"",
+					msg : ""+msg+"",     
+					templatecode : ""+templatecode+"",
+					failsubject : ""+failsubject+"",
+					failmsg : ""+failmsg+"",    
+					img_url : ""+img_url+"",
+					buttonTypeTmp : ""+buttonTypeTmp+"", 
+					buttonNameTmp : ""+buttonNameTmp+"", 
+					buttonMobileTmp : ""+buttonMobileTmp+"",
+					buttonPCTmp : ""+buttonPCTmp+"",
+					buttonIOSTmp : ""+buttonIOSTmp+"",
+					buttonAndroidTmp : ""+buttonAndroidTmp+"",
+					campaign_code : ""+campaign_code+""
+			}; 			
+			
+			var jsonString = JSON.stringify(jsondata);
+			
+			$.ajax({
+				url: "/tmpsave",
+				type: "post",
+				datatype: "json",
+				async : true,
+				data: jsonString,
+				contentType:"application/json; charset=UTF-8",
+				timeout: 15000,
+				tryCount: 0,
+				retryLimit: 3,
+				error: function(xhr, status, e) {
+					showAlertLayer("에러");
+				},
+				success: function(data) {
+					
+				}
+			});
+		}
+		
+		// 알림톡 폼 불러오기
+		 function loadKkfForm() {
+			var param = "type=kkf";
+			
+			$.ajax({
+				url: "loadKkfForm",
+				type: "post",
+				async : false,
+				data: param,
+				timeout: 15000,
+				tryCount: 0,
+				retryLimit: 3,
+				error: function(xhr, status, e) {
+					if (xhr.status == 500) {
+						showAlertLayer("에러");//alertAjaxLoadError();
+					} else {
+						this.tryCount++;
+						if (this.tryCount <= this.retryLimit) $.ajax(this);
+						else showAlertLayer("에러");//alertAjaxLoadError();
+					}
+				},
+				success: function(data) {
+					
+					$("#formDiv").html(data);
+					$("#kkfTab").addClass("current");
+					$("#kkoTab").removeClass("current");
+					$("#msgTab").removeClass("current");
+					
+					getXlsHeader();
+					
+				}
+			});
+		}
+		
+		// 알림톡 폼 불러오기
+		function loadKkoForm() {
+			var param = "type=kko";
+			
+			$.ajax({
+				url: "loadKkoForm",
+				type: "post",
+				async : false,
+				data: param,
+				timeout: 15000,
+				tryCount: 0,
+				retryLimit: 3,
+				error: function(xhr, status, e) {
+					if (xhr.status == 500) {
+						showAlertLayer("에러");//alertAjaxLoadError();
+					} else {
+						this.tryCount++;
+						if (this.tryCount <= this.retryLimit) $.ajax(this);
+						else showAlertLayer("에러");//alertAjaxLoadError();
+					}
+				},
+				success: function(data) {
+					
+					$("#formDiv").html(data);
+					$("#kkoTab").addClass("current");
+					$("#kkfTab").removeClass("current");
+					$("#msgTab").removeClass("current");
+					
+					getXlsHeader();
+					changeProfilekey();
+				}
+			});
+		}
+		
+		// 문자 폼 불러오기
+		function loadMsgForm() {
+			var param = "type=msg";
+			
+			$.ajax({
+				url: "loadMsgForm",
+				type: "post",
+				async : false,
+				data: param,
+				timeout: 15000,
+				tryCount: 0,
+				retryLimit: 3,
+				error: function(xhr, status, e) {
+					if (xhr.status == 500) {
+						showAlertLayer("에러");//alertAjaxLoadError();
+					} else {
+						this.tryCount++;
+						if (this.tryCount <= this.retryLimit) $.ajax(this);
+						else showAlertLayer("에러");//alertAjaxLoadError();
+					}
+				},
+				success: function(data) {
+					$("#formDiv").html(data);
+					$("#msgTab").addClass("current");
+					$("#kkfTab").removeClass("current");
+					$("#kkoTab").removeClass("current");
+					
+					getXlsHeader();
+				}
+			});
+		}
+		
+		
+		
+		
+		function isEmptyCheckNoFocus(object, msg) {
+			try{
+				//var str = $(object).attr("value");
+				var str = $(object).val();			// ver 1.9.1		
+				str = $.trim(str);
+				if(str == ''){
+					if(msg != null && '' != msg){				
+						showAlertLayer(msg);
+					};
+					return false;
+				}else{
+					return true;
+				}
+			}catch (e) {
+				showAlertLayer(e);
+			}	
+		}
+		
+		function addprofile()
+		{
+			window.open('/profileKey','newpop','width=800,height=600,top=50,left=50');
+			
+			return false;
+			//parent.parent.localhost.href ="http://localhost/profileKey";
+		}
+		
+		function changeProfilekey()
+		{
+			$("#profileKey").change(function () {
+		        //var selectedSource = $(this).find("option:selected").data("autocomplete");
+
+		        //$("#templatecode").autocomplete("option", "source", selectedSource);
+		        kkotemplatecodeAutoComplete(this.value);
+		    }).change();
+		}
+		
+		function kkotemplatecodeAutoComplete(profilekey)
+		{
+			console.log(profilekey);
+			var autocomplete_text = ["자동완성기능 / 테스트","Autocomplete / ㄷㄷㄷㄷㄷ","개발로짜","국이"];
+	        $("#templatecode").autocomplete({
+				source: function( request, response ) {
+				    $.ajax({
+				        type: 'post',
+				        url: "/getAtTemplate",
+				        dataType: "json",
+				        data: { tempcode : request.term ,  profilekey : profilekey },
+				        success: function(data) {
+				            //서버에서 json 데이터 response 후 목록에 뿌려주기 위함
+				            response(
+				                $.map(data, function(item) {
+				                	console.log(item);
+				                    return {
+				                    	
+				                        label: item.template_code+" / "+item.template_name,
+				                        value: item.template_code
+				                    }
+				                })
+				            );
+				        }
+				   });
+				},
+				minLength: 1,
+				select: function( event, ui ) {
+				    // 만약 검색리스트에서 선택하였을때 선택한 데이터에 의한 이벤트발생
+				}
+
+
+	         });
+
+		}
+		
+var CJfuelapiRestHost ;
+var CJfuel2token ;
+var CJorganization ;
+var CJenterprise;
+var settings_name;
+var version;
+var btnCnt = 0;
+
+//start : ---------------------- CJO용 가이드 코딩-----------------------------//
+var dataExtensionObj = "";  //유동적 DE 필드를 위한 변수 => 전체 DE 필드 저장위한 변수
+var personalFieldArr;       //개인화필드 배열 변수 => 개인화 필드 화면에 출력하기 위한 변수
+//END : ---------------------- CJO용 가이드 코딩-----------------------------//
+
+		function msgLoad() {
+			// alert( $(".current").attr("id") );
+			
+			var currentTab =$(".current").attr("id");
+			
+			
+			if(typeof currentTab == "undefined" || currentTab == null || currentTab == "")
+			{
+				showAlertLayer('발송 텝을 선택해 주십시요.');
+		    	return;
+			}
+			
+			openPop('templistarea');
+			console.log("CJorganization : "+CJorganization);
+			//로컬 테스트시 강제 할당하여 테스트 운영배포시 주석처리 
+			CJorganization='514006231';
+			
+			if (currentTab == "msgTab" )
+			{	
+				$("#rcForm").attr("action", "seltmpmsg");
+	    		$("#tmpmid").val(CJorganization);
+			}else if (currentTab == "kkoTab" )
+			{
+				$("#rcForm").attr("action", "seltmptype");
+	    		$("#tmpmid").val(CJorganization);
+	    		$("#tmpmsgtype").val("KKO");
+			}else if (currentTab == "kkfTab" )
+			{
+				$("#rcForm").attr("action", "seltmptype");
+	    		$("#tmpmid").val(CJorganization);
+	    		$("#tmpmsgtype").val("KKF");
+			}
+			
+    		
+    		var options = {
+    			type: "POST",
+    			dataType: "html",
+    			error: function(xhr, status, e) {
+					console.log(xhr);
+    			},
+    			success: function(responseText, statusText, xhr, $form) {
+    				$("#templistarea").html(responseText);
+    			},
+    			complete: function() {
+    				// $("#dimRecentCmpn").css("display", "none");
+				}
+    		};
+    		
+    		$("#rcForm").ajaxSubmit(options);
+    		
+			 	
+			
+		}
+		
+		function phonemng() {
+
+			var currentTab =$(".current").attr("id");
+	
+			openPop('phonesetarea');
+			console.log("CJorganization : "+CJorganization);
+			//로컬 테스트시 강제 할당하여 테스트 운영배포시 주석처리 
+			//CJorganization='514006231';  
+			
+			$("#pmForm").attr("action", "selphone");
+    		$("#phonemid").val(CJorganization);
+    		$("#phonetype").val("1"); // 1: 발신번호, 2 수신거부번호    		
+			 	
+    		var options = {
+        			type: "POST",
+        			dataType: "html",
+        			error: function(xhr, status, e) {
+    					console.log(xhr);
+        			},
+        			success: function(responseText, statusText, xhr, $form) {
+        				$("#phonesetarea").html(responseText);
+        				
+        				// 불러온 발신번호(원장)에서 sender에 있는 항목 선택
+        				var senderArr = new Array();
+        				$("#sender > option").each(function(){
+        					senderArr.push($(this).val());
+        				});
+        				
+        				$('input:checkbox[name="callbacknumber"]').each(function(){
+        					for(var ii=0; ii<senderArr.length; ii++) {
+        						if(senderArr[ii]==$(this).val()) {
+        							$(this).prop("checked", true);
+        						}
+        					}
+        				});
+        				
+        				
+        			},
+        			complete: function() {
+        				// $("#dimRecentCmpn").css("display", "none");
+    				}
+        		};
+        		
+        		$("#pmForm").ajaxSubmit(options);
+		}
+
+		
+		function sendcancel() {
+
+			var currentTab =$(".current").attr("id");
+			
+			if(typeof currentTab == "undefined" || currentTab == null || currentTab == "")
+			{
+				showAlertLayer('발송 텝을 선택해 주십시요.');
+		    	return;
+			}
+			
+
+			//로컬 테스트시 강제 할당하여 테스트 운영배포시 주석처리 
+			//CJorganization='514006231';  
+			openPop('sendcancelarea');
+			console.log("CJorganization : "+CJorganization);
+			
+			$("#scForm").attr("action", "sendcancel");
+    		$("#scmid").val(CJorganization);
+    		$("#sctype").val(currentTab); // 1: 발신번호, 2 수신거부번호    	
+    	    console.log(currentTab); 	
+    		var options = {
+        			type: "POST",
+        			dataType: "html",
+        			error: function(xhr, status, e) {
+    					console.log(xhr);
+        			},
+        			success: function(responseText, statusText, xhr, $form) {
+        				$("#sendcancelarea").html(responseText);
+        				
+        			},
+        			complete: function() {
+        				// $("#dimRecentCmpn").css("display", "none");
+    				}
+        		};
+        		
+        		$("#scForm").ajaxSubmit(options);
+		}
+		
+		function addSenderAccount(){
+			try{			
+					var deObj = JSON.parse(dataExtensionObj);
+					if(deObj.STOREPHONE != undefined){//록시땅 발신번호 개인화 치환
+						$("#sender option:first").before("<option value='STOREPHONE'>매장번호치환</option>");
+					}
+					
+					//if(deObj.주관리거래처연락처 != undefined){//에스쁘아
+					//	$("#sender option:first").before("<option value='주관리거래처'>주관리거래처</option>");
+					//}
+				}
+				catch(e)
+				{
+					//alert(e);
+					//$("#sender").append("<option value='TEST'>TEST</option>");				
+				}
+			}
+		
+	</script>
+	
+
+
+</body>
+</html>
