@@ -167,7 +167,7 @@ define(["postmonger"], function(Postmonger) {
 				alert('유효한 MID 값을 가져 오는데 실패 하였습니다.\n 액티비티 화면을 닫고 다시 열어주세요.');
 				connection.trigger('ready');
 			} else {
-				if(reqArr.indexOf('unif_id')){
+				if(reqArr.indexOf('unif_id') > -1){
 					alert('Data Extension에 필수컬럼인 unif_id가 없습니다.');
 					connection.trigger('ready');
 				} else {
