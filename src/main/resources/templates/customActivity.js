@@ -70,7 +70,7 @@ define(["postmonger"], function(Postmonger) {
 					channel = val;
 				}  else if (key === 'campaign_code'){
 					campaign = val;
-				}  else if (key === 'mktid'){
+				}  else if (key === 'mkt_id'){
 					mktid = val;
 				} 
 			});
