@@ -50,6 +50,9 @@ define(["postmonger"], function(Postmonger) {
 		
 		var mid;		
 		var channel;
+		var campaign;
+		var mktid;		
+		
 		var hasInArguments = Boolean(
 			payload["arguments"] &&
 			payload["arguments"].execute &&
@@ -65,14 +68,19 @@ define(["postmonger"], function(Postmonger) {
 					mid = val;
 				} else if (key === 'chnl_cd'){
 					channel = val;
+				}  else if (key === 'campaign_code'){
+					campaign = val;
+				}  else if (key === 'mktid'){
+					mktid = val;
 				} 
 			});
 		});
 		if (payload["arguments"]) {
 			$("#mid").val(mid);
 			$("#channel").val(channel).prop("selected", true);
+			$("#campaign").val(campaign);
+			$("#mktid").val(mktid);
 		}
-
 	}
 
 	function requestedInteractionHandler(settings) {
