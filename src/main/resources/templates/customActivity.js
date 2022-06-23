@@ -160,9 +160,19 @@ define(["postmonger"], function(Postmonger) {
 			} else if(mktid == "") {
 				alert('마케터ID를 입력해주시기 바랍니다.');
 				connection.trigger('ready');
-			} else {
-				alert('DATA EXTENSION에 필수 컬럼이 없습니다. unif_id가 포함되었는지 확인해주세요.');
+			} else if(channel == "") {
+				alert('채널을 선택해주시기 바랍니다.');
 				connection.trigger('ready');
+			} else if(mid == "") {
+				alert('유효한 MID 값을 가져 오는데 실패 하였습니다.\n 액티비티 화면을 닫고 다시 열어주세요.');
+				connection.trigger('ready');
+			} else {
+				if(reqArr.indexOf('unif_id')){
+					alert('Data Extension에 필수컬럼인 unif_id가 없습니다.');
+					connection.trigger('ready');
+				} else {
+					activity_save();
+				}
 			}
 		}
 	} 
