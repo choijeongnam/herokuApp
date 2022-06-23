@@ -89,16 +89,16 @@ public class RestAPIService {
 	    JSONObject data = (JSONObject) dataArr.get(0);
 	    JSONObject fields = (JSONObject) data.get("fields");
 	    
-//	    if(data.get("bu_id").toString() == null) {
-//	    	String mid = restAPIService.getMid(accessToken);
-//	        Object obj = parser.parse(mid);
-//	        JSONObject jsonObj = (JSONObject) obj;
-//	    	insertData.put("bu_id", jsonObj.get("organization").toString());
-//	    } else {
-//	    	insertData.put("bu_id", data.get("bu_id").toString());
-//	    }
+	    if(data.get("bu_id").toString() == null && data.get("bu_id").toString() == "") {
+	    	String mid = restAPIService.getMid(accessToken);
+	        Object obj = parser.parse(mid);
+	        JSONObject jsonObj = (JSONObject) obj;
+	    	insertData.put("bu_id", jsonObj.get("organization").toString());
+	    } else {
+	    	insertData.put("bu_id", data.get("bu_id").toString());
+	    }
 	    
-	    insertData.put("bu_id", data.get("bu_id").toString());
+	    //insertData.put("bu_id", data.get("bu_id").toString());
 	    insertData.put("journey_id", data.get("journey_id").toString());
 	    insertData.put("chnl_cd", data.get("chnl_cd").toString());
 	    insertData.put("sfmc_id", data.get("sfmc_id").toString());
@@ -109,22 +109,21 @@ public class RestAPIService {
 	    	insertData.put("campaign_code", data.get("campaign_code").toString());
 	    }
 	    
-	    
 	    if(data.get("mkt_id").toString() == null && data.get("mkt_id").toString() == "") {
 	    	insertData.put("mkt_id", fields.get("mkt_id").toString());
 	    } else {
 	    	insertData.put("mkt_id", data.get("mkt_id").toString());
 	    }
 	    
-	    if(data.containsKey("previousActivityKey") == true) {
-	    	if(data.get("previousActivityKey").toString() != "" && data.get("previousActivityKey").toString() != null) {
-		    	insertData.put("previousActivityKey", data.get("previousActivityKey").toString());
+	    if(data.containsKey("activity_key") == true) {
+	    	if(data.get("activity_key").toString() != "" && data.get("activity_key").toString() != null) {
+		    	insertData.put("activity_key", data.get("activity_key").toString());
 	    	}
 	    }
 	    
-	    if(data.containsKey("previousActivityType") == true) {
-	    	if(data.get("previousActivityType").toString() != "" && data.get("previousActivityType").toString() != null) {
-		    	insertData.put("previousActivityType", data.get("previousActivityType").toString());
+	    if(data.containsKey("activity_type") == true) {
+	    	if(data.get("activity_type").toString() != "" && data.get("activity_type").toString() != null) {
+		    	insertData.put("activity_type", data.get("activity_type").toString());
 	    	}
 	    }
 	    

@@ -257,8 +257,8 @@ define(["postmonger"], function(Postmonger) {
 			, "chnl_cd": chnl_cd
 			, "campaign_code" : campaign_code
 			, "mkt_id" : mkt_id
-			, "previousActivityKey" : pre_activityKey
-			, "previousActivityType" : pre_activityType
+			, "activity_key" : pre_activityKey
+			, "activity_type" : pre_activityType
 			, "fields": fields
 		}];
 
