@@ -103,6 +103,19 @@ public class RestAPIService {
 	    insertData.put("chnl_cd", data.get("chnl_cd").toString());
 	    insertData.put("sfmc_id", data.get("sfmc_id").toString());
 	    
+	    if(data.get("campaign_code").toString() == null && data.get("campaign_code").toString() == "") {
+	    	insertData.put("campaign_code", fields.get("campaign_code").toString());
+	    } else {
+	    	insertData.put("campaign_code", data.get("campaign_code").toString());
+	    }
+	    
+	    
+	    if(data.get("mkt_id").toString() == null && data.get("mkt_id").toString() == "") {
+	    	insertData.put("mkt_id", fields.get("mkt_id").toString());
+	    } else {
+	    	insertData.put("mkt_id", data.get("mkt_id").toString());
+	    }
+	    
 	    if(data.containsKey("previousActivityKey") == true) {
 	    	if(data.get("previousActivityKey").toString() != "" && data.get("previousActivityKey").toString() != null) {
 		    	insertData.put("previousActivityKey", data.get("previousActivityKey").toString());
@@ -116,9 +129,7 @@ public class RestAPIService {
 	    }
 	    
 	    insertData.put("unif_id", fields.get("unif_id").toString());
-	    insertData.put("mkt_id", fields.get("mkt_id").toString());
-	    insertData.put("mkt_dept_cd", fields.get("mkt_dept_cd").toString());
-	    insertData.put("campaign_code", fields.get("campaign_code").toString());
+	    //insertData.put("mkt_dept_cd", fields.get("mkt_dept_cd").toString()); 나중에 추가하던지 뺴던지
 	    
 	    params.add("items", insertData);
 

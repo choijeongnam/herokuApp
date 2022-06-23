@@ -131,8 +131,10 @@ define(["postmonger"], function(Postmonger) {
 	function onClickedNext() {
 		var mid = $('#mid').val();
 		var channel = $('#channel').val();
+		var campaign = $('#campaign').val();
+		var mktid = $('#mktid').val();
 		
-		var reqArr = ["unif_id"];
+		var reqArr = ["unif_id", "campaign_code", "mkt_id"];
 		
 		for(var i in schema) {
 			var idx = reqArr.indexOf(schema[i].name);
@@ -142,18 +144,26 @@ define(["postmonger"], function(Postmonger) {
 		}
 		
 		if(reqArr.length == 0){
-			if (channel == "") {
+			if(channel == "") {
 				alert('채널을 선택해주시기 바랍니다.');
 				connection.trigger('ready');
-			} else if (mid == "") {
+			} else if(mid == "") {
 				alert('유효한 MID 값을 가져 오는데 실패 하였습니다.\n 액티비티 화면을 닫고 다시 열어주세요.');
 				connection.trigger('ready');
 			} else {
 				activity_save();
 			}
 		} else {
-			alert('DATA EXTENSION에 필수 컬럼 unif_id가 없습니다.');
-			connection.trigger('ready');
+			if(campaign == "") {
+				alert('캠페인코드를 입력해주시기 바랍니다.');
+				connection.trigger('ready');
+			} else if(mktid == "") {
+				alert('마케터ID를 입력해주시기 바랍니다.');
+				connection.trigger('ready');
+			} else {
+				alert('DATA EXTENSION에 필수 컬럼이 없습니다. unif_id가 포함되었는지 확인해주세요.');
+				connection.trigger('ready');
+			}
 		}
 	} 
 
@@ -194,6 +204,8 @@ define(["postmonger"], function(Postmonger) {
 		var fields = extractFields();
 		var id = bu_id;
 		var chnl_cd = $('#channel option:selected').val();
+		var campaign_code = $('#campaign').val();
+		var mkt_id = $('#mktid').val();
 		
 		var contactkey = '{{Contact.Key}}';
 		var sfmc_id = '{{Contact.ID}}'; //sfmc id임 {{Contact.Attribute."Contact"."Contact ID"}} 이거와 동일
@@ -223,6 +235,8 @@ define(["postmonger"], function(Postmonger) {
 			, "journey_id": journey_id
 			, "sfmc_id": sfmc_id
 			, "chnl_cd": chnl_cd
+			, "campaign_code" : campaign_code
+			, "mkt_id" : mkt_id
 			, "previousActivityKey" : pre_activityKey
 			, "previousActivityType" : pre_activityType
 			, "fields": fields
