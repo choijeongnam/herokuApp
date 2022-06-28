@@ -88,19 +88,9 @@ public class RestAPIService {
 	    JSONArray dataArr = (JSONArray) sbJson.get("inArguments");
 	    JSONObject data = (JSONObject) dataArr.get(0);
 	    JSONObject fields = (JSONObject) data.get("fields");
-	    
-	    if(data.get("bu_id").toString() == null && data.get("bu_id").toString() == "") {
-	    	String mid = restAPIService.getMid(accessToken);
-	        Object obj = parser.parse(mid);
-	        JSONObject jsonObj = (JSONObject) obj;
-	    	insertData.put("bu_id", jsonObj.get("organization").toString());
-	    } else {
-	    	insertData.put("bu_id", data.get("bu_id").toString());
-	    }
-	    
+	     
 	    //insertData.put("bu_id", data.get("bu_id").toString());
 	    insertData.put("journey_id", data.get("journey_id").toString());
-	    insertData.put("version_id", data.get("version_id").toString());
 	    insertData.put("chnl_cd", data.get("chnl_cd").toString());
 	    insertData.put("sfmc_id", data.get("sfmc_id").toString());
 	    
@@ -116,6 +106,12 @@ public class RestAPIService {
 	    	insertData.put("mkt_id", data.get("mkt_id").toString());
 	    }
 	    
+	    if(data.containsKey("version_id") == true) {
+	    	if(data.get("version_id").toString() != "" && data.get("version_id").toString() != null) {
+		    	insertData.put("version_id", data.get("version_id").toString());
+	    	}
+	    }
+	    
 	    if(data.containsKey("activity_key") == true) {
 	    	if(data.get("activity_key").toString() != "" && data.get("activity_key").toString() != null) {
 		    	insertData.put("activity_key", data.get("activity_key").toString());
@@ -129,7 +125,6 @@ public class RestAPIService {
 	    }
 	    
 	    insertData.put("unif_id", fields.get("unif_id").toString());
-	    //insertData.put("mkt_dept_cd", fields.get("mkt_dept_cd").toString()); 나중에 추가하던지 뺴던지
 	    
 	    params.add("items", insertData);
 
