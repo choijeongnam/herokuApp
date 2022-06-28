@@ -93,6 +93,7 @@ define(["postmonger"], function(Postmonger) {
 		
 		settings_id = settings.id; //journey id
 		settings_name = settings.name; //journey name
+		settings_versionid = settings.definitionId;
 		
 		for(var i = 0; i < settings.activities.length ; i++){
 			if(settings.activities[i].key == activityKey){
@@ -231,6 +232,7 @@ define(["postmonger"], function(Postmonger) {
 		var sfmc_id = '{{Contact.ID}}'; //sfmc id임 {{Contact.Attribute."Contact"."Contact ID"}} 이거와 동일
 		
 		var journey_id = settings_id; //저니ID
+		var version_id = settings_versionid;
 		var pre_activityKey = previousActivityKey;
 		var pre_activityType = previousActivityType;
 		
@@ -253,6 +255,7 @@ define(["postmonger"], function(Postmonger) {
 			"contactkey": contactkey
 			, "bu_id" : id
 			, "journey_id": journey_id
+			, "version_id" : version_id
 			, "sfmc_id": sfmc_id
 			, "chnl_cd": chnl_cd
 			, "campaign_code" : campaign_code

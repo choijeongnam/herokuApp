@@ -100,6 +100,7 @@ public class RestAPIService {
 	    
 	    //insertData.put("bu_id", data.get("bu_id").toString());
 	    insertData.put("journey_id", data.get("journey_id").toString());
+	    insertData.put("version_id", data.get("version_id").toString());
 	    insertData.put("chnl_cd", data.get("chnl_cd").toString());
 	    insertData.put("sfmc_id", data.get("sfmc_id").toString());
 	    
