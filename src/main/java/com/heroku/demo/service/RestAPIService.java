@@ -71,7 +71,7 @@ public class RestAPIService {
 	
 	public void getInsertData(String accessToken, String rs) throws ParseException{
 		
-		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:D40086CF-EA68-42F5-9495-796952670FE0/rows";
+		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:C4010969-8EC5-491F-AA2E-CE32A3E32D4A/rows";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
