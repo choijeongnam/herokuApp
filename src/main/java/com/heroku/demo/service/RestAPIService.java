@@ -71,7 +71,7 @@ public class RestAPIService {
 	
 	public void getInsertData(String accessToken, String rs) throws ParseException{
 		
-		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:4CB914B5-EF0C-4E51-9802-BB70B2F19F7A/rows";
+		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:D40086CF-EA68-42F5-9495-796952670FE0/rows";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -89,16 +89,6 @@ public class RestAPIService {
 	    JSONObject data = (JSONObject) dataArr.get(0);
 	    JSONObject fields = (JSONObject) data.get("fields");
 	    
-	    if(data.get("bu_id").toString() == null && data.get("bu_id").toString() == "") {
-	    	String mid = restAPIService.getMid(accessToken);
-	        Object obj = parser.parse(mid);
-	        JSONObject jsonObj = (JSONObject) obj;
-	    	insertData.put("bu_id", jsonObj.get("organization").toString());
-	    } else {
-	    	insertData.put("bu_id", data.get("bu_id").toString());
-	    }
-	    
-	    //insertData.put("bu_id", data.get("bu_id").toString());
 	    insertData.put("journey_id", data.get("journey_id").toString());
 	    //insertData.put("version_id", data.get("version_id").toString());
 	    insertData.put("chnl_cd", data.get("chnl_cd").toString());

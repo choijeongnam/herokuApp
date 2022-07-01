@@ -48,7 +48,7 @@ define(["postmonger"], function(Postmonger) {
 			activityKey = data.key;
 		}
 		
-		var mid;		
+		//var mid;		
 		var channel;
 		var campaign;
 		var mktid;		
@@ -64,9 +64,7 @@ define(["postmonger"], function(Postmonger) {
 
 		$.each(inArguments, function(index, inArgument) {
 			$.each(inArgument, function(key, val) {
-				if (key === 'bu_id'){
-					mid = val;
-				} else if (key === 'chnl_cd'){
+				if (key === 'chnl_cd'){
 					channel = val;
 				}  else if (key === 'campaign_code'){
 					campaign = val;
@@ -76,7 +74,7 @@ define(["postmonger"], function(Postmonger) {
 			});
 		});
 		if (payload["arguments"]) {
-			$("#mid").val(mid);
+			//$("#mid").val(mid);
 			$("#channel").val(channel).prop("selected", true);
 			$("#campaign").val(campaign);
 			$("#mktid").val(mktid);
@@ -111,7 +109,7 @@ define(["postmonger"], function(Postmonger) {
 	function onGetTokens(tokens) {
 
 		fuel2token = tokens.fuel2token;
-//		console.log(fuel2token);
+/*		console.log(fuel2token);
 		var mid = $("#mid").val();
 		var param = {
 				"fuel2token" : fuel2token
@@ -124,11 +122,11 @@ define(["postmonger"], function(Postmonger) {
 			data: JSON.stringify(param),
 			success: function(data) {
 				bu_id = data.organization.id;
-//				console.log("mid : " + data.organization.id);
+				console.log("mid : " + data.organization.id);
 				$("#mid").val(bu_id);
 			}
 		})
-		}
+		}*/
 
 	}
 
@@ -138,7 +136,7 @@ define(["postmonger"], function(Postmonger) {
 	}
 
 	function onClickedNext() {
-		var mid = $('#mid').val();
+		//var mid = $('#mid').val();
 		var channel = $('#channel').val();
 		var campaign = $('#campaign').val();
 		var mktid = $('#mktid').val();
@@ -151,15 +149,18 @@ define(["postmonger"], function(Postmonger) {
 				reqArr.splice(idx, 1);
 			}
 		}
+		/*
+		else if(mid == "") {
+				alert('유효한 MID 값을 가져 오는데 실패 하였습니다.\n 액티비티 화면을 닫고 다시 열어주세요.');
+				connection.trigger('ready');
+			}
 		
+		*/
 		if(reqArr.length == 0){
 			if(channel == "") {
 				alert('채널을 선택해주시기 바랍니다.');
 				connection.trigger('ready');
-			} else if(mid == "") {
-				alert('유효한 MID 값을 가져 오는데 실패 하였습니다.\n 액티비티 화면을 닫고 다시 열어주세요.');
-				connection.trigger('ready');
-			} else {
+			}  else {
 				$("#campaign").attr("value", "");
 				$("#mktid").attr("value", "");
 				activity_save();
@@ -174,10 +175,7 @@ define(["postmonger"], function(Postmonger) {
 			} else if(channel == "") {
 				alert('채널을 선택해주시기 바랍니다.');
 				connection.trigger('ready');
-			} else if(mid == "") {
-				alert('유효한 MID 값을 가져 오는데 실패 하였습니다.\n 액티비티 화면을 닫고 다시 열어주세요.');
-				connection.trigger('ready');
-			} else {
+			}  else {
 				if(reqArr.indexOf('unif_id') > -1){
 					alert('Data Extension에 필수컬럼인 unif_id가 없습니다.');
 					connection.trigger('ready');
@@ -223,13 +221,13 @@ define(["postmonger"], function(Postmonger) {
 		// may be overridden as desired.
 		
 		var fields = extractFields();
-		var id = bu_id;
+		//var id = bu_id;
 		var chnl_cd = $('#channel option:selected').val();
 		var campaign_code = $('#campaign').val();
 		var mkt_id = $('#mktid').val();
 		
 		var contactkey = '{{Contact.Key}}';
-		var sfmc_id = '{{Contact.ID}}'; //sfmc id임 {{Contact.Attribute."Contact"."Contact ID"}} 이거와 동일
+		var sfmc_id = '{{Contact.ID}}'; //sfmc id임 {{Contact.Attribute."Contact"."Contact ID"}} {{Contact.Attribute."Contact"."Business Unit ID"}} 이거와 동일
 		
 		var journey_id = settings_id; //저니ID
 		var version_id = settings_versionid;
@@ -253,7 +251,6 @@ define(["postmonger"], function(Postmonger) {
 
 		payload["arguments"].execute.inArguments = [{
 			"contactkey": contactkey
-			, "bu_id" : id
 			, "journey_id": journey_id
 			, "version_id" : version_id
 			, "sfmc_id": sfmc_id
