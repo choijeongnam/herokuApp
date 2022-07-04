@@ -13,6 +13,7 @@
 
 <body>
 	<div class="container">
+		<hr/>
 		<div class="form-group">
 			<label for="channel">채널: </label>
 			<select id="channel" class="form-control" >
@@ -48,6 +49,7 @@
 		var settings_versionid;
 		
 		function eventDE(useYn){
+			alert(useYn);
 			if(useYn == 'Y'){
 				$('.eventJourney').show();
 			} else {

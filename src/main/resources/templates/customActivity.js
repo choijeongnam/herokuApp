@@ -192,7 +192,7 @@ define(["postmonger"], function(Postmonger) {
 				connection.trigger('ready');
 			}  else {
 				if(reqArr.indexOf('unif_id') > -1){
-					alert('Data Extension에 필수컬럼인 unif_id가 없습니다.');
+					alert('Data Extension에 필수컬럼인 unif_id가 없거나 데이터 저장중 오류가 발생했습니다.\n 잠시후 다시 시도해주세요.');
 					connection.trigger('ready');
 				} else {
 					activity_save();
