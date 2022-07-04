@@ -27,6 +27,21 @@ define(["postmonger"], function(Postmonger) {
 		} else {
 			schema = data['schema'];
 		}
+		
+		var reqArr = ["campaign_code", "mkt_id"];
+		
+		for(var i in schema) {
+			var idx = reqArr.indexOf(schema[i].name);
+			if(idx > -1){
+				reqArr.splice(idx, 1);
+			}
+		}
+		
+		if(reqArr.length != 0){
+			eventDE(Y);
+		} else {
+			eventDE(N);
+		}
 
 //		console.log('*** Schema ***', JSON.stringify(schema));
 	});
@@ -91,7 +106,7 @@ define(["postmonger"], function(Postmonger) {
 		
 		settings_id = settings.id; //journey id
 		settings_name = settings.name; //journey name
-		settings_versionid = settings.definitionId;
+		settings_versionid = settings.definitionId; //journey version ID
 		
 		for(var i = 0; i < settings.activities.length ; i++){
 			if(settings.activities[i].key == activityKey){

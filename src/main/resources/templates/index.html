@@ -29,7 +29,7 @@
 			</select>
 		</div>
 		<hr/>
-		<div class="eventJourney">
+		<div class="eventJourney" style="display: none;">
 			<div class="form-group">
 				<label for="campaign">캠페인코드: </label>
 				<input id="campaign" type="text" class="form-control" placeholder="캠페인코드 입력" />
@@ -39,14 +39,21 @@
 				<input id="mktid" type="text" class="form-control" placeholder="마케터 ID 입력" />
 			</div>
 		</div>
-		<p>* Data Extension 세그먼트에 캠페인코드,마케터ID가 있는 경우 위에서 입력하신 값은 저장되지 않습니다.</p>
 	</div>
-	<script>
+	<script type="text/javascript">
 		var previousActivityKey;
 		var previousActivityType;
 		var settings_id;
 		var settings_name;
 		var settings_versionid;
+		
+		function eventDE(useYn){
+			if(useYn == 'Y'){
+				$('.eventJourney').show();
+			} else {
+				$('.eventJourney').hide();
+			}
+		}
 	</script>
 </body>
 
