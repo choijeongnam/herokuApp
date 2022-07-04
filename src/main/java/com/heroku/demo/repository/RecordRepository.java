@@ -11,6 +11,5 @@ import com.heroku.demo.domain.Record;
 
 @Repository
 public interface RecordRepository extends JpaRepository<Record, Long> {
-	@Query(value = "SELECT * FROM record WHERE token = :token AND session_id = :session_id", nativeQuery = true)
-	public List<Record> findbyTokenAndId(@Param("token") String token, @Param("session_id") String session_id);
+
 }
