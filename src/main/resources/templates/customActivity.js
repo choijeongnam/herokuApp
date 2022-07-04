@@ -38,9 +38,9 @@ define(["postmonger"], function(Postmonger) {
 		}
 		
 		if(reqArr.length != 0){
-			eventDE(Y);
+			$('.eventJourney').show();
 		} else {
-			eventDE(N);
+			$('.eventJourney').hide();
 		}
 
 //		console.log('*** Schema ***', JSON.stringify(schema));
