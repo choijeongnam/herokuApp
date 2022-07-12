@@ -106,12 +106,6 @@ public class RestAPIService {
 	    	insertData.put("mkt_id", data.get("mkt_id").toString());
 	    }
 	    
-	    if(fields.containsKey("segment_id")) {
-	    	insertData.put("segment_id", fields.get("segment_id").toString());
-	    } else {
-	    	insertData.put("segment_id", "1");
-	    }
-	    
 	    if(data.containsKey("version_id") == true) {
 	    	if(data.get("version_id").toString() != "" && data.get("version_id").toString() != null) {
 		    	insertData.put("version_id", data.get("version_id").toString());
@@ -128,6 +122,12 @@ public class RestAPIService {
 	    	if(data.get("activity_type").toString() != "" && data.get("activity_type").toString() != null) {
 		    	insertData.put("activity_type", data.get("activity_type").toString());
 	    	}
+	    }
+	    
+	    if(fields.containsKey("segment_id") == true) {
+	    	insertData.put("segment_id", fields.get("segment_id").toString());
+	    } else {
+	    	insertData.put("segment_id", "1");
 	    }
 
 	    insertData.put("unif_id", fields.get("unif_id").toString());
