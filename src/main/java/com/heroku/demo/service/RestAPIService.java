@@ -71,7 +71,7 @@ public class RestAPIService {
 	
 	public void getInsertData(String accessToken, String rs) throws ParseException{
 		
-		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:C4010969-8EC5-491F-AA2E-CE32A3E32D4A/rows";
+		String api_url = "https://mc5g0q6ffd8sglpqt05jl03zy-h4.rest.marketingcloudapis.com/data/v1/async/dataextensions/key:MC_SEND_JOUR_H/rows";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -106,6 +106,12 @@ public class RestAPIService {
 	    	insertData.put("mkt_id", data.get("mkt_id").toString());
 	    }
 	    
+	    if(fields.get("segment_id").toString() == null && fields.get("segment_id").toString() == "") {
+	    	insertData.put("segment_id", "1");
+	    } else {
+		    insertData.put("segment_id", fields.get("segment_id").toString());
+	    }
+	    
 	    if(data.containsKey("version_id") == true) {
 	    	if(data.get("version_id").toString() != "" && data.get("version_id").toString() != null) {
 		    	insertData.put("version_id", data.get("version_id").toString());
@@ -123,7 +129,7 @@ public class RestAPIService {
 		    	insertData.put("activity_type", data.get("activity_type").toString());
 	    	}
 	    }
-	    
+
 	    insertData.put("unif_id", fields.get("unif_id").toString());
 	    //insertData.put("mkt_dept_cd", fields.get("mkt_dept_cd").toString()); 나중에 추가하던지 뺴던지
 	    
