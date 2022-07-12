@@ -106,6 +106,7 @@ public class RestAPIService {
 	    	insertData.put("mkt_id", data.get("mkt_id").toString());
 	    }
 	    
+	    System.err.println(fields.get("segment_id").toString());
 	    if(fields.get("segment_id").toString() == null && fields.get("segment_id").toString() == "") {
 	    	insertData.put("segment_id", "1");
 	    } else {
