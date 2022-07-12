@@ -105,13 +105,13 @@ public class RestAPIService {
 	    } else {
 	    	insertData.put("mkt_id", data.get("mkt_id").toString());
 	    }
-	    
-	    System.err.println("아진짜ㅡㅡ" + fields.get("segment_id").toString());
-	    if(fields.get("segment_id").toString() == null && fields.get("segment_id").toString() == "") {
-	    	insertData.put("segment_id", "1");
-	    } else {
-		    insertData.put("segment_id", fields.get("segment_id").toString());
-	    }
+	    System.err.println("찍어1" + fields);
+	    System.err.println("찍어2" + fields.get("segment_id").toString());
+//	    if(fields.get("segment_id").toString() == null && fields.get("segment_id").toString() == "") {
+//	    	insertData.put("segment_id", "1");
+//	    } else {
+//		    insertData.put("segment_id", fields.get("segment_id").toString());
+//	    }
 	    
 	    if(data.containsKey("version_id") == true) {
 	    	if(data.get("version_id").toString() != "" && data.get("version_id").toString() != null) {
